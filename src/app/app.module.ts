@@ -5,12 +5,16 @@ import { AppComponent } from './app.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { PhotoGalleryComponent } from './photo-gallery/photo-gallery.component';
+import { PhotoGalleryRowComponent } from './photo-gallery/photo-gallery-row/photo-gallery-row.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    PhotoGalleryComponent,
+    PhotoGalleryRowComponent
   ],
   imports: [
     BrowserModule,
