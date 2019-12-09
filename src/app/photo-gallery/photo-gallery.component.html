@@ -1,1 +1,23 @@
-<p>photo-gallery works!</p>
+<div class="row">
+  <div class="col-md-4" *ngFor="let img of images">
+    <div>
+      <a href="{{img.img}}">
+        <img class="img-fluid img-thumbnail" src="{{img.img}}" alt="hi">
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+<mdb-carousel [animation]="'slide'">
+  <mdb-carousel-item>
+    <img class="d-block w-100" src="assets/IMG_0622.JPG" alt="First slide">
+  </mdb-carousel-item>
+  <mdb-carousel-item>
+    <img class="d-block w-100" src="assets/IMG_0588.JPG" alt="Second slide">
+  </mdb-carousel-item>
+  <mdb-carousel-item>
+    <img class="d-block w-100" src="assets/IMG_0470.JPG" alt="Third slide">
+  </mdb-carousel-item>
+</mdb-carousel>
