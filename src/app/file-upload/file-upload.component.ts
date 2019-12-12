@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { File } from '../model/file';
 
 @Component({
   selector: 'app-file-upload',
@@ -6,12 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./file-upload.component.scss']
 })
 export class FileUploadComponent implements OnInit {
-  // in app.component.ts
   files: File[] = [];
 
-  onSelect(event) {
+  onUploadSuccess(event) {
     console.log(event);
-    this.files.push(...event.addedFiles);
+    // const file = new File();
+    // file.name = event.name;
+    // this.files.push(...event.addedFiles);
+    // const fileReader = new FileReader();
+    // fileReader.onloadend = () => {
+    //   console.log(fileReader.result);
+    // }
+    // fileReader.readAsArrayBuffer(event.addedFiles[0]);
+
+  }
+  
+  onUploadError(event) {
+    console.log('error ' + event);
   }
 
   onRemove(event) {
