@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PhotoServiceComponent } from './photo-service/photo-service.component';
+import { Photo } from '../model/file';
 
 @Component({
   selector: 'app-photo-gallery',
@@ -6,17 +8,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./photo-gallery.component.scss']
 })
 export class PhotoGalleryComponent implements OnInit {
-  images = [
-    {img: "assets/IMG_0330.JPG"},
-    {img: "assets/IMG_0366.JPG"},
-    {img: "assets/IMG_0373.JPG"},
-    {img: "assets/IMG_0462.JPG"},
-    {img: "assets/IMG_0950.JPG"},
-    {img: "assets/IMG_0967.JPG"}
-  ];
-  constructor() { }
+  photos: Photo[];
+
+  constructor(private photoService: PhotoServiceComponent) { }
 
   ngOnInit() {
+    console.log('init');
+    this.photoService
+      .getPhotos()
+      .subscribe(result => {
+        console.log('got pphotos');
+        console.log(result);
+        this.photos = result;
+      });
+  }
+
+  loadThumbnail(url) {
+    console.log(url);
+    window.open(url);
   }
 
 }

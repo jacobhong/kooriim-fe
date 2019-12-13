@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -11,15 +12,19 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { Interceptor } from './interceptor/http-interceptor';
+import { routes } from './environment-dev';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
-  url: 'http://localhost:8080/photos',
+  url: 'http://localhost:4200/web-app/photos',
   maxFilesize: 50,
   acceptedFiles: 'image/*',
-  headers: { 'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
-  'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'}
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+  }
 };
 
 @NgModule({
@@ -35,6 +40,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     AppRoutingModule,
     BrowserModule,
     DropzoneModule,
+    HttpClientModule,
     MDBBootstrapModule.forRoot()
   ],
   providers:
@@ -42,7 +48,17 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       {
         provide: DROPZONE_CONFIG,
         useValue: DEFAULT_DROPZONE_CONFIG
-      }],
+      },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: Interceptor,
+        multi: true
+      },
+      {
+        provide: 'BASE_API_URL',
+        useValue: routes.baseUrl
+      }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

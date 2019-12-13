@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { File } from '../model/file';
 
 @Component({
   selector: 'app-file-upload',
