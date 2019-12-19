@@ -1,7 +1,7 @@
 export class Photo {
     id: number;
     albums: any[];
-    content: ArrayBuffer;
+    base64Content: string;
     filePath: string;
     description: string;
     created: Date;
