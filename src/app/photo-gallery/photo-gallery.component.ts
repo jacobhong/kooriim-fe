@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { PhotoModalComponent } from './photo-modal/photo-modal.component';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PhotoServiceComponent } from './photo-service/photo-service.component';
 import { Photo } from '../model/file';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-photo-gallery',
@@ -10,27 +13,41 @@ import { Photo } from '../model/file';
 export class PhotoGalleryComponent implements OnInit {
   photos: Photo[];
 
-  constructor(private photoService: PhotoServiceComponent) { }
+  constructor(private photoService: PhotoServiceComponent, private modalService: NgbModal) { }
 
   ngOnInit() {
-    console.log('init');
     this.photoService
       .getThumbnails()
       .subscribe(result => {
-        console.log('got thumbnails');
-        console.log(result);
+        console.log('ngOnInit loaded photos');
         this.photos = result;
       });
   }
 
-  loadSrcPhoto(filePath) {
-    console.log(filePath);
-    this.photoService.getBase64Image(filePath).subscribe(result => {
-      console.log('got image ' + result);
-      const win = window.open();
-      const base64SrcPhoto = result;
-      win.document.write('<img src="' + base64SrcPhoto + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></img>');
-    });
+  openModal(photo: Photo, index: number) {
+    this.photoService
+      .getBase64SrcImage(photo.filePath)
+      .subscribe(result => {
+        this.modalSubscriptions(result, index);
+      });
   }
 
+  modalSubscriptions(result: string, index: number) {
+    const modalRef = this.modalService.open(PhotoModalComponent, { size: 'xl', centered: true, windowClass: 'dark-modal' });
+    modalRef.componentInstance.imgSrc = result;
+    modalRef.componentInstance.next.subscribe(onNext => {
+      this.photoService
+        .getBase64SrcImage(this.photos[++index].filePath)
+        .subscribe(nextImage => {
+          modalRef.componentInstance.imgSrc = nextImage;
+        });
+    });
+    modalRef.componentInstance.previous.subscribe(onNext => {
+      this.photoService
+        .getBase64SrcImage(this.photos[--index].filePath)
+        .subscribe(nextImage => {
+          modalRef.componentInstance.imgSrc = nextImage;
+        });
+    });
+  }
 }

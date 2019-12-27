@@ -15,7 +15,7 @@ export class PhotoServiceComponent {
     return this.httpClient.get<Photo[]>(routes.thumbnails);
   }
 
-  getBase64Image(filePath: string): Observable<string> {
-    return this.httpClient.get<string>(routes.image, { responseType: 'text', params: new HttpParams().set('filePath', filePath) });
+  getBase64SrcImage(filePath: string): Observable<string> {
+    return this.httpClient.get(routes.image, { responseType: 'text', params: new HttpParams().set('filePath', filePath) });
   }
 }
