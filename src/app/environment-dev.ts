@@ -1,5 +1,6 @@
 export const routes = {
-    baseUrl: 'http://localhost:4200/web-app',
-    thumbnails: '/thumbnails',
-    image: '/image'
+    baseUrl: 'http://localhost:4200/',
+    baseContext: 'web-app',
+    thumbnails: 'thumbnails',
+    image: 'image'
 };

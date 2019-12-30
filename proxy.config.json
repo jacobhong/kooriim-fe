@@ -1,8 +1,14 @@
 {
+    "/web-app/assets": {
+        "target": "http://localhost:4200/assets",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
     "/web-app/*": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "logLevel": "debug",
-    "changeOrigin": true
+        "target": "http://localhost:8080",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
     }
 }

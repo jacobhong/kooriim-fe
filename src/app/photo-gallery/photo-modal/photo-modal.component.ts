@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-declare let $: any;
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-photo-modal',
@@ -11,21 +12,39 @@ export class PhotoModalComponent implements OnInit {
   @Output() previous: EventEmitter<any> = new EventEmitter();
   imgSrc: string;
   index: number;
-  
-  constructor() {
-    console.log('creating');
+  numOfImages: number;
+  showPrevious: boolean;
+  showNext: boolean;
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    this.showPrevious = false;
+    this.showNext = false;
+    iconRegistry.addSvgIcon(
+      'navigate_before',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/mat-icons/navigate_before-24px.svg'));
+    iconRegistry.addSvgIcon(
+      'navigate_next',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/mat-icons/navigate_next-24px.svg'));
   }
 
   ngOnInit() {
-    console.log('creating2');
+    this.showButtons();
   }
 
   onNext() {
-    this.next.emit();
+    ++this.index;
+    this.showButtons();
+    this.next.emit({ index: this.index });
   }
 
   onPrevious() {
-    this.previous.emit();
+    --this.index;
+    this.showButtons();
+    this.previous.emit({ index: this.index });
+  }
+
+  showButtons() {
+    this.showPrevious = this.index <= 0 ? false : true;
+    this.showNext = this.index + 1 >= this.numOfImages ? false : true;
   }
 
 }

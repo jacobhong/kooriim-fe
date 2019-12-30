@@ -16,6 +16,7 @@ import { PhotoModalComponent } from './photo-gallery/photo-modal/photo-modal.com
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -45,6 +46,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     HttpClientModule,
     MatButtonModule,
     NgbModule,
+    MatIconModule,
     BrowserAnimationsModule
   ],
   providers:
@@ -61,6 +63,10 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       {
         provide: 'BASE_API_URL',
         useValue: routes.baseUrl
+      },
+      {
+        provide: 'BASE_CONTEXT',
+        useValue: routes.baseContext
       }
     ],
   entryComponents: [PhotoModalComponent],
