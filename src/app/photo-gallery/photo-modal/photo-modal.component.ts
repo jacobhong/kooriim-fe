@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class PhotoModalComponent implements OnInit {
   @Output() next: EventEmitter<any> = new EventEmitter();
   @Output() previous: EventEmitter<any> = new EventEmitter();
+  @Output() delete: EventEmitter<any> = new EventEmitter();i
   imgSrc: string;
   index: number;
   numOfImages: number;
@@ -24,6 +25,9 @@ export class PhotoModalComponent implements OnInit {
     iconRegistry.addSvgIcon(
       'navigate_next',
       sanitizer.bypassSecurityTrustResourceUrl('assets/mat-icons/navigate_next-24px.svg'));
+    iconRegistry.addSvgIcon(
+      'delete_sweep',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/mat-icons/delete_sweep-24px.svg'));
   }
 
   ngOnInit() {
@@ -40,6 +44,10 @@ export class PhotoModalComponent implements OnInit {
     --this.index;
     this.showButtons();
     this.previous.emit({ index: this.index });
+  }
+
+  onDelete() {
+    this.delete.emit({index: this.index});
   }
 
   showButtons() {

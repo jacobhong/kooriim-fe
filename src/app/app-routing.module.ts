@@ -5,7 +5,7 @@ import { PhotoGalleryComponent } from './photo-gallery/photo-gallery.component';
 
 const appRoutes: Routes = [
   { path: 'file-upload', component: FileUploadComponent },
-  { path: 'photo-gallery', component: PhotoGalleryComponent}
+  { path: 'photo-gallery', component: PhotoGalleryComponent }
 ];
 
 @NgModule({

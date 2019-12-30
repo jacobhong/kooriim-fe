@@ -51,5 +51,14 @@ export class PhotoGalleryComponent implements OnInit {
           modalRef.componentInstance.imgSrc = nextImage;
         });
     });
+    modalRef.componentInstance.delete.subscribe(onDelete => {
+      this.photoService
+        .deletePhoto(this.photos[index].id)
+        .subscribe(nextImage => {
+          console.log('deletd image');
+          this.photos.splice(index, 1);
+          modalRef.close();
+        });
+    });
   }
 }

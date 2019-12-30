@@ -15,6 +15,10 @@ export class PhotoServiceComponent {
     return this.httpClient.get<Photo[]>(routes.thumbnails);
   }
 
+  deletePhoto(id: number): Observable<any> {
+    return this.httpClient.delete<any>(routes.photo + '/' + id);
+  }
+
   getBase64SrcImage(filePath: string): Observable<string> {
     return this.httpClient.get(routes.image, { responseType: 'text', params: new HttpParams().set('filePath', filePath) });
   }
