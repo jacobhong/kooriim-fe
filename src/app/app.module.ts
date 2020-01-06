@@ -12,11 +12,14 @@ import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { Interceptor } from './interceptor/http-interceptor';
 import { routes } from './environment-dev';
-import { PhotoModalComponent } from './photo-gallery/photo-modal/photo-modal.component';
+import { PhotoModalComponent } from './shared/modals/photo-modal/photo-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AlbumCreateModalComponent } from './shared/modals/album-create-modal/album-create-modal.component';
+import { FormsModule }   from '@angular/forms';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -37,15 +40,18 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FooterComponent,
     PhotoGalleryComponent,
     FileUploadComponent,
-    PhotoModalComponent
+    PhotoModalComponent,
+    AlbumCreateModalComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     DropzoneModule,
+    FormsModule,
     HttpClientModule,
     MatButtonModule,
     NgbModule,
+    MatCheckboxModule,
     MatIconModule,
     BrowserAnimationsModule
   ],
@@ -69,7 +75,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
         useValue: routes.baseContext
       }
     ],
-  entryComponents: [PhotoModalComponent],
+  entryComponents: [AlbumCreateModalComponent, PhotoModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,7 +10,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class PhotoModalComponent implements OnInit {
   @Output() next: EventEmitter<any> = new EventEmitter();
   @Output() previous: EventEmitter<any> = new EventEmitter();
-  @Output() delete: EventEmitter<any> = new EventEmitter();i
+  @Output() delete: EventEmitter<any> = new EventEmitter();
+  @Output() edit: EventEmitter<any> = new EventEmitter(); i
+
   imgSrc: string;
   index: number;
   numOfImages: number;
@@ -36,18 +38,26 @@ export class PhotoModalComponent implements OnInit {
 
   onNext() {
     ++this.index;
+    console.log('modal next ' + this.index);
     this.showButtons();
-    this.next.emit({ index: this.index });
+    if (this.showNext) {
+      this.next.emit({ index: this.index });
+    }
   }
 
   onPrevious() {
     --this.index;
+    console.log('modal prev ' + this.index);
+
     this.showButtons();
-    this.previous.emit({ index: this.index });
+
+    if (this.showPrevious) {
+      this.previous.emit({ index: this.index });
+    }
   }
 
   onDelete() {
-    this.delete.emit({index: this.index});
+    this.delete.emit({ index: this.index });
   }
 
   showButtons() {

@@ -3,7 +3,7 @@
     <mat-icon *ngIf="showPrevious" style="width:60px; height:60px;" svgIcon="navigate_before" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
   </div>
   <div class="col-10">
-    <img class="img-fluid" [src]="imgSrc" style="object-fit:contain" alt="could not load">
+    <img [src]="imgSrc" style="max-width:100%; object-fit:scale-down;" alt="could not load">
   </div>
   <div class="col-1" (click)="onNext()" style="cursor: pointer;">
     <mat-icon *ngIf="showNext" style="width:60px; height:60px;" svgIcon="navigate_next" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
