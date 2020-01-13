@@ -10,6 +10,7 @@ import { Album } from 'src/app/model/model';
 export class AlbumCreateModalComponent implements OnInit {
   @Output() submitted: EventEmitter<any> = new EventEmitter();
   album: Album;
+  errorMessage: string;
   constructor(private photoService: PhotoServiceComponent) {
     this.album = new Album();
     this.album.title = '';
@@ -21,11 +22,16 @@ export class AlbumCreateModalComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('creating album wtih');
-    console.log(this.album.title + ' ' + this.album.description + ' ' + this.album.photoIds);
-    this.photoService.createAlbum(this.album).subscribe(result => {
-      console.log('created album ' + result);
-    });
-    this.submitted.emit();
+    this.photoService
+      .createAlbum(this.album)
+      .subscribe(result => {
+        console.log('created album successfuly' + result);
+        this.errorMessage = undefined;
+        this.submitted.emit();
+      }, error => {
+        console.log('error happened!');
+        console.log(error);
+        this.errorMessage = error.error;
+      });
   }
 }

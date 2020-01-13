@@ -1,7 +1,8 @@
 import { Photo, Album } from '../../model/model';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { routes } from 'src/app/environment-dev';
 
 @Injectable({
@@ -12,7 +13,9 @@ export class PhotoServiceComponent {
   constructor(private httpClient: HttpClient) { }
 
   createAlbum(album: Album): Observable<any> {
-    return this.httpClient.post<any[]>(routes.albums, album);
+    return this.httpClient
+      .post<any[]>(routes.albums, album)
+      .pipe(catchError(error => throwError(error)));
   }
 
   getThumbnails(): Observable<Photo[]> {

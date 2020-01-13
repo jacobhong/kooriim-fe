@@ -31,7 +31,10 @@ export class PhotoGalleryComponent implements OnInit {
     modalRef.componentInstance.album.photoIds = this.photos.filter(p => p.selected).map(p => p.id);
     modalRef.componentInstance.submitted.subscribe(submit => {
       console.log('submitted');
+      this.photos.forEach(p => p.selected = false);
       modalRef.close();
+    }, error => {
+      console.log('awefewfew;')
     });
   }
 

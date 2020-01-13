@@ -1,14 +1,17 @@
 <div class="row">
-  <div class="col-1" (click)="onPrevious()" style="cursor: pointer;">
-    <mat-icon *ngIf="showPrevious" style="width:60px; height:60px;" svgIcon="navigate_before" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+  <div class="col-1 pointer d-flex align-items-center" (click)="onPrevious()">
+    <mat-icon *ngIf="showPrevious" svgIcon="navigate_before" aria-hidden="false"
+      aria-label="Example thumbs up SVG icon"></mat-icon>
   </div>
   <div class="col-10">
-    <img [src]="imgSrc" style="max-width:100%; object-fit:scale-down;" alt="could not load">
+    <img class="img-fluid" [src]="imgSrc" style="object-fit:contain;" alt="could not load">
   </div>
-  <div class="col-1" (click)="onNext()" style="cursor: pointer;">
-    <mat-icon *ngIf="showNext" style="width:60px; height:60px;" svgIcon="navigate_next" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+  <div class="col-1 pointer d-flex align-items-center" (click)="onNext()">
+    <mat-icon *ngIf="showNext" svgIcon="navigate_next" aria-hidden="false" aria-label="Example thumbs up SVG icon">
+    </mat-icon>
   </div>
 </div>
-<div class="row" (click)="onDelete()" style="cursor: pointer;">
-  <mat-icon class="col text-center" style="width:60px; height:60px;" svgIcon="delete_sweep" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+<div class="row pointer" (click)="onDelete()">
+  <mat-icon class="col text-center" svgIcon="delete_sweep" aria-hidden="false" aria-label="Example thumbs up SVG icon">
+  </mat-icon>
 </div>
