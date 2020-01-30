@@ -18,15 +18,29 @@ export class PhotoServiceComponent {
       .pipe(catchError(error => throwError(error)));
   }
 
-  getThumbnails(): Observable<Photo[]> {
-    return this.httpClient.get<Photo[]>(routes.thumbnails);
+  getPhotoById(photoId: number): Observable<Photo> {
+    return this.httpClient.get<Photo>(routes.photo + '/' + photoId, {params: new HttpParams().set('srcImage', 'true')});
+  }
+
+  getPhotos(queryParams?: Map<string, string>): Observable<Photo[]> {
+    let httpParams = new HttpParams();
+    if (queryParams) {
+      queryParams.forEach((v, k) => {
+        httpParams = httpParams.append(k, v);
+      });
+    }
+    return this.httpClient.get<Photo[]>(routes.photo, {params: httpParams});
+  }
+
+  getPhotosByAlbumId(albumId: string): Observable<Photo[]> {
+    return this.httpClient.get<Photo[]>(routes.photo, { params: new HttpParams().set('albumId', albumId).append('thumbnail', 'true') });
   }
 
   deletePhoto(id: number): Observable<any> {
     return this.httpClient.delete<any>(routes.photo + '/' + id);
   }
 
-  getBase64SrcImage(filePath: string): Observable<string> {
-    return this.httpClient.get(routes.image, { responseType: 'text', params: new HttpParams().set('filePath', filePath) });
+  deletePhotos(ids: any): Observable<any> {
+    return this.httpClient.delete<any>(routes.photo, { params: new HttpParams().set('photoIds', ids) });
   }
 }

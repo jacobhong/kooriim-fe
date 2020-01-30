@@ -1,5 +1,7 @@
 <button (click)="onEdit()">edit</button>
 <button *ngIf="isEditMode" (click)="createAlbum()">create Album</button>
+<button *ngIf="isEditMode" (click)="delete()">delete</button>
+<button *ngIf="isEditMode" (click)="selectAll()">select all</button>
 
 <div class="row">
   <div *ngFor="let photo of photos;let i = index" style="min-width:360px; min-height:270px;padding-top: 5px;"

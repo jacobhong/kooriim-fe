@@ -1,6 +1,8 @@
+import { PhotoServiceComponent } from './../../../photo-gallery/photo-service/photo-service.component';
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Photo } from 'src/app/model/model';
 
 @Component({
   selector: 'app-photo-modal',
@@ -8,17 +10,17 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./photo-modal.component.scss']
 })
 export class PhotoModalComponent implements OnInit {
-  @Output() next: EventEmitter<any> = new EventEmitter();
-  @Output() previous: EventEmitter<any> = new EventEmitter();
-  @Output() delete: EventEmitter<any> = new EventEmitter();
-  @Output() edit: EventEmitter<any> = new EventEmitter(); i
-
+  @Output() closeModal: EventEmitter<any> = new EventEmitter();
+  @Output() cacheUpdated: EventEmitter<any> = new EventEmitter();
+  photos: Photo[];
+  photosCache: {};
   imgSrc: string;
   index: number;
   numOfImages: number;
   showPrevious: boolean;
   showNext: boolean;
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private photoService: PhotoServiceComponent) {
     this.showPrevious = false;
     this.showNext = false;
     iconRegistry.addSvgIcon(
@@ -38,26 +40,47 @@ export class PhotoModalComponent implements OnInit {
 
   onNext() {
     ++this.index;
-    console.log('modal next ' + this.index);
     this.showButtons();
-    if (this.showNext) {
-      this.next.emit({ index: this.index });
+    if (this.photosCache[this.index]) {
+      this.imgSrc = this.photosCache[this.index];
+    } else {
+      this.photoService
+        .getPhotoById(this.photos[this.index].id)
+        .subscribe(photo => {
+          this.imgSrc = photo.base64SrcPhoto;
+          this.photosCache[this.index] = photo.base64SrcPhoto;
+          this.cacheUpdated.emit(this.photosCache);
+        });
     }
   }
 
   onPrevious() {
     --this.index;
-    console.log('modal prev ' + this.index);
-
     this.showButtons();
-
-    if (this.showPrevious) {
-      this.previous.emit({ index: this.index });
+    if (this.photosCache[this.index]) {
+      console.log(this.photosCache);
+      this.imgSrc = this.photosCache[this.index];
+    } else {
+      console.log(this.photos);
+      this.photoService
+        .getPhotoById(this.photos[this.index].id)
+        .subscribe(photo => {
+          this.imgSrc = photo.base64SrcPhoto;
+          this.photosCache[this.index] = photo.base64SrcPhoto;
+          this.cacheUpdated.emit(this.photosCache);
+        });
     }
   }
 
   onDelete() {
-    this.delete.emit({ index: this.index });
+    this.photoService
+      .deletePhoto(this.photos[this.index].id)
+      .subscribe(photo => {
+        this.photos.splice(this.index, 1);
+        delete this.photosCache[this.index];
+        this.cacheUpdated.emit(this.photosCache);
+        this.closeModal.emit();
+      });
   }
 
   showButtons() {

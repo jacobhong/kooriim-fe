@@ -17,9 +17,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AlbumCreateModalComponent } from './shared/modals/album-create-modal/album-create-modal.component';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { AlbumViewComponent } from './album-view/album-view.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -41,7 +42,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     PhotoGalleryComponent,
     FileUploadComponent,
     PhotoModalComponent,
-    AlbumCreateModalComponent
+    AlbumCreateModalComponent,
+    AlbumViewComponent
   ],
   imports: [
     AppRoutingModule,
