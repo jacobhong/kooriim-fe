@@ -1,12 +1,8 @@
 <div class="row">
   <div *ngFor="let album of albums;let i = index" style="min-width:360px; min-height:270px;padding-top: 5px;"
     class="col-md-3 ">
-    <!-- <mat-checkbox [checked]=" photos[i].selected" *ngIf="isEditMode" (change)="onSelect(i)"> -->
-    <!-- </mat-checkbox> -->
-    <!-- <img class="img-fluid img-thumbnail " style="cursor: pointer; object-fit:cover"
-        [ngStyle]="{height: isEditMode ? '250px' : '270px'  }" src="{{photo.base64ThumbnailPhoto}}" alt="could not load"
-        (click)="openModal(photo, i)"> -->
-    <a [routerLink]="['/photo-gallery']" [queryParams]="{albumId:album.id}"  queryParamsHandling="merge">{{album.title}}</a>
+    <a [routerLink]="['/photo-gallery']" [queryParams]="{albumId:album.id}"
+      queryParamsHandling="merge">{{album.title}}</a>
     <hr>
     <b>description</b>: {{album.description}}
   </div>

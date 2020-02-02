@@ -1,11 +1,12 @@
 import { AlbumCreateModalComponent } from './../shared/modals/album-create-modal/album-create-modal.component';
 import { PhotoModalComponent } from '../shared/modals/photo-modal/photo-modal.component';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { PhotoServiceComponent } from './photo-service/photo-service.component';
 import { Photo } from '../model/model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlbumServiceComponent } from '../album-view/album-service/album-service.component';
+import { Platform } from '@angular/cdk/platform';
 
 
 @Component({
@@ -17,16 +18,24 @@ export class PhotoGalleryComponent implements OnInit {
   photos: Photo[];
   photosCache: {};
   isEditMode: boolean;
+  isSmallScreen: boolean;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.isSmallScreen = event.target.innerWidth <= 700 ? true : false;
+  }
 
   constructor(
     private albumService: AlbumServiceComponent,
     private photoService: PhotoServiceComponent,
     private modalService: NgbModal,
+    private platform: Platform,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.isEditMode = false;
+    this.isSmallScreen = window.innerWidth <= 700 ? true : false;
     this.route.queryParams.subscribe(params => {
       if (params && params.albumId) {
         this.photoService.getPhotosByAlbumId(params.albumId)
@@ -35,7 +44,11 @@ export class PhotoGalleryComponent implements OnInit {
           });
       } else {
         const queryParams = new Map<string, string>();
-        queryParams.set('thumbnail', 'true');
+        if (this.isSmallScreen) {
+          queryParams.set('srcImage', 'true');
+        } else {
+          queryParams.set('thumbnail', 'true');
+        }
         this.photoService
           .getPhotos(queryParams)
           .subscribe(result => {
@@ -61,11 +74,12 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   openModal(photo: Photo, index: number) {
-    this.photoService
-      .getPhotoById(photo.id)
-      .subscribe(result => {
-        this.modalSubscriptions(result.base64SrcPhoto, index);
-      });
+      this.photoService
+        .getPhotoById(photo.id)
+        .subscribe(result => {
+          this.modalSubscriptions(result.base64SrcPhoto, index);
+        });
+    
   }
 
   onSelect(index: number) {

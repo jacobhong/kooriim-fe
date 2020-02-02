@@ -3,12 +3,12 @@
 <button *ngIf="isEditMode" (click)="delete()">delete</button>
 <button *ngIf="isEditMode" (click)="selectAll()">select all</button>
 
-<div class="row">
+<div class="row center-content">
   <div *ngFor="let photo of photos;let i = index" style="min-width:360px; min-height:270px;padding-top: 5px;"
-    class="col-md-3 ">
+    class="col-md-3 center-content">
     <mat-checkbox [checked]=" photos[i].selected" *ngIf="isEditMode" (change)="onSelect(i)">
     </mat-checkbox>
-    <img class="img-fluid img-thumbnail " style="cursor: pointer; object-fit:cover"
+    <img class="img-fluid img-thumbnail" style="cursor: pointer; object-fit:cover;"
       [ngStyle]="{height: isEditMode ? '250px' : '270px'  }" src="{{photo.base64ThumbnailPhoto}}" alt="could not load"
       (click)="openModal(photo, i)">
   </div>

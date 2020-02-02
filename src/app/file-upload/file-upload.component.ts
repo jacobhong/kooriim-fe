@@ -10,15 +10,6 @@ export class FileUploadComponent implements OnInit {
 
   onUploadSuccess(event) {
     console.log(event);
-    // const file = new File();
-    // file.name = event.name;
-    // this.files.push(...event.addedFiles);
-    // const fileReader = new FileReader();
-    // fileReader.onloadend = () => {
-    //   console.log(fileReader.result);
-    // }
-    // fileReader.readAsArrayBuffer(event.addedFiles[0]);
-
   }
   
   onUploadError(event) {

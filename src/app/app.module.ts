@@ -24,7 +24,7 @@ import { AlbumViewComponent } from './album-view/album-view.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
-  url: 'http://localhost:4200/web-app/photos',
+  url: 'http://192.168.1.206:4200/web-app/photos',
   maxFilesize: 50,
   acceptedFiles: 'image/*',
   headers: {

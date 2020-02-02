@@ -15,8 +15,6 @@ export class AlbumViewComponent implements OnInit {
     this.albumService
     .getAlbums()
     .subscribe(albums => {
-      console.log('Fetched all albums');
-      console.log(albums);
       this.albums = albums;
     });
   }
