@@ -21,14 +21,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AlbumCreateModalComponent } from './shared/modals/album-create-modal/album-create-modal.component';
 import { FormsModule } from '@angular/forms';
 import { AlbumViewComponent } from './album-view/album-view.component';
+import { LoginComponent } from './login/login.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
-  url: 'http://192.168.1.206:4200/web-app/photos',
+  url: 'http://192.168.1.206.xip.io:4200/photo-album-service/photos',
   maxFilesize: 50,
   acceptedFiles: 'image/*',
   headers: {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'http://192.168.1.206.xip.io:4200',
     'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
   }
@@ -43,7 +44,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FileUploadComponent,
     PhotoModalComponent,
     AlbumCreateModalComponent,
-    AlbumViewComponent
+    AlbumViewComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,

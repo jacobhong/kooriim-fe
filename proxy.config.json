@@ -1,12 +1,12 @@
 {
-    "/web-app/assets": {
-        "target": "http://192.168.1.206:4200/assets",
+    "/assets": {
+        "target": "http://192.168.1.206.xip.io:4200/assets",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
-    "/web-app/*": {
-        "target": "http://192.168.1.206:8080",
+    "/photo-album-service/*": {
+        "target": "http://192.168.1.206.xip.io:8080",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
