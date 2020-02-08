@@ -28,7 +28,7 @@ export class KeycloakService {
         });
     });
   }
-  
+
   getToken(): string {
     console.log('token');
     console.log(this.keycloakAuth);

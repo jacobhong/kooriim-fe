@@ -7,10 +7,12 @@ import { KeycloakService } from '../keycloak/keycloak.service';
 })
 export class AuthGuardService implements CanActivate {
   constructor(private keyCloak: KeycloakService) {
-
   }
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | import("@angular/router").UrlTree | import("rxjs").Observable<boolean | import("@angular/router").UrlTree> | Promise<boolean | import("@angular/router").UrlTree> {
-    return this.keyCloak.keycloakAuth.authenticated === true;
+  
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    console.log(this.keyCloak.keycloakAuth);
+    return this.keyCloak.keycloakAuth.authenticated === true &&
+     this.keyCloak.keycloakAuth.realmAccess.roles.indexOf(route.data.role) !== -1;
   }
 
 }

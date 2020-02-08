@@ -7,10 +7,29 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './auth-guard/auth-guard.service';
 
 const appRoutes: Routes = [
-  { path: 'albums', component: AlbumViewComponent },
-  { path: 'file-upload', component: FileUploadComponent, canActivate: [AuthGuardService], data: { roles: ['kooriim-user']} },
-  { path: 'login', component: LoginComponent },
-  { path: 'photo-gallery', component: PhotoGalleryComponent }
+  { path: '', redirectTo: '/#', pathMatch: 'full' },
+  {
+    path: 'albums',
+    component: AlbumViewComponent,
+    canActivate: [AuthGuardService],
+    data: { role: 'kooriim-fe' }
+  },
+  {
+    path: 'file-upload',
+    component: FileUploadComponent,
+    canActivate: [AuthGuardService],
+    data: { role: 'kooriim-fe' }
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'photo-gallery',
+    component: PhotoGalleryComponent,
+    canActivate: [AuthGuardService],
+    data: { role: 'kooriim-fe' }
+  }
 ];
 
 @NgModule({
