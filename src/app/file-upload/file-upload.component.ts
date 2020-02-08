@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { KeycloakService } from '../keycloak/keycloak.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -8,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class FileUploadComponent implements OnInit {
   files: File[] = [];
 
+  constructor(private keyCloak: KeycloakService) {
+
+  }
   onUploadSuccess(event) {
     console.log(event);
   }
-  
+
   onUploadError(event) {
     console.log('error ' + event);
   }
@@ -20,7 +24,10 @@ export class FileUploadComponent implements OnInit {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
-  constructor() { }
+
+  onSending(event: XMLHttpRequest) {
+    event.setRequestHeader('Authorization', 'Bearer ' + this.keyCloak.keycloakAuth.token);
+  }
 
   ngOnInit() {
   }

@@ -1,5 +1,9 @@
+export function kcFactory(keycloakService: KeycloakService) {
+  return () => keycloakService.init();
+}
+import { AuthGuardService } from './auth-guard/auth-guard.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, DoBootstrap, ApplicationRef, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +15,7 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { Interceptor } from './interceptor/http-interceptor';
-import { routes } from './environment-dev';
+import { environment } from '../environments/environment';
 import { PhotoModalComponent } from './shared/modals/photo-modal/photo-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +26,7 @@ import { AlbumCreateModalComponent } from './shared/modals/album-create-modal/al
 import { FormsModule } from '@angular/forms';
 import { AlbumViewComponent } from './album-view/album-view.component';
 import { LoginComponent } from './login/login.component';
+import { KeycloakService } from './keycloak/keycloak.service';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -72,14 +77,21 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       },
       {
         provide: 'BASE_API_URL',
-        useValue: routes.baseUrl
+        useValue: environment.routes.baseUrl
       },
       {
         provide: 'BASE_CONTEXT',
-        useValue: routes.baseContext
+        useValue: environment.routes.baseContext
+      },
+      KeycloakService, {
+        provide: APP_INITIALIZER,
+        useFactory: kcFactory,
+        deps: [KeycloakService],
+        multi: true
       }
     ],
   entryComponents: [AlbumCreateModalComponent, PhotoModalComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

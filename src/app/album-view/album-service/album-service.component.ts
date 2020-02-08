@@ -3,7 +3,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { routes } from 'src/app/environment-dev';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class AlbumServiceComponent {
 
   getAlbums(): Observable<Album[]> {
     return this.httpClient
-      .get<Album[]>(routes.albums)
+      .get<Album[]>(environment.routes.albums)
       .pipe(catchError(error => throwError(error)));
   }
 

@@ -1,11 +1,13 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { KeycloakService } from '../keycloak/keycloak.service';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
     constructor(
+        private kcService: KeycloakService,
         @Inject('BASE_API_URL') private baseUrl: string,
         @Inject('BASE_CONTEXT') private baseContext: string) {
     }
@@ -13,6 +15,7 @@ export class Interceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let apiReq;
         let r = new HttpHeaders();
+        r = r.append('Authorization', 'Bearer ' + this.kcService.getToken() || '');
         // r.append('X-Requested-With', 'XMLHttpRequest');
         // r = r.append('Access-Control-Allow-Origin', '*');
         // r = r.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, HEAD, "OPTIONS');

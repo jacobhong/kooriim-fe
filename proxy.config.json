@@ -11,4 +11,11 @@
         "logLevel": "debug",
         "changeOrigin": true
     }
+    ,
+    "/auth/*": {
+        "target": "http://localhost:8081",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
 }

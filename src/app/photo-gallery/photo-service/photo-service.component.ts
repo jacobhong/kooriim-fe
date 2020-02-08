@@ -3,7 +3,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { routes } from 'src/app/environment-dev';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,12 @@ export class PhotoServiceComponent {
 
   createAlbum(album: Album): Observable<any> {
     return this.httpClient
-      .post<any[]>(routes.albums, album)
+      .post<any[]>(environment.routes.albums, album)
       .pipe(catchError(error => throwError(error)));
   }
 
   getPhotoById(photoId: number): Observable<Photo> {
-    return this.httpClient.get<Photo>(routes.photo + '/' + photoId, {params: new HttpParams().set('srcImage', 'true')});
+    return this.httpClient.get<Photo>(environment.routes.photo + '/' + photoId, {params: new HttpParams().set('srcImage', 'true')});
   }
 
   getPhotos(queryParams?: Map<string, string>): Observable<Photo[]> {
@@ -29,18 +29,18 @@ export class PhotoServiceComponent {
         httpParams = httpParams.append(k, v);
       });
     }
-    return this.httpClient.get<Photo[]>(routes.photo, {params: httpParams});
+    return this.httpClient.get<Photo[]>(environment.routes.photo, {params: httpParams});
   }
 
   getPhotosByAlbumId(albumId: string): Observable<Photo[]> {
-    return this.httpClient.get<Photo[]>(routes.photo, { params: new HttpParams().set('albumId', albumId).append('thumbnail', 'true') });
+    return this.httpClient.get<Photo[]>(environment.routes.photo, { params: new HttpParams().set('albumId', albumId).append('thumbnail', 'true') });
   }
 
   deletePhoto(id: number): Observable<any> {
-    return this.httpClient.delete<any>(routes.photo + '/' + id);
+    return this.httpClient.delete<any>(environment.routes.photo + '/' + id);
   }
 
   deletePhotos(ids: any): Observable<any> {
-    return this.httpClient.delete<any>(routes.photo, { params: new HttpParams().set('photoIds', ids) });
+    return this.httpClient.delete<any>(environment.routes.photo, { params: new HttpParams().set('photoIds', ids) });
   }
 }
