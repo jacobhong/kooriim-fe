@@ -7,7 +7,11 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './auth-guard/auth-guard.service';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/#', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: '/#',
+    pathMatch: 'full'
+  },
   {
     path: 'albums',
     component: AlbumViewComponent,
