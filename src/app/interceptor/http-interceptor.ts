@@ -24,7 +24,12 @@ export class Interceptor implements HttpInterceptor {
         apiReq = req.clone({ headers: r, url: `${this.baseUrl}${this.baseContext}/${req.url}` });
         if (req.url.indexOf('photo-album-service') !== -1) {
             console.log('route to photo prod');
-            apiReq = req.clone({ headers: r, url: `${environment.routes.photoAlbumService}/${req.url}` });
+            if (environment.production) {
+                apiReq = req.clone({ headers: r, url: `${environment.routes.photoAlbumService}/${req.url}` });
+            } else {
+                apiReq = req.clone({ headers: r, url: `${environment.routes.fileUpload}/${req.url}` });
+
+            }
             console.log(apiReq);
         }
         if (req.url.indexOf('auth') !== -1) {
