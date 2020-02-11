@@ -1,15 +1,16 @@
 export const environment = {
     routes: {
-        allowOrigin: 'http://www.192.168.1.206.xip.io:4200',
-        assets: 'http://www.192.168.1.206.xip.io:4200/assets',
-        auth: 'http://www.192.168.1.206.xip.io:8443',
+        allowOrigin: 'http://192.168.1.206.xip.io:4200',
+        assets: 'http://192.168.1.206.xip.io:4200/assets',
+        auth: 'http://192.168.1.206.xip.io:8081',
         albums: 'photo-album-service/albums',
-        fileUpload: 'http://www.192.168.1.206.xip.io:4200/photo-album-service/photos',
-        photoAlbumService: 'http://www.192.168.1.206.xip.io:8080',
-        baseUrl: 'http://www.192.168.1.206.xip.io:4200',
+        fileUpload: 'http://192.168.1.206.xip.io:4200/photo-album-service/photos',
+        photoAlbumService: 'http://192.168.1.206.xip.io:8080',
+        baseUrl: 'http://192.168.1.206.xip.io:4200',
         baseContext: '',
         photo: 'photo-album-service/photos',
-        login: 'photo-album-service/login'
+        login: 'photo-album-service/login',
+        keycloak: 'http://192.168.1.206.xip.io:8081/auth'
     },
     production: false
 };

@@ -10,7 +10,9 @@ export class AuthGuardService implements CanActivate {
   }
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    console.log(this.keyCloak.keycloakAuth);
+    console.log('guard');
+    console.log(this.keyCloak.keycloakAuth.authenticated);
+    console.log(this.keyCloak.keycloakAuth.realmAccess);
     return this.keyCloak.keycloakAuth.authenticated === true &&
      this.keyCloak.keycloakAuth.realmAccess.roles.indexOf(route.data.role) !== -1;
   }

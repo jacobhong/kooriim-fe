@@ -27,14 +27,13 @@ import { FormsModule } from '@angular/forms';
 import { AlbumViewComponent } from './album/album-view/album-view.component';
 import { LoginComponent } from './login/login.component';
 import { KeycloakService } from './keycloak/keycloak.service';
-
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
-  url: 'https://keycloak.kooriim.com:8080/photo-album-service/photos',
+  url: environment.routes.fileUpload,
   maxFilesize: 50,
   acceptedFiles: 'image/*',
   headers: {
-    'Access-Control-Allow-Origin': 'https://keycloak.kooriim.com:8080',
+    'Access-Control-Allow-Origin': environment.routes.photoAlbumService,
     'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
   }

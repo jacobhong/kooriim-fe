@@ -6,14 +6,14 @@
         "changeOrigin": true
     },
     "/photo-album-service/*": {
-        "target": "http://92.168.1.206.xip.io:8080",
+        "target": "http://192.168.1.206.xip.io:8080",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     }
     ,
     "/auth/*": {
-        "target": "http://92.168.1.206.xip.io:8443",
+        "target": "http://192.168.1.206.xip.io:8443",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true

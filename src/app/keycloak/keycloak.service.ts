@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { KeycloakInstance } from 'keycloak-js';
+import { environment } from 'src/environments/environment';
 declare var Keycloak: any;
 
 @Injectable({
@@ -13,8 +14,8 @@ export class KeycloakService {
   init(): Promise<any> {
     return new Promise((resolve, reject) => {
       const config = {
-        url: 'https://keycloak.kooriim.com:8443/auth',
-        realm: 'kooriim-fe',
+        url: environment.routes.keycloak,
+        realm: 'kooriim',
         clientId: 'kooriim-fe'
       };
       this.keycloakAuth = new Keycloak(config);
