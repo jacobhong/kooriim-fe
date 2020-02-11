@@ -1,8 +1,8 @@
-import { AlbumViewComponent } from './album-view/album-view.component';
+import { AlbumViewComponent } from './album/album-view/album-view.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PhotoGalleryComponent } from './photo-gallery/photo-gallery.component';
+import { PhotoGalleryComponent } from './photo/photo-gallery/photo-gallery.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './auth-guard/auth-guard.service';
 

@@ -1,12 +1,12 @@
-import { AlbumCreateModalComponent } from './../shared/modals/album-create-modal/album-create-modal.component';
-import { PhotoModalComponent } from '../shared/modals/photo-modal/photo-modal.component';
+import { AlbumCreateModalComponent } from '../../album/album-create-modal/album-create-modal.component';
+import { PhotoModalComponent } from '../photo-modal/photo-modal.component';
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { PhotoServiceComponent } from './photo-service/photo-service.component';
-import { Photo } from '../model/model';
+import { PhotoServiceComponent } from '../photo-service/photo-service.component';
+import { Photo } from '../../model/model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlbumServiceComponent } from '../album-view/album-service/album-service.component';
 import { Platform } from '@angular/cdk/platform';
+import { AlbumServiceComponent } from 'src/app/album/album-service/album-service.component';
 
 
 @Component({

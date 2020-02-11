@@ -1,4 +1,4 @@
-import { PhotoServiceComponent } from '../../../photo-gallery/photo-service/photo-service.component';
+import { PhotoServiceComponent } from '../../photo/photo-service/photo-service.component';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Album } from 'src/app/model/model';
 

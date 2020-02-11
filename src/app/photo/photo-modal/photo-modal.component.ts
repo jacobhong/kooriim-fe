@@ -1,4 +1,4 @@
-import { PhotoServiceComponent } from './../../../photo-gallery/photo-service/photo-service.component';
+import { PhotoServiceComponent } from '../photo-service/photo-service.component';
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';

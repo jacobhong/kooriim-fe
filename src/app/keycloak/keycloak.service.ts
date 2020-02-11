@@ -13,8 +13,8 @@ export class KeycloakService {
   init(): Promise<any> {
     return new Promise((resolve, reject) => {
       const config = {
-        url: 'http://localhost:8081/auth',
-        realm: 'kooriim',
+        url: 'https://keycloak.kooriim.com:8443/auth',
+        realm: 'kooriim-fe',
         clientId: 'kooriim-fe'
       };
       this.keycloakAuth = new Keycloak(config);
