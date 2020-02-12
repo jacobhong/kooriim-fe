@@ -5,7 +5,6 @@ export const environment = {
         auth: 'http://192.168.1.206.xip.io:8081',
         albums: 'photo-album-service/albums',
         fileUpload: 'http://192.168.1.206.xip.io:4200/photo-album-service/photos',
-        photoAlbumService: 'http://192.168.1.206.xip.io:8080',
         baseUrl: 'http://192.168.1.206.xip.io:4200',
         baseContext: '',
         photo: 'photo-album-service/photos',

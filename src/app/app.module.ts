@@ -33,7 +33,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   maxFilesize: 50,
   acceptedFiles: 'image/*',
   headers: {
-    'Access-Control-Allow-Origin': environment.routes.photoAlbumService,
+    'Access-Control-Allow-Origin': environment.routes.baseUrl,
     'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
   }

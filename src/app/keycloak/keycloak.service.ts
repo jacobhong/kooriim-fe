@@ -15,7 +15,7 @@ export class KeycloakService {
     return new Promise((resolve, reject) => {
       const config = {
         url: environment.routes.keycloak,
-        realm: 'kooriim',
+        realm: 'kooriim-fe',
         clientId: 'kooriim-fe'
       };
       this.keycloakAuth = new Keycloak(config);
