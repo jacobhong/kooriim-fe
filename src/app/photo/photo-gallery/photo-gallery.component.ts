@@ -79,7 +79,6 @@ export class PhotoGalleryComponent implements OnInit {
         .subscribe(result => {
           this.modalSubscriptions(result.base64SrcPhoto, index);
         });
-    
   }
 
   onSelect(index: number) {
