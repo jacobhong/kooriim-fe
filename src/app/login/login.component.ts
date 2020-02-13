@@ -12,12 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class LoginComponent implements OnInit {
   constructor(
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,
     private keycloakService: KeycloakService) {
-    iconRegistry.addSvgIcon(
-      'google-icon',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/mat-icons/google-icon.svg'));
   }
 
   ngOnInit() {
