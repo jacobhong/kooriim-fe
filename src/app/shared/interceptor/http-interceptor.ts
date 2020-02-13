@@ -23,11 +23,12 @@ export class Interceptor implements HttpInterceptor {
         // r = r.append('Access-Control-Allow-Headers', 'Access-Control-Allow-Origin, Origin, X-Requested-With, Content-Type, Accept');
 
         if (req.url.indexOf('photo-album-service') !== -1) {
-            apiReq = req.clone({ headers: r, url: `${environment.routes.baseUrl}/${req.url}` });
+            apiReq = req.clone({ headers: r, url: `${environment.routes.fileUpload}` });
             console.log(apiReq);
-        }
-        if (req.url.indexOf('auth') !== -1) {
+        } else if (req.url.indexOf('auth') !== -1) {
             apiReq = req.clone({ headers: r, url: `${environment.routes.auth}/${req.url}` });
+        } else if (req.url.indexOf('assets') !== -1) {
+            apiReq = req.clone({ headers: r, url: `${environment.routes.assets}/${req.url}` });
         } else {
             apiReq = req.clone({ headers: r, url: `${this.baseUrl}${this.baseContext}/${req.url}` });
         }
