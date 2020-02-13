@@ -58,10 +58,8 @@ export class PhotoModalComponent implements OnInit {
     --this.index;
     this.showButtons();
     if (this.photosCache[this.index]) {
-      console.log(this.photosCache);
       this.imgSrc = this.photosCache[this.index];
     } else {
-      console.log(this.photos);
       this.photoService
         .getPhotoById(this.photos[this.index].id)
         .subscribe(photo => {
