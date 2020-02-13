@@ -5,7 +5,7 @@ export const environment = {
         assets: 'https://now.kooriim.com/assets',
         auth: 'https://keycloak.kooriim.com:8443',
         fileUpload: 'https://keycloak.kooriim.com:8080/photo-album-service/photos',
-        baseUrl: 'https://now.kooriim.com',
+        baseUrl: 'https://keycloak.kooriim.com',
         baseContext: '',
         photo: 'photo-album-service/photos',
         login: 'photo-album-service/login',
