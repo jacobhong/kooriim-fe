@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angu
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Photo } from 'src/app/shared/model/model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-photo-modal',
@@ -25,13 +26,13 @@ export class PhotoModalComponent implements OnInit {
     this.showNext = false;
     iconRegistry.addSvgIcon(
       'navigate_before',
-      sanitizer.bypassSecurityTrustResourceUrl('./assets/mat-icons/navigate_before-24px.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl(environment.routes.assets + '/mat-icons/navigate_before-24px.svg'));
     iconRegistry.addSvgIcon(
       'navigate_next',
-      sanitizer.bypassSecurityTrustResourceUrl('./assets/mat-icons/navigate_next-24px.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl(environment.routes.assets + '/mat-icons/navigate_next-24px.svg'));
     iconRegistry.addSvgIcon(
       'delete_sweep',
-      sanitizer.bypassSecurityTrustResourceUrl('./assets/mat-icons/delete_sweep-24px.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl(environment.routes.assets + '/mat-icons/delete_sweep-24px.svg'));
   }
 
   ngOnInit() {
