@@ -9,7 +9,8 @@ export const environment = {
         baseContext: '',
         photo: 'photo-album-service/photos',
         login: 'photo-album-service/login',
-        keycloak: 'https://keycloak.kooriim.com:8443/auth'
+        keycloak: 'https://keycloak.kooriim.com:8443/auth',
+        home: 'https://now.kooriim.com/home'
     },
     production: true
 };

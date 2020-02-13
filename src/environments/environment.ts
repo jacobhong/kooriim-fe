@@ -9,7 +9,8 @@ export const environment = {
         baseContext: '',
         photo: 'photo-album-service/photos',
         login: 'photo-album-service/login',
-        keycloak: 'http://192.168.1.206.xip.io:8081/auth'
+        keycloak: 'http://192.168.1.206.xip.io:8081/auth',
+        home: 'http://192.168.1.206.xip.io:4200/home'
     },
     production: false
 };

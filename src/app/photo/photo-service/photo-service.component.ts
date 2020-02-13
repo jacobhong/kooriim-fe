@@ -1,4 +1,4 @@
-import { Photo, Album } from '../../model/model';
+import { Photo, Album } from '../../shared/model/model';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';

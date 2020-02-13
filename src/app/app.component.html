@@ -1,8 +1,5 @@
-<app-navbar></app-navbar>
-above router outlet
-<!-- <app-photo-gallery></app-photo-gallery> -->
-<div class="container-fluid">
+<app-navbar *ngIf="isAuthenticated" ></app-navbar>
+<div class="container-fluid" style="padding-bottom:5%">
     <router-outlet></router-outlet>
 </div>
-below router outlet
-<app-footer></app-footer>
+<app-footer *ngIf="isAuthenticated"></app-footer>

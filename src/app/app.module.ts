@@ -1,7 +1,7 @@
 export function kcFactory(keycloakService: KeycloakService) {
   return () => keycloakService.init();
 }
-import { AuthGuardService } from './auth-guard/auth-guard.service';
+import { AuthGuardService } from './shared/guards/auth-guard/auth-guard.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, DoBootstrap, ApplicationRef, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -14,19 +14,20 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
-import { Interceptor } from './interceptor/http-interceptor';
+import { Interceptor } from './shared/interceptor/http-interceptor';
 import { environment } from '../environments/environment';
 import { PhotoModalComponent } from './photo/photo-modal/photo-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule, MatButtonModule, MatFormField, MatSpinner, MatFormFieldModule, MatProgressSpinnerModule} from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AlbumCreateModalComponent } from './album/album-create-modal/album-create-modal.component';
 import { FormsModule } from '@angular/forms';
 import { AlbumViewComponent } from './album/album-view/album-view.component';
 import { LoginComponent } from './login/login.component';
-import { KeycloakService } from './keycloak/keycloak.service';
+import { KeycloakService } from './shared/keycloak/keycloak.service';
+import { HomeComponent } from './home/home.component';
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
   url: environment.routes.fileUpload,
@@ -49,7 +50,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     PhotoModalComponent,
     AlbumCreateModalComponent,
     AlbumViewComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -58,6 +60,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FormsModule,
     HttpClientModule,
     MatButtonModule,
+    MatCardModule, MatFormFieldModule, MatProgressSpinnerModule,
     NgbModule,
     MatCheckboxModule,
     MatIconModule,

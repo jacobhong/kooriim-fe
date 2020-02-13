@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KeycloakService } from '../keycloak/keycloak.service';
+import { KeycloakService } from '../shared/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -26,7 +26,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   onSending(event: XMLHttpRequest) {
-    event.setRequestHeader('Authorization', 'Bearer ' + this.keyCloak.keycloakAuth.token);
+    event.setRequestHeader('Authorization', 'Bearer ' + this.keyCloak.keycloak.token);
   }
 
   ngOnInit() {

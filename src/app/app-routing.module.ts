@@ -1,20 +1,28 @@
+import { LoginGuardService } from './shared/guards/login-guard/login-guard.service';
+import { HomeComponent } from './home/home.component';
 import { AlbumViewComponent } from './album/album-view/album-view.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PhotoGalleryComponent } from './photo/photo-gallery/photo-gallery.component';
 import { LoginComponent } from './login/login.component';
-import { AuthGuardService } from './auth-guard/auth-guard.service';
+import { AuthGuardService } from './shared/guards/auth-guard/auth-guard.service';
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/#',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   {
     path: 'albums',
     component: AlbumViewComponent,
+    canActivate: [AuthGuardService],
+    data: { role: 'kooriim-fe' }
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
     canActivate: [AuthGuardService],
     data: { role: 'kooriim-fe' }
   },
@@ -26,7 +34,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [LoginGuardService],
   },
   {
     path: 'photo-gallery',

@@ -2,7 +2,7 @@ import { AlbumCreateModalComponent } from '../../album/album-create-modal/album-
 import { PhotoModalComponent } from '../photo-modal/photo-modal.component';
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { PhotoServiceComponent } from '../photo-service/photo-service.component';
-import { Photo } from '../../model/model';
+import { Photo } from '../../shared/model/model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Platform } from '@angular/cdk/platform';
