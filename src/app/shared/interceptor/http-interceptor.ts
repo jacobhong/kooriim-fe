@@ -8,9 +8,7 @@ import { environment } from 'src/environments/environment';
 export class Interceptor implements HttpInterceptor {
 
     constructor(
-        private keycloak: KeycloakService,
-        @Inject('BASE_API_URL') private baseUrl: string,
-        @Inject('BASE_CONTEXT') private baseContext: string) {
+        private keycloak: KeycloakService) {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -22,13 +20,10 @@ export class Interceptor implements HttpInterceptor {
         // r = r.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, HEAD, "OPTIONS');
         // r = r.append('Access-Control-Allow-Headers', 'Access-Control-Allow-Origin, Origin, X-Requested-With, Content-Type, Accept');
 
-        if (req.url.indexOf('photo-album-service') !== -1) {
-            apiReq = req.clone({ headers: r, url: `${environment.routes.fileUpload}` });
-            console.log(apiReq);
-        } else if (req.url.indexOf('auth') !== -1) {
+        if (req.url.indexOf('auth') !== -1) {
             apiReq = req.clone({ headers: r, url: `${environment.routes.auth}/${req.url}` });
         } else {
-            apiReq = req.clone({ headers: r, url: `${this.baseUrl}${this.baseContext}/${req.url}` });
+            apiReq = req.clone({ headers: r, url: `${environment.routes.baseUrl}/${req.url}` });
         }
         console.log(apiReq);
         return next.handle(apiReq);
