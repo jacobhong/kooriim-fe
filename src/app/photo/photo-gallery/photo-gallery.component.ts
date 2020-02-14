@@ -1,3 +1,4 @@
+import { SpinnerComponent } from './../../shared/spinner/spinner.component';
 import { AlbumCreateModalComponent } from '../../album/album-create-modal/album-create-modal.component';
 import { PhotoModalComponent } from '../photo-modal/photo-modal.component';
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
@@ -19,7 +20,7 @@ export class PhotoGalleryComponent implements OnInit {
   photosCache: {};
   isEditMode: boolean;
   isSmallScreen: boolean;
-
+  loading = false;
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.isSmallScreen = event.target.innerWidth <= 700 ? true : false;
@@ -30,7 +31,7 @@ export class PhotoGalleryComponent implements OnInit {
     private photoService: PhotoServiceComponent,
     private modalService: NgbModal,
     private platform: Platform,
-    private route: ActivatedRoute
+    private route: ActivatedRoute, private spinner: SpinnerComponent
   ) { }
 
   ngOnInit() {
@@ -43,6 +44,7 @@ export class PhotoGalleryComponent implements OnInit {
             this.photos = result;
           });
       } else {
+        this.loading = true;
         const queryParams = new Map<string, string>();
         if (this.isSmallScreen) {
           queryParams.set('srcImage', 'true');
@@ -53,7 +55,7 @@ export class PhotoGalleryComponent implements OnInit {
           .getPhotos(queryParams)
           .subscribe(result => {
             this.photos = result;
-          });
+          }, () => { this.loading = false; }, () => { this.loading = false; });
       }
     });
   }
@@ -74,11 +76,12 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   openModal(photo: Photo, index: number) {
-      this.photoService
-        .getPhotoById(photo.id)
-        .subscribe(result => {
-          this.modalSubscriptions(result.base64SrcPhoto, index);
-        });
+    this.loading = true;
+    this.photoService
+      .getPhotoById(photo.id)
+      .subscribe(result => {
+        this.modalSubscriptions(result.base64SrcPhoto, index);
+      }, () => { this.loading = false; }, () => { this.loading = false; });
   }
 
   onSelect(index: number) {

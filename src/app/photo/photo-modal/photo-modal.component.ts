@@ -4,6 +4,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Photo } from 'src/app/shared/model/model';
 import { environment } from 'src/environments/environment';
+import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-photo-modal',
@@ -20,19 +21,19 @@ export class PhotoModalComponent implements OnInit {
   numOfImages: number;
   showPrevious: boolean;
   showNext: boolean;
-
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private photoService: PhotoServiceComponent) {
+  loading = false;
+  constructor(private spinner: SpinnerComponent, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private photoService: PhotoServiceComponent) {
     this.showPrevious = false;
     this.showNext = false;
     iconRegistry.addSvgIcon(
       'navigate_before',
-      sanitizer.bypassSecurityTrustResourceUrl(environment.routes.assets + '/mat-icons/navigate_before-24px.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl('assets/mat-icons/navigate_before-24px.svg'));
     iconRegistry.addSvgIcon(
       'navigate_next',
-      sanitizer.bypassSecurityTrustResourceUrl(environment.routes.assets + '/mat-icons/navigate_next-24px.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl('assets/mat-icons/navigate_next-24px.svg'));
     iconRegistry.addSvgIcon(
       'delete_sweep',
-      sanitizer.bypassSecurityTrustResourceUrl(environment.routes.assets + '/mat-icons/delete_sweep-24px.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl('assets/mat-icons/delete_sweep-24px.svg'));
   }
 
   ngOnInit() {
@@ -45,13 +46,14 @@ export class PhotoModalComponent implements OnInit {
     if (this.photosCache[this.index]) {
       this.imgSrc = this.photosCache[this.index];
     } else {
+      this.loading = true;
       this.photoService
         .getPhotoById(this.photos[this.index].id)
         .subscribe(photo => {
           this.imgSrc = photo.base64SrcPhoto;
           this.photosCache[this.index] = photo.base64SrcPhoto;
           this.cacheUpdated.emit(this.photosCache);
-        });
+        }, () => { }, () => { this.loading = false; });
     }
   }
 
@@ -61,13 +63,14 @@ export class PhotoModalComponent implements OnInit {
     if (this.photosCache[this.index]) {
       this.imgSrc = this.photosCache[this.index];
     } else {
+      this.loading = true;
       this.photoService
         .getPhotoById(this.photos[this.index].id)
         .subscribe(photo => {
           this.imgSrc = photo.base64SrcPhoto;
           this.photosCache[this.index] = photo.base64SrcPhoto;
           this.cacheUpdated.emit(this.photosCache);
-        });
+        }, () => { }, () => { this.loading = false; });
     }
   }
 

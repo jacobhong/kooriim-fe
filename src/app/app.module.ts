@@ -28,11 +28,13 @@ import { AlbumViewComponent } from './album/album-view/album-view.component';
 import { LoginComponent } from './login/login.component';
 import { KeycloakService } from './shared/keycloak/keycloak.service';
 import { HomeComponent } from './home/home.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
   url: environment.routes.fileUpload,
   maxFilesize: 50,
   acceptedFiles: 'image/*',
+  createImageThumbnails: true,
   headers: {
     'Access-Control-Allow-Origin': environment.routes.baseUrl,
     'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
@@ -52,6 +54,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     AlbumViewComponent,
     LoginComponent,
     HomeComponent,
+    SpinnerComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -68,6 +71,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   ],
   providers:
     [
+      SpinnerComponent,
       {
         provide: DROPZONE_CONFIG,
         useValue: DEFAULT_DROPZONE_CONFIG
@@ -92,7 +96,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
         multi: true
       }
     ],
-  entryComponents: [AlbumCreateModalComponent, PhotoModalComponent],
+  entryComponents: [AlbumCreateModalComponent, PhotoModalComponent, SpinnerComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
