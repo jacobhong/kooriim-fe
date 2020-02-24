@@ -1,9 +1,25 @@
 <div class="row">
   <div *ngFor="let album of albums;let i = index" style="min-width:360px; min-height:270px;padding-top: 5px;"
     class="col-md-3 ">
-    <a [routerLink]="['/photo-gallery']" [queryParams]="{albumId:album.id}"
-      queryParamsHandling="merge">{{album.title}}</a>
-    <hr>
-    <b>description</b>: {{album.description}}
+    <mat-card class="example-card" style='border-style: double;'>
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>
+          <a [routerLink]="['/photo-gallery']" [queryParams]="{albumId:album.id}"
+            queryParamsHandling="merge">{{album.title}}
+          </a>
+        </mat-card-title>
+      </mat-card-header>
+      <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+      <mat-card-content>
+        <p>
+          {{album.description}}
+        </p>
+      </mat-card-content>
+      <!-- <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions> -->
+    </mat-card>
   </div>
 </div>
