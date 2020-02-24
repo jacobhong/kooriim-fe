@@ -21,9 +21,7 @@ export class KeycloakService {
       this.keycloak = new Keycloak(config);
       this.keycloak.init(
         {
-          onLoad: 'check-sso',
-          // redirectUri: environment.routes.home,
-          // silentCheckSsoRedirectUri: window.location.origin + '/silent-sso-check'
+          onLoad: 'check-sso'
         }
       ).success((isLoggedin) => {
         resolve();

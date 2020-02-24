@@ -104,7 +104,7 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   selectAll() {
-    this.photos.forEach(p => p.selected = true);
+    this.photos.forEach(p => p.selected = !p.selected);
   }
 
   modalSubscriptions(result: string, index: number) {
