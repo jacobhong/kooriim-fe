@@ -1,7 +1,7 @@
 export const environment = {
     routes: {
         allowOrigin: 'http://192.168.1.206.xip.io:4200',
-        assets: 'http://192.168.1.206.xip.io:4200/assets',
+        assets: 'http://192.168.1.206.xip.io:4200/',
         auth: 'http://192.168.1.206.xip.io:8081',
         albums: 'photo-album-service/albums',
         fileUpload: 'http://192.168.1.206.xip.io:4200/photo-album-service/photos',

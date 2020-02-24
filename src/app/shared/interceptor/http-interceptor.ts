@@ -24,6 +24,8 @@ export class Interceptor implements HttpInterceptor {
         // r = r.append('Access-Control-Allow-Headers', 'Access-Control-Allow-Origin, Origin, X-Requested-With, Content-Type, Accept');
         if (req.url.indexOf('auth') !== -1) {
             apiReq = req.clone({ headers: r, url: `${environment.routes.auth}/${req.url}` });
+        } else if (req.url.indexOf('assets')) {
+             apiReq = req.clone({ headers: r, url: `${environment.routes.assets}/${req.url}` });
         } else {
             apiReq = req.clone({ headers: r, url: `${environment.routes.baseUrl}/${req.url}` });
         }

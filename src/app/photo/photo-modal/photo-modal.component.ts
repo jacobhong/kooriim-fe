@@ -27,13 +27,13 @@ export class PhotoModalComponent implements OnInit {
     this.showNext = false;
     iconRegistry.addSvgIcon(
       'navigate_before',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/mat-icons/navigate_before-24px.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/mat-icons/navigate_before-24px.svg'));
     iconRegistry.addSvgIcon(
       'navigate_next',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/mat-icons/navigate_next-24px.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/mat-icons/navigate_next-24px.svg'));
     iconRegistry.addSvgIcon(
       'delete_sweep',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/mat-icons/delete_sweep-24px.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/mat-icons/delete_sweep-24px.svg'));
   }
 
   ngOnInit() {
