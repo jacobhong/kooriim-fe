@@ -19,7 +19,7 @@ export class Interceptor implements HttpInterceptor {
         let r = new HttpHeaders();
         r = r.append('Authorization', 'Bearer ' + this.keycloak.getToken() || '');
         // r.append('X-Requested-With', 'XMLHttpRequest');
-        r = r.append('Access-Control-Allow-Origin', 'https://now.kooriim.com');
+        // r = r.append('Access-Control-Allow-Origin', '*');
         // r = r.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, HEAD, "OPTIONS');
         // r = r.append('Access-Control-Allow-Headers', 'Access-Control-Allow-Origin, Origin, X-Requested-With, Content-Type, Accept');
         if (req.url.indexOf('auth') !== -1) {
