@@ -76,12 +76,14 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   openModal(photo: Photo, index: number) {
-    this.loading = true;
-    this.photoService
-      .getPhotoById(photo.id)
-      .subscribe(result => {
-        this.modalSubscriptions(result.base64SrcPhoto, index);
-      }, () => { this.loading = false; }, () => { this.loading = false; });
+    if (!this.isSmallScreen) {
+      this.loading = true;
+      this.photoService
+        .getPhotoById(photo.id)
+        .subscribe(result => {
+          this.modalSubscriptions(result.base64SrcPhoto, index);
+        }, () => { this.loading = false; }, () => { this.loading = false; });
+    }
   }
 
   onSelect(index: number) {
