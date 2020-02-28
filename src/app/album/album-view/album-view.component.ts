@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Album } from '../../shared/model/model';
 import { AlbumServiceComponent } from '../album-service/album-service.component';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
+import { PhotoServiceComponent } from 'src/app/photo/photo-service/photo-service.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AlbumCreateModalComponent } from '../album-create-modal/album-create-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-album-view',
@@ -9,14 +15,42 @@ import { AlbumServiceComponent } from '../album-service/album-service.component'
 })
 export class AlbumViewComponent implements OnInit {
   albums: Album[];
-  constructor(private albumService: AlbumServiceComponent) { }
+  constructor(
+    private albumService: AlbumServiceComponent,
+    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
+    private photoService: PhotoServiceComponent,
+    private modalService: NgbModal, private router: Router
+  ) {
+
+    iconRegistry.addSvgIcon(
+      'add_photo_to_album',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/mat-icons/add_a_photo-24px.svg'));
+  }
+
 
   ngOnInit() {
     this.albumService
-    .getAlbums()
-    .subscribe(albums => {
-      this.albums = albums;
-    });
+      .getAlbums()
+      .subscribe(albums => {
+        this.albums = albums;
+      });
   }
 
+  addPhotoToAlbum(id: string, albumTitle: string) {
+    console.log('adding' + JSON.stringify(this.albums[id]));
+    this.router.navigate(['photo-gallery'], { queryParams: { albumId: this.albums[id].id, isAlbumMode: true, title: albumTitle } });
+  }
+
+  createAlbum() {
+    const modalRef = this.modalService.open(AlbumCreateModalComponent, { centered: true, windowClass: 'dark-modal' });
+    // modalRef.componentInstance.album.photoIds = this.photos.filter(p => p.selected).map(p => p.id);
+    modalRef.componentInstance.submitted.subscribe(submit => {
+      // this.photos.forEach(p => p.selected = false);
+      modalRef.close();
+      // this.router.navigate(['albums']);
+      location.reload();
+    }, error => {
+      console.log(error);
+    });
+  }
 }

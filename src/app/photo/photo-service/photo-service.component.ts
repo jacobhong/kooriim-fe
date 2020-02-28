@@ -18,6 +18,12 @@ export class PhotoServiceComponent {
       .pipe(catchError(error => throwError(error)));
   }
 
+addPhotoIdsToAlbum(albumId: number, ids: any): Observable<any> {
+    return this.httpClient
+      .patch<any[]>(environment.routes.albums + '/' + albumId, ids)
+      .pipe(catchError(error => throwError(error)));
+  }
+
   getPhotoById(photoId: number): Observable<Photo> {
     return this.httpClient.get<Photo>(environment.routes.photo + '/' + photoId, {params: new HttpParams().set('srcImage', 'true')});
   }

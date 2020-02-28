@@ -16,11 +16,16 @@ import { AlbumServiceComponent } from 'src/app/album/album-service/album-service
   styleUrls: ['./photo-gallery.component.scss']
 })
 export class PhotoGalleryComponent implements OnInit {
+  albumTitle: string;
+  albumId: number;
   photos: Photo[];
+  photosInAlbum: Photo[];
   photosCache: {};
   isEditMode: boolean;
+  isAlbumMode: boolean;
   isSmallScreen: boolean;
   loading = false;
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.isSmallScreen = event.target.innerWidth <= 700 ? true : false;
@@ -31,20 +36,44 @@ export class PhotoGalleryComponent implements OnInit {
     private photoService: PhotoServiceComponent,
     private modalService: NgbModal,
     private platform: Platform,
-    private route: ActivatedRoute, private spinner: SpinnerComponent
-  ) { }
+    private route: ActivatedRoute, private spinner: SpinnerComponent, private router: Router
+  ) {
+    this.albumTitle = '';
+    this.isEditMode = false;
+    this.isAlbumMode = false;
+    this.isSmallScreen = window.innerWidth <= 700 ? true : false;
+  }
 
   ngOnInit() {
-    this.isEditMode = false;
-    this.isSmallScreen = window.innerWidth <= 700 ? true : false;
     this.route.queryParams.subscribe(params => {
-      if (params && params.albumId) {
+      console.log(params);
+      if (params.title) {
+        console.log(params.title);
+        this.albumTitle = params.title;
+      }
+      this.albumId = params.albumId;
+      console.log('album fucking id');
+      console.log(this.albumId);
+      if (params && params.albumId && !params.isAlbumMode) {
+        console.log('FUCK');
+        console.log('albumid:' + this.albumId);
         this.photoService.getPhotosByAlbumId(params.albumId)
           .subscribe(result => {
             this.photos = result;
           });
       } else {
         this.loading = true;
+        const photosInAlbum = [];
+        if (params.isAlbumMode) {
+          console.log('edit true');
+          this.isAlbumMode = !this.isAlbumMode;
+          this.photoService.getPhotosByAlbumId(params.albumId)
+            .subscribe(result => {
+              result.forEach(p => {
+                photosInAlbum.push(p.id);
+              });
+            });
+        }
         const queryParams = new Map<string, string>();
         if (this.isSmallScreen) {
           queryParams.set('srcImage', 'true');
@@ -55,19 +84,15 @@ export class PhotoGalleryComponent implements OnInit {
           .getPhotos(queryParams)
           .subscribe(result => {
             this.photos = result;
+            if (photosInAlbum.length > 0) {
+              this.photos.forEach(p => {
+                if (photosInAlbum.indexOf(p.id) !== -1) {
+                  p.selected = true;
+                }
+              });
+            }
           }, () => { this.loading = false; }, () => { this.loading = false; });
       }
-    });
-  }
-
-  createAlbum() {
-    const modalRef = this.modalService.open(AlbumCreateModalComponent, { centered: true, windowClass: 'dark-modal' });
-    modalRef.componentInstance.album.photoIds = this.photos.filter(p => p.selected).map(p => p.id);
-    modalRef.componentInstance.submitted.subscribe(submit => {
-      this.photos.forEach(p => p.selected = false);
-      modalRef.close();
-    }, error => {
-      console.log(error);
     });
   }
 
@@ -75,8 +100,15 @@ export class PhotoGalleryComponent implements OnInit {
     this.isEditMode = !this.isEditMode;
   }
 
+  addPhotoIdsToAlbum() {
+    const photoIds = this.photos.filter(p => p.selected).map(p => p.id);
+    this.photoService.addPhotoIdsToAlbum(this.albumId, photoIds).subscribe(result => {
+      this.router.navigate(['albums']);
+    });
+  }
+
   openModal(photo: Photo, index: number) {
-    if (!this.isSmallScreen) {
+    if (!this.isSmallScreen && !this.isAlbumMode) {
       this.loading = true;
       this.photoService
         .getPhotoById(photo.id)
@@ -96,7 +128,6 @@ export class PhotoGalleryComponent implements OnInit {
 
   delete() {
     const ids = this.photos.filter(photo => photo.selected).map(photo => photo.id);
-    console.log('deleting');
     console.log(ids);
     this.photoService.deletePhotos(ids).subscribe(result => {
       ids.forEach(id => {
@@ -106,7 +137,11 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   selectAll() {
-    this.photos.forEach(p => p.selected = !p.selected);
+    this.photos.forEach(p => p.selected = true);
+  }
+
+  deselectAll() {
+    this.photos.forEach(p => p.selected = false);
   }
 
   modalSubscriptions(result: string, index: number) {

@@ -1,27 +1,45 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-light border shadow-sm p-3 mb-3"
+  style="background-color: rgb(230, 244, 244)">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="navbar-brand" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#">
+          <mat-icon svgIcon="home" aria-hidden="false" aria-label="home" class="nav-icon">
+          </mat-icon>
+          <span class="sr-only">(current)</span>
+        </a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" href="file-upload">file-upload</a>
+        <a class="nav-link" href="file-upload">
+          <mat-icon svgIcon="add_photo" aria-hidden="false" aria-label="add_photo" class="nav-icon">
+          </mat-icon>
+        </a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" href="photo-gallery">photo-gallery</a>
+        <a class="nav-link" href="photo-gallery">
+          <mat-icon svgIcon="photo" aria-hidden="false" aria-label="photo" class="nav-icon">
+          </mat-icon>
+        </a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" href="albums">albums</a>
+        <a class="nav-link" href="albums">
+          <mat-icon svgIcon="photo_library" aria-hidden="false" aria-label="photo_library" class="nav-icon">
+          </mat-icon>
+        </a>
       </li>
       <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown
         </a> -->
-        <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Action</a>
           <a class="dropdown-item" href="#">Another action</a>
           <div class="dropdown-divider"></div>

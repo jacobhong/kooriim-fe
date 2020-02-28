@@ -19,7 +19,7 @@ import { environment } from '../environments/environment';
 import { PhotoModalComponent } from './photo/photo-modal/photo-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatCardModule, MatButtonModule, MatFormField, MatSpinner, MatFormFieldModule, MatProgressSpinnerModule} from '@angular/material';
+import { MatCardModule, MatButtonModule, MatFormField, MatSpinner, MatFormFieldModule, MatProgressSpinnerModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AlbumCreateModalComponent } from './album/album-create-modal/album-create-modal.component';
@@ -30,7 +30,6 @@ import { KeycloakService } from './shared/keycloak/keycloak.service';
 import { HomeComponent } from './home/home.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
-  // Change this to your upload POST address:
   url: environment.routes.fileUpload,
   maxFilesize: 50,
   acceptedFiles: 'image/*',
@@ -80,14 +79,6 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
         provide: HTTP_INTERCEPTORS,
         useClass: Interceptor,
         multi: true
-      },
-      {
-        provide: 'BASE_API_URL',
-        useValue: environment.routes.baseUrl
-      },
-      {
-        provide: 'BASE_CONTEXT',
-        useValue: environment.routes.baseContext
       },
       KeycloakService, {
         provide: APP_INITIALIZER,

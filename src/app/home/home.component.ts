@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
       'home-background',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/home-background.png'));
   }
+
   ngOnInit() {
   }
 
