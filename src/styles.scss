@@ -7,6 +7,18 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.button-aliceblue {
+  background-color: #F0F8FF		;
+}
+
+.button-mediumslateblue {
+  background-color: mediumslateblue;
+}
+
+.round-border {
+  border-radius: 20px;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -29,3 +41,9 @@ body {
   transform: translateX(-50%) translateY(-50%);
 }
 
+.truncate {
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

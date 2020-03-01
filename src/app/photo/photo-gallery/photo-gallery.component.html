@@ -1,15 +1,19 @@
-<button mat-stroked-button *ngIf="!isAlbumMode" (click)="onEdit()">edit</button>
-<button mat-stroked-button *ngIf="isEditMode" (click)="delete()">delete</button>
-<button mat-stroked-button *ngIf="isEditMode || isAlbumMode" (click)="selectAll()">select all</button>
-<button mat-stroked-button *ngIf="isEditMode || isAlbumMode" (click)="deselectAll()">deselect all</button>
-<button mat-stroked-button *ngIf="isAlbumMode" (click)="addPhotoIdsToAlbum()">add to album</button>
+<div class="center-content">
+  <button class="button-aliceblue" mat-stroked-button *ngIf="!isAlbumMode" (click)="onEdit()">edit</button>&nbsp;
+  <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode || isAlbumMode" (click)="selectAll()">select all</button>&nbsp;
+  <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode || isAlbumMode" (click)="deselectAll()">deselect all</button>&nbsp;
+  <button class="button-aliceblue" mat-stroked-button *ngIf="isAlbumMode" (click)="addPhotoIdsToAlbum()">add to album</button>
+  <button class="button-aliceblue border-danger" mat-stroked-button *ngIf="isEditMode" (click)="delete()">delete</button>
+</div>
 <div class="center-content">
   {{albumTitle}}
 </div>
 <div class="row center-content">
   <div *ngFor="let photo of photos;let i = index" class="photo-gallery center-content">
-    <mat-checkbox [checked]=" photos[i].selected" *ngIf="isEditMode || isAlbumMode" (change)="onSelect(i)"></mat-checkbox>
-    <img class="img-fluid img-thumbnail gallery-image" [ngStyle]="{height: isEditMode || isAlbumMode ? '250px' : '270px'  }"
+    <mat-checkbox [checked]=" photos[i].selected" *ngIf="isEditMode || isAlbumMode" (change)="onSelect(i)">
+    </mat-checkbox>
+    <img class="img-fluid img-thumbnail gallery-image"
+      [ngStyle]="{height: isEditMode || isAlbumMode ? '250px' : '270px'  }"
       [src]="photo.base64ThumbnailPhoto ? photo.base64ThumbnailPhoto : photo.base64SrcPhoto" alt="could not load"
       (click)="openModal(photo, i)">
   </div>

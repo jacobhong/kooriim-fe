@@ -18,6 +18,7 @@ export class Album {
     id: number;
     title: string;
     description: string;
+    previewPhotos: Photo[];
     photoIds: number[];
     created: Date;
     updated: Date;

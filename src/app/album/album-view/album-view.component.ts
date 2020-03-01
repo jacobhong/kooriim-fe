@@ -25,6 +25,9 @@ export class AlbumViewComponent implements OnInit {
     iconRegistry.addSvgIcon(
       'add_photo_to_album',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/mat-icons/add_a_photo-24px.svg'));
+    iconRegistry.addSvgIcon(
+      'edit',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/mat-icons/edit-24px.svg'))
   }
 
 
@@ -41,9 +44,16 @@ export class AlbumViewComponent implements OnInit {
     this.router.navigate(['photo-gallery'], { queryParams: { albumId: this.albums[id].id, isAlbumMode: true, title: albumTitle } });
   }
 
-  createAlbum() {
+  createAlbum(album: Album) {
     const modalRef = this.modalService.open(AlbumCreateModalComponent, { centered: true, windowClass: 'dark-modal' });
     // modalRef.componentInstance.album.photoIds = this.photos.filter(p => p.selected).map(p => p.id);
+    if (album) {
+      modalRef.componentInstance.album.id = album.id;
+      modalRef.componentInstance.album.title = album.title;
+      modalRef.componentInstance.album.description = album.description;
+      modalRef.componentInstance.albumMode = 'Edit album';
+    }
+
     modalRef.componentInstance.submitted.subscribe(submit => {
       // this.photos.forEach(p => p.selected = false);
       modalRef.close();

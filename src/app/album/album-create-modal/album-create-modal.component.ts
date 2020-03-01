@@ -11,11 +11,14 @@ export class AlbumCreateModalComponent implements OnInit {
   @Output() submitted: EventEmitter<any> = new EventEmitter();
   album: Album;
   errorMessage: string;
+  albumMode: string;
   constructor(private photoService: PhotoServiceComponent) {
     this.album = new Album();
     this.album.title = '';
     this.album.description = '';
+    this.album.previewPhotos = [];
     this.album.photoIds = [];
+    this.albumMode = 'Create Album';
   }
 
   ngOnInit() {

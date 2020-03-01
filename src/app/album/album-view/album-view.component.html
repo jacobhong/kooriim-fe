@@ -1,8 +1,10 @@
-<button mat-stroked-button (click)="createAlbum()">create Album</button>
+<div class="center-content">
+  <button mat-stroked-button (click)="createAlbum()">create Album</button>
+</div>
 
 <div class="row center-content">
   <div *ngFor="let album of albums;let i = index" class="card-row">
-    <mat-card class="card h-100">
+    <mat-card class="card">
       <mat-card-header>
         <div mat-card-avatar class="pointer" (click)="addPhotoToAlbum(i, album.title)">
           <mat-icon svgIcon="add_photo_to_album" aria-hidden="false" aria-label="add_photo_to_album" class="nav-icon">
@@ -13,17 +15,25 @@
             <h6><b>{{album.title}}</b></h6>
           </a>
         </mat-card-title>
+        <div class="pointer" style="padding-left: 15px;" (click)="createAlbum(album)">
+          <mat-icon svgIcon="edit" aria-hidden="false" aria-label="edit" class="nav-icon">
+          </mat-icon>
+        </div>
       </mat-card-header>
-      <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
       <mat-card-content>
-        <p>
-          {{album.description}}
-        </p>
+        <div *ngFor="let photo of album.previewPhotos;let j = index" class="center-content">
+          <img class="img-fluid" style="width:60px; height:auto" [src]="photo.base64ThumbnailPhoto">
+        </div>
+        <div *ngIf="album.previewPhotos.length < 1" class="center-content">
+          <img class="img-fluid" style="width:45px; height:auto" [src]="'/assets/album-preview.png'">
+        </div>
+        <div *ngIf="album.previewPhotos.length < 1" class="center-content">
+          <img class="img-fluid" style="width:45px; height:auto" [src]="'/assets/album-preview.png'">
+        </div>
       </mat-card-content>
-      <!-- <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions> -->
+      <mat-card-subtitle class="truncate" style="padding-top: 15px">
+        {{album.description}}
+      </mat-card-subtitle>
     </mat-card>
   </div>
 </div>
