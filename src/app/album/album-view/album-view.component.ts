@@ -44,7 +44,7 @@ export class AlbumViewComponent implements OnInit {
     this.router.navigate(['photo-gallery'], { queryParams: { albumId: this.albums[id].id, isAlbumMode: true, title: albumTitle } });
   }
 
-  createAlbum(album: Album) {
+  createAlbum(album?: Album) {
     const modalRef = this.modalService.open(AlbumCreateModalComponent, { centered: true, windowClass: 'dark-modal' });
     // modalRef.componentInstance.album.photoIds = this.photos.filter(p => p.selected).map(p => p.id);
     if (album) {
