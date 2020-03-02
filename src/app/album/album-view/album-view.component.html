@@ -12,7 +12,7 @@
         </div>
         <mat-card-title>
           <a [routerLink]="['/photo-gallery']" [queryParams]="{albumId:album.id}" queryParamsHandling="merge">
-            <h6><b>{{album.title}}</b></h6>
+            <h6 class="truncate-card-title center-content"><b>{{album.title}}</b></h6>
           </a>
         </mat-card-title>
         <div class="pointer" style="padding-left: 15px;" (click)="createAlbum(album)">
@@ -27,11 +27,11 @@
         <div *ngIf="album.previewPhotos.length < 1" class="center-content">
           <img class="img-fluid" style="width:45px; height:auto" [src]="'/assets/album-preview.png'">
         </div>
-        <div *ngIf="album.previewPhotos.length < 1" class="center-content">
+        <div *ngIf="album.previewPhotos.length <= 1" class="center-content">
           <img class="img-fluid" style="width:45px; height:auto" [src]="'/assets/album-preview.png'">
         </div>
       </mat-card-content>
-      <mat-card-subtitle class="truncate" style="padding-top: 15px">
+      <mat-card-subtitle class="truncate-card-description" style="padding-top: 15px">
         {{album.description}}
       </mat-card-subtitle>
     </mat-card>

@@ -62,5 +62,14 @@ export class AlbumViewComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+
+    modalRef.componentInstance.deleted.subscribe(submit => {
+      // this.photos.forEach(p => p.selected = false);
+      modalRef.close();
+      // this.router.navigate(['albums']);
+      location.reload();
+    }, error => {
+      console.log(error);
+    })
   }
 }

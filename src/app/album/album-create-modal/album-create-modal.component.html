@@ -1,10 +1,16 @@
 <div class="container">
-    <h1>{{albumMode}}</h1>
+    <div class="row">
+        <h1 class="col-md-9">{{albumMode}}</h1>
+        <div *ngIf="albumMode === 'Edit album'" class="col-md-3 pointer" (click)="onDelete()">
+            <mat-icon class="float-right" svgIcon="delete_sweep" aria-hidden="false" aria-label="Example thumbs up SVG icon">
+            </mat-icon>
+        </div>
+    </div>
     <form #albumForum="ngForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="name">title</label>
-            <input #titleForm="ngModel" type="text" class="form-control" id="title" [(ngModel)]="album.title" name="title"
-                required>
+            <input #titleForm="ngModel" type="text" class="form-control" id="title" [(ngModel)]="album.title"
+                name="title" required>
             <div [hidden]="titleForm.valid || titleForm.pristine" class="alert alert-danger">
                 Name is required
             </div>

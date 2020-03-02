@@ -10,6 +10,12 @@ import { environment } from 'src/environments/environment';
 })
 export class AlbumServiceComponent {
   constructor(private httpClient: HttpClient) { }
+  
+  createAlbum(album: Album): Observable<any> {
+    return this.httpClient
+      .post<any[]>(environment.routes.albums, album)
+      .pipe(catchError(error => throwError(error)));
+  }
 
   getAlbums(): Observable<Album[]> {
     return this.httpClient
@@ -21,9 +27,9 @@ export class AlbumServiceComponent {
   //   return this.httpClient.get<Photo[]>(routes.thumbnails);
   // }
 
-  // deletePhoto(id: number): Observable<any> {
-  //   return this.httpClient.delete<any>(routes.photo + '/' + id);
-  // }
+  deleteAlbum(id: number): Observable<any> {
+    return this.httpClient.delete<any>(environment.routes.albums + '/' + id);
+  }
 
   // getBase64SrcImage(filePath: string): Observable<string> {
   //   return this.httpClient.get(routes.image, { responseType: 'text', params: new HttpParams().set('filePath', filePath) });

@@ -41,8 +41,14 @@ body {
   transform: translateX(-50%) translateY(-50%);
 }
 
-.truncate {
+.truncate-card-description{
   width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.truncate-card-title{
+  width: 120px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -12,20 +12,16 @@ export class PhotoServiceComponent {
 
   constructor(private httpClient: HttpClient) { }
 
-  createAlbum(album: Album): Observable<any> {
-    return this.httpClient
-      .post<any[]>(environment.routes.albums, album)
-      .pipe(catchError(error => throwError(error)));
-  }
 
-addPhotoIdsToAlbum(albumId: number, ids: any): Observable<any> {
+
+  addPhotoIdsToAlbum(albumId: number, ids: any): Observable<any> {
     return this.httpClient
       .patch<any[]>(environment.routes.albums + '/' + albumId, ids)
       .pipe(catchError(error => throwError(error)));
   }
 
   getPhotoById(photoId: number): Observable<Photo> {
-    return this.httpClient.get<Photo>(environment.routes.photo + '/' + photoId, {params: new HttpParams().set('srcImage', 'true')});
+    return this.httpClient.get<Photo>(environment.routes.photo + '/' + photoId, { params: new HttpParams().set('srcImage', 'true') });
   }
 
   getPhotos(queryParams?: Map<string, string>): Observable<Photo[]> {
@@ -35,7 +31,7 @@ addPhotoIdsToAlbum(albumId: number, ids: any): Observable<any> {
         httpParams = httpParams.append(k, v);
       });
     }
-    return this.httpClient.get<Photo[]>(environment.routes.photo, {params: httpParams});
+    return this.httpClient.get<Photo[]>(environment.routes.photo, { params: httpParams });
   }
 
   getPhotosByAlbumId(albumId: string): Observable<Photo[]> {
