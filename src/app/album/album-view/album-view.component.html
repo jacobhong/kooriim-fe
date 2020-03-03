@@ -10,17 +10,20 @@
           <mat-icon svgIcon="add_photo_to_album" aria-hidden="false" aria-label="add_photo_to_album" class="nav-icon">
           </mat-icon>
         </div>
-        <mat-card-title>
+        <mat-card-title class="card-title">
           <a [routerLink]="['/photo-gallery']" [queryParams]="{albumId:album.id}" queryParamsHandling="merge">
-            <h6 class="truncate-card-title center-content"><b>{{album.title}}</b></h6>
+            <h6 class="center-content"><b>{{album.title}}</b></h6>
           </a>
         </mat-card-title>
-        <div class="pointer" style="padding-left: 15px;" (click)="createAlbum(album)">
+        <div class="pointer" (click)="createAlbum(album)">
           <mat-icon svgIcon="edit" aria-hidden="false" aria-label="edit" class="nav-icon">
           </mat-icon>
         </div>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-subtitle class="card-subtitle center-content">
+        {{album.description}}
+      </mat-card-subtitle>
+      <mat-card-content class="card-content">
         <div *ngFor="let photo of album.previewPhotos;let j = index" class="center-content">
           <img class="img-fluid" style="width:60px; height:auto" [src]="photo.base64ThumbnailPhoto">
         </div>
@@ -31,9 +34,6 @@
           <img class="img-fluid" style="width:45px; height:auto" [src]="'/assets/album-preview.png'">
         </div>
       </mat-card-content>
-      <mat-card-subtitle class="truncate-card-description" style="padding-top: 15px">
-        {{album.description}}
-      </mat-card-subtitle>
     </mat-card>
   </div>
 </div>

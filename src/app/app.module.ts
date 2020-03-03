@@ -29,6 +29,9 @@ import { LoginComponent } from './login/login.component';
 import { KeycloakService } from './shared/keycloak/keycloak.service';
 import { HomeComponent } from './home/home.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InfiniteScrollingComponent } from './shared/infinite-scroll/infinite-scroll.component';
+
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: environment.routes.fileUpload,
   maxFilesize: 50,
@@ -51,6 +54,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     PhotoModalComponent,
     AlbumCreateModalComponent,
     AlbumViewComponent,
+    InfiniteScrollingComponent,
     LoginComponent,
     HomeComponent,
     SpinnerComponent,
@@ -66,11 +70,13 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     NgbModule,
     MatCheckboxModule,
     MatIconModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    InfiniteScrollModule
   ],
   providers:
     [
       SpinnerComponent,
+      InfiniteScrollingComponent,
       {
         provide: DROPZONE_CONFIG,
         useValue: DEFAULT_DROPZONE_CONFIG

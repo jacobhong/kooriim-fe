@@ -34,9 +34,9 @@ export class PhotoServiceComponent {
     return this.httpClient.get<Photo[]>(environment.routes.photo, { params: httpParams });
   }
 
-  getPhotosByAlbumId(albumId: string): Observable<Photo[]> {
-    return this.httpClient.get<Photo[]>(environment.routes.photo, { params: new HttpParams().set('albumId', albumId).append('thumbnail', 'true') });
-  }
+  // getPhotosByAlbumId(albumId: string): Observable<Photo[]> {
+  //   return this.httpClient.get<Photo[]>(environment.routes.photo, { params: new HttpParams().set('albumId', albumId).append('thumbnail', 'true') });
+  // }
 
   deletePhoto(id: number): Observable<any> {
     return this.httpClient.delete<any>(environment.routes.photo + '/' + id);

@@ -3,11 +3,12 @@ import { AlbumCreateModalComponent } from '../../album/album-create-modal/album-
 import { PhotoModalComponent } from '../photo-modal/photo-modal.component';
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { PhotoServiceComponent } from '../photo-service/photo-service.component';
-import { Photo } from '../../shared/model/model';
+import { Photo, Pageable } from '../../shared/model/model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Platform } from '@angular/cdk/platform';
 import { AlbumServiceComponent } from 'src/app/album/album-service/album-service.component';
+import { InfiniteScrollingComponent } from 'src/app/shared/infinite-scroll/infinite-scroll.component';
 
 
 @Component({
@@ -16,16 +17,18 @@ import { AlbumServiceComponent } from 'src/app/album/album-service/album-service
   styleUrls: ['./photo-gallery.component.scss']
 })
 export class PhotoGalleryComponent implements OnInit {
+  @ViewChild(InfiniteScrollingComponent, null) infiniteScroll: InfiniteScrollingComponent;
   albumTitle: string;
   albumId: number;
   photos: Photo[];
-  photosInAlbum: Photo[];
+  photosInAlbum: number[];
   photosCache: {};
   isEditMode: boolean;
-  isAlbumMode: boolean;
+  addAlbumMode: boolean;
   isSmallScreen: boolean;
   loading = false;
-
+  pageable: Pageable;
+  queryParams: Map<string, string>;
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.isSmallScreen = event.target.innerWidth <= 700 ? true : false;
@@ -40,60 +43,80 @@ export class PhotoGalleryComponent implements OnInit {
   ) {
     this.albumTitle = '';
     this.isEditMode = false;
-    this.isAlbumMode = false;
+    this.addAlbumMode = false;
+    this.photosInAlbum = [];
     this.isSmallScreen = window.innerWidth <= 700 ? true : false;
+    this.pageable = new Pageable();
+    this.queryParams = new Map<string, string>();
+
   }
 
   ngOnInit() {
+    console.log('||||||||||||||');
+    this.loading = true;
+    this.pageable.size = 10;
+    this.pageable.page = 0;
+    if (this.isSmallScreen) {
+      this.queryParams.set('srcImage', 'true');
+    } else {
+      this.queryParams.set('thumbnail', 'true');
+    }
+    this.queryParams.set('size', this.pageable.size + '');
+    this.queryParams.set('page', this.pageable.page + '');
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       if (params.title) {
-        console.log(params.title);
         this.albumTitle = params.title;
       }
-      this.albumId = params.albumId;
-      console.log('album fucking id');
-      console.log(this.albumId);
-      if (params && params.albumId && !params.isAlbumMode) {
-        console.log('FUCK');
-        console.log('albumid:' + this.albumId);
-        this.photoService.getPhotosByAlbumId(params.albumId)
-          .subscribe(result => {
-            this.photos = result;
-          });
-      } else {
-        this.loading = true;
-        const photosInAlbum = [];
-        if (params.isAlbumMode) {
-          console.log('edit true');
-          this.isAlbumMode = !this.isAlbumMode;
-          this.photoService.getPhotosByAlbumId(params.albumId)
-            .subscribe(result => {
-              result.forEach(p => {
-                photosInAlbum.push(p.id);
-              });
-            });
-        }
-        const queryParams = new Map<string, string>();
-        if (this.isSmallScreen) {
-          queryParams.set('srcImage', 'true');
-        } else {
-          queryParams.set('thumbnail', 'true');
-        }
-        this.photoService
-          .getPhotos(queryParams)
-          .subscribe(result => {
-            this.photos = result;
-            if (photosInAlbum.length > 0) {
-              this.photos.forEach(p => {
-                if (photosInAlbum.indexOf(p.id) !== -1) {
-                  p.selected = true;
-                }
-              });
-            }
-          }, () => { this.loading = false; }, () => { this.loading = false; });
+      if (params.albumId) {
+        this.albumId = params.albumId;
       }
+      if (params && params.albumId && !params.addAlbumMode) {
+        console.log('not album modee');
+        this.queryParams.set('albumId', params.albumId);
+        this.getPhotos();
+      } else {
+        if (params.addAlbumMode) {
+          console.log('album mode');
+          console.log(this.queryParams);;
+          this.getPhotosInAlbum();
+        }
+        this.queryParams.delete('albumId');
+        this.getPhotos();
+      }
+      this.infiniteScroll.scrolled.subscribe(result => {
+        this.onScroll();
+      });
     });
+  }
+
+  getPhotos() {
+    this.photoService.getPhotos(this.queryParams)
+      .subscribe(result => {
+        this.photos = result;
+        if (this.addAlbumMode) {
+          if (this.photosInAlbum.length > 0) {
+            this.photos.forEach(p => {
+              if (this.photosInAlbum.indexOf(p.id) !== -1) {
+                p.selected = true;
+              }
+            });
+          }
+        }
+      }, () => { this.loading = false; }, () => { this.loading = false; })
+  }
+
+  /**
+   * get photos already in album
+   */
+  getPhotosInAlbum() {
+    this.addAlbumMode = true;
+    this.queryParams.set('albumId', this.albumId + '');
+    this.photoService.getPhotos(this.queryParams)
+      .subscribe(result => {
+        result.forEach(p => {
+          this.photosInAlbum.push(p.id);
+        });
+      }, () => { this.loading = false; }, () => { this.loading = false; });
   }
 
   onEdit() {
@@ -108,7 +131,7 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   openModal(photo: Photo, index: number) {
-    if (!this.isSmallScreen && !this.isAlbumMode) {
+    if (!this.isSmallScreen && !this.addAlbumMode) {
       this.loading = true;
       this.photoService
         .getPhotoById(photo.id)
@@ -157,5 +180,22 @@ export class PhotoGalleryComponent implements OnInit {
     modalRef.componentInstance.cacheUpdated.subscribe(cache => {
       this.photosCache = cache;
     });
+  }
+
+  onScroll() {
+    this.pageable.page++;
+    this.queryParams.set('page', this.pageable.page + '');
+    this.photoService
+      .getPhotos(this.queryParams)
+      .subscribe(scrollResult => {
+        this.photos.push.apply(this.photos, scrollResult);
+        if (this.photosInAlbum.length > 0) {
+          this.photos.forEach(p => {
+            if (this.photosInAlbum.indexOf(p.id) !== -1) {
+              p.selected = true;
+            }
+          });
+        }
+      }, () => { this.loading = false; }, () => { this.loading = false; });
   }
 }

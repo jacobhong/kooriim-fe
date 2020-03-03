@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AlbumServiceComponent {
   constructor(private httpClient: HttpClient) { }
-  
+
   createAlbum(album: Album): Observable<any> {
     return this.httpClient
       .post<any[]>(environment.routes.albums, album)

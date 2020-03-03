@@ -42,14 +42,14 @@ body {
 }
 
 .truncate-card-description{
-  width: 150px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 10px !important;
+  white-space: nowrap !important;;
+  overflow: hidden !important;;
+  text-overflow: ellipsis !important;;
 }
 .truncate-card-title{
-  width: 120px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 120px !important;;
+  white-space: nowrap !important;;
+  overflow: hidden !important;;
+  text-overflow: ellipsis !important;;
 }

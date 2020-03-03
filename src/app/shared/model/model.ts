@@ -23,3 +23,9 @@ export class Album {
     created: Date;
     updated: Date;
 }
+
+export class Pageable {
+    size: number;
+    page: number;
+    //sort
+}

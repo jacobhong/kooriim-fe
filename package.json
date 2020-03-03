@@ -32,6 +32,7 @@
     "jquery": "~3.4.1",
     "keycloak-js": "~8.0.2",
     "ngx-dropzone-wrapper": "~8.0.0",
+    "ngx-infinite-scroll": "^8.0.1",
     "tslib": "~1.10.0",
     "zone.js": "~0.9.1"
   },

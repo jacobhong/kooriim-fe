@@ -41,7 +41,7 @@ export class AlbumViewComponent implements OnInit {
 
   addPhotoToAlbum(id: string, albumTitle: string) {
     console.log('adding' + JSON.stringify(this.albums[id]));
-    this.router.navigate(['photo-gallery'], { queryParams: { albumId: this.albums[id].id, isAlbumMode: true, title: albumTitle } });
+    this.router.navigate(['photo-gallery'], { queryParams: { albumId: this.albums[id].id, addAlbumMode: true, title: albumTitle } });
   }
 
   createAlbum(album?: Album) {

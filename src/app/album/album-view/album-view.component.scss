@@ -1,11 +1,19 @@
 .card {
   border-style: outset;
   border-radius: 20px;
-  min-width: 260px;
-  min-height: 240px;
-  max-width: 260px;
+  width: 300px;
+  height: 300px;
 }
-
+.card-title {
+  width: 170px;
+  height: 38px;
+}
+.card-subtitle {
+  width: 300px;
+}
+.card-content {
+  height: 150px;
+}
 .card-row {
-  padding: .5%;
+  padding: 0.5%;
 }
