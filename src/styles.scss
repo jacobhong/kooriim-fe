@@ -41,6 +41,13 @@ body {
   transform: translateX(-50%) translateY(-50%);
 }
 
+.center-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
 .truncate-card-description{
   width: 10px !important;
   white-space: nowrap !important;;
