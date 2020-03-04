@@ -84,6 +84,7 @@ export class PhotoGalleryComponent implements OnInit {
         this.getPhotos();
       }
       this.infiniteScroll.scrolled.subscribe(result => {
+        this.loading = true;
         this.onScroll();
       });
     });
