@@ -156,6 +156,11 @@ export class PhotoGalleryComponent implements OnInit {
     console.log('submitting');
   }
 
+  makePublic() {
+    const ids = this.photos.filter(photo => photo.selected).map(photo => photo.id);
+    
+  }
+
   delete() {
     const ids = this.photos.filter(photo => photo.selected).map(photo => photo.id);
     console.log(ids);
