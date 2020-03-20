@@ -24,14 +24,16 @@
         {{album.description}}
       </mat-card-subtitle>
       <mat-card-content class="card-content">
-        <div *ngFor="let photo of album.previewPhotos;let j = index" class="center-content">
-          <img class="img-fluid" style="width:60px; height:auto" [src]="photo.base64ThumbnailPhoto">
-        </div>
-        <div *ngIf="album.previewPhotos.length < 1" class="center-content">
-          <img class="img-fluid" style="width:45px; height:auto" [src]="'/assets/album-preview.png'">
-        </div>
-        <div *ngIf="album.previewPhotos.length <= 1" class="center-content">
-          <img class="img-fluid" style="width:45px; height:auto" [src]="'/assets/album-preview.png'">
+        <div class="row">
+          <div *ngFor="let photo of album.previewPhotos;let j = index" class="col-md-6 center-content">
+            <img class="img-fluid" style="width:auto; height:auto" [src]="photo.base64ThumbnailPhoto">
+          </div>
+          <div *ngIf="album.previewPhotos.length < 1" class="col-md-6 center-content">
+            <img class="img-fluid" style="width:80px; height:auto" [src]="'/assets/album-preview.png'">
+          </div>
+          <div *ngIf="album.previewPhotos.length <= 1" class="col-md-6 center-content">
+            <img class="img-fluid" style="width:80px; height:auto" [src]="'/assets/album-preview.png'">
+          </div>
         </div>
       </mat-card-content>
     </mat-card>

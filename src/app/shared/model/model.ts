@@ -9,6 +9,7 @@ export class Photo {
     created: Date;
     updated: Date;
     title: string;
+    isPublic: boolean;
     // type: string;
     selected: boolean;
     file: File;

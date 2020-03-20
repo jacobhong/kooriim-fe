@@ -31,10 +31,11 @@ import { HomeComponent } from './home/home.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { InfiniteScrollingComponent } from './shared/infinite-scroll/infinite-scroll.component';
+import { PublicGalleryComponent } from './photo/public-gallery/public-gallery.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: environment.routes.fileUpload,
-  maxFilesize: 50,
+  maxFilesize: 10,
   acceptedFiles: 'image/*',
   createImageThumbnails: true,
   headers: {
@@ -58,6 +59,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     LoginComponent,
     HomeComponent,
     SpinnerComponent,
+    PublicGalleryComponent,
   ],
   imports: [
     AppRoutingModule,

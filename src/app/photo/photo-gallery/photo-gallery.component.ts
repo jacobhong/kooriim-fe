@@ -26,6 +26,7 @@ export class PhotoGalleryComponent implements OnInit {
   isEditMode: boolean;
   addAlbumMode: boolean;
   isSmallScreen: boolean;
+  publicView: boolean;
   loading = false;
   pageable: Pageable;
   queryParams: Map<string, string>;
@@ -44,6 +45,7 @@ export class PhotoGalleryComponent implements OnInit {
     this.albumTitle = '';
     this.isEditMode = false;
     this.addAlbumMode = false;
+    this.publicView = false;
     this.photosInAlbum = [];
     this.isSmallScreen = window.innerWidth <= 700 ? true : false;
     this.pageable = new Pageable();
@@ -64,6 +66,10 @@ export class PhotoGalleryComponent implements OnInit {
     this.queryParams.set('size', this.pageable.size + '');
     this.queryParams.set('page', this.pageable.page + '');
     this.route.queryParams.subscribe(params => {
+      if (params.publicView) {
+        this.publicView = true;
+        this.queryParams.set('publicView', 'true');
+      }
       if (params.title) {
         this.albumTitle = params.title;
       }

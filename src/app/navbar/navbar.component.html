@@ -35,6 +35,14 @@
           </mat-icon>
         </a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/photo-gallery']" [queryParams]="{publicView:true}" queryParamsHandling="merge">
+          <!-- <mat-icon svgIcon="photo_library" aria-hidden="false" aria-label="photo_library" class="nav-icon">
+          </mat-icon> -->
+          public photos
+        </a>
+      </li>
       <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown
