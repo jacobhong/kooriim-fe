@@ -10,7 +10,6 @@ export class Photo {
     updated: Date;
     title: string;
     isPublic: boolean;
-    // type: string;
     selected: boolean;
     file: File;
 }
@@ -28,5 +27,4 @@ export class Album {
 export class Pageable {
     size: number;
     page: number;
-    //sort
 }

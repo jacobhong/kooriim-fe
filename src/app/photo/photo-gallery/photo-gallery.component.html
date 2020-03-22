@@ -3,9 +3,11 @@
   <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode || addAlbumMode" (click)="selectAll()">select all</button>&nbsp;
   <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode || addAlbumMode" (click)="deselectAll()">deselect all</button>&nbsp;
   <button class="button-aliceblue" mat-stroked-button *ngIf="addAlbumMode" (click)="addPhotoIdsToAlbum()">add to album</button>
-  <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode && !addAlbumMode" (click)="makePublic()">make public</button>
+  <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode && !addAlbumMode" (click)="makePublic()">make public</button>&nbsp;
+  <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode && !addAlbumMode" (click)="hide()">hide from public</button>&nbsp;
   <button class="button-aliceblue border-danger" mat-stroked-button *ngIf="isEditMode && !addAlbumMode" (click)="delete()">delete</button>
 </div>
+
 <div class="center-content">
   {{albumTitle}}
 </div>

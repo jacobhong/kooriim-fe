@@ -12,8 +12,6 @@ export class PhotoServiceComponent {
 
   constructor(private httpClient: HttpClient) { }
 
-
-
   addPhotoIdsToAlbum(albumId: number, ids: any): Observable<any> {
     return this.httpClient
       .patch<any[]>(environment.routes.albums + '/' + albumId, ids)
@@ -44,5 +42,9 @@ export class PhotoServiceComponent {
 
   deletePhotos(ids: any): Observable<any> {
     return this.httpClient.delete<any>(environment.routes.photo, { params: new HttpParams().set('photoIds', ids) });
+  }
+
+  patchPhotos(photos: Photo[]): Observable<any> {
+    return this.httpClient.patch<any>(environment.routes.photo, photos);
   }
 }

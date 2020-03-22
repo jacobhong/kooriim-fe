@@ -30,6 +30,7 @@ export class PhotoGalleryComponent implements OnInit {
   loading = false;
   pageable: Pageable;
   queryParams: Map<string, string>;
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.isSmallScreen = event.target.innerWidth <= 700 ? true : false;
@@ -54,9 +55,8 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('||||||||||||||');
     this.loading = true;
-    this.pageable.size = 10;
+    this.pageable.size = 20;
     this.pageable.page = 0;
     if (this.isSmallScreen) {
       this.queryParams.set('srcImage', 'true');
@@ -77,13 +77,10 @@ export class PhotoGalleryComponent implements OnInit {
         this.albumId = params.albumId;
       }
       if (params && params.albumId && !params.addAlbumMode) {
-        console.log('not album modee');
         this.queryParams.set('albumId', params.albumId);
         this.getPhotos();
       } else {
         if (params.addAlbumMode) {
-          console.log('album mode');
-          console.log(this.queryParams);;
           this.getPhotosInAlbum();
         }
         this.queryParams.delete('albumId');
@@ -128,6 +125,9 @@ export class PhotoGalleryComponent implements OnInit {
 
   onEdit() {
     this.isEditMode = !this.isEditMode;
+    if (!this.addAlbumMode) {
+      this.photos.filter(p => p.isPublic).map(p => p.selected = true);
+    }
   }
 
   addPhotoIdsToAlbum() {
@@ -157,8 +157,24 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   makePublic() {
-    const ids = this.photos.filter(photo => photo.selected).map(photo => photo.id);
-    
+    const photos = this.photos.filter(photo => photo.selected);
+    photos.forEach(photo => {
+      photo.isPublic = true;
+    });
+    this.photoService.patchPhotos(photos).subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  hide() {
+    const photos = this.photos.filter(photo => photo.selected);
+    photos.forEach(photo => {
+      photo.isPublic = false;
+    });
+    this.photoService.patchPhotos(photos).subscribe(result => {
+      console.log(result);
+      this.photos.filter(photo => photo.selected).map(photo => photo.selected = false);
+    });
   }
 
   delete() {

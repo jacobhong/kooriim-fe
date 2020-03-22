@@ -2,6 +2,7 @@ import { KeycloakService } from '../shared/keycloak/keycloak.service';
 import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class NavbarComponent implements OnInit {
   userName: string;
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private keycloak: KeycloakService) {
+  constructor(iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
+    private keycloak: KeycloakService,
+    private router: Router) {
     this.userName = '';
     iconRegistry.addSvgIcon(
       'home',
@@ -32,5 +36,10 @@ export class NavbarComponent implements OnInit {
 
   onClick() {
     this.keycloak.keycloak.logout();
+  }
+
+  navigatePublicPhotos() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate(['photo-gallery'], { queryParams: { publicView: true } }));
   }
 }

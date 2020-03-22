@@ -37,10 +37,10 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/photo-gallery']" [queryParams]="{publicView:true}" queryParamsHandling="merge">
+        <a class="nav-link pointer" (click)="navigatePublicPhotos()">
           <!-- <mat-icon svgIcon="photo_library" aria-hidden="false" aria-label="photo_library" class="nav-icon">
           </mat-icon> -->
-          public photos
+          my public photos
         </a>
       </li>
       <!-- <li class="nav-item dropdown">

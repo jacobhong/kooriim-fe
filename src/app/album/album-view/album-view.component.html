@@ -11,7 +11,7 @@
           </mat-icon>
         </div>
         <mat-card-title class="card-title">
-          <a [routerLink]="['/photo-gallery']" [queryParams]="{albumId:album.id}" queryParamsHandling="merge">
+          <a [routerLink]="['/photo-gallery']" [queryParams]="{albumId:album.id, title:album.title}" queryParamsHandling="merge">
             <h6 class="center-content"><b>{{album.title}}</b></h6>
           </a>
         </mat-card-title>
