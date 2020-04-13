@@ -16,14 +16,18 @@ export class Interceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let apiReq;
-        let r = new HttpHeaders();
-        r = r.append('Authorization', 'Bearer ' + this.keycloak.getToken() || '');
-        if (req.url.indexOf('auth') !== -1) {
-            apiReq = req.clone({ headers: r, url: `${environment.routes.auth}/${req.url}` });
-        } else if (req.url.indexOf('assets') !== -1) {
-             apiReq = req.clone({ headers: r, url: `${environment.routes.assets}/${req.url}` });
+        if (req.url.indexOf('public-gallery') !== -1) {
+            apiReq = req.clone({ url: `${environment.routes.baseUrl}/${req.url}` });
         } else {
-            apiReq = req.clone({ headers: r, url: `${environment.routes.baseUrl}/${req.url}` });
+            let r = new HttpHeaders();
+            r = r.append('Authorization', 'Bearer ' + this.keycloak.getToken() || '');
+            if (req.url.indexOf('auth') !== -1) {
+                apiReq = req.clone({ headers: r, url: `${environment.routes.auth}/${req.url}` });
+            } else if (req.url.indexOf('assets') !== -1) {
+                apiReq = req.clone({ headers: r, url: `${environment.routes.assets}/${req.url}` });
+            } else {
+                apiReq = req.clone({ headers: r, url: `${environment.routes.baseUrl}/${req.url}` });
+            }
         }
         return next.handle(apiReq).pipe(tap(
         ), finalize(() => {

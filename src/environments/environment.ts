@@ -8,6 +8,7 @@ export const environment = {
         baseUrl: 'http://192.168.1.206.xip.io:4200',
         baseContext: '',
         photo: 'photo-album-service/photos',
+        publicGallery: 'photo-album-service/public-gallery',
         login: 'photo-album-service/login',
         keycloak: 'http://192.168.1.206.xip.io:8081/auth',
         home: 'http://192.168.1.206.xip.io:4200/home'

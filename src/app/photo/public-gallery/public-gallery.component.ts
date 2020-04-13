@@ -9,7 +9,8 @@ export class PublicGalleryComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {    console.log('aa');
+
   }
 
 }

@@ -40,6 +40,6 @@ export class NavbarComponent implements OnInit {
 
   navigatePublicPhotos() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(['photo-gallery'], { queryParams: { publicView: true } }));
+      this.router.navigate(['public-gallery']));
   }
 }

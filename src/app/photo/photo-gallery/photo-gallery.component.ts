@@ -1,7 +1,7 @@
 import { SpinnerComponent } from './../../shared/spinner/spinner.component';
 import { AlbumCreateModalComponent } from '../../album/album-create-modal/album-create-modal.component';
 import { PhotoModalComponent } from '../photo-modal/photo-modal.component';
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
 import { PhotoServiceComponent } from '../photo-service/photo-service.component';
 import { Photo, Pageable } from '../../shared/model/model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,6 +18,8 @@ import { InfiniteScrollingComponent } from 'src/app/shared/infinite-scroll/infin
 })
 export class PhotoGalleryComponent implements OnInit {
   @ViewChild(InfiniteScrollingComponent, null) infiniteScroll: InfiniteScrollingComponent;
+  // @Input()
+  // publicView: boolean;
   albumTitle: string;
   albumId: number;
   photos: Photo[];
@@ -26,7 +28,6 @@ export class PhotoGalleryComponent implements OnInit {
   isEditMode: boolean;
   addAlbumMode: boolean;
   isSmallScreen: boolean;
-  publicView: boolean;
   loading = false;
   pageable: Pageable;
   queryParams: Map<string, string>;
@@ -46,7 +47,6 @@ export class PhotoGalleryComponent implements OnInit {
     this.albumTitle = '';
     this.isEditMode = false;
     this.addAlbumMode = false;
-    this.publicView = false;
     this.photosInAlbum = [];
     this.isSmallScreen = window.innerWidth <= 700 ? true : false;
     this.pageable = new Pageable();
@@ -58,32 +58,33 @@ export class PhotoGalleryComponent implements OnInit {
     this.loading = true;
     this.pageable.size = 20;
     this.pageable.page = 0;
+    this.queryParams.set('size', this.pageable.size + '');
+    this.queryParams.set('page', this.pageable.page + '');
     if (this.isSmallScreen) {
       this.queryParams.set('srcImage', 'true');
     } else {
       this.queryParams.set('thumbnail', 'true');
     }
-    this.queryParams.set('size', this.pageable.size + '');
-    this.queryParams.set('page', this.pageable.page + '');
+    // if (this.publicView) {
+    //   this.queryParams.set('publicView', 'true');
+    //   this.getPublicGallery();
+    //   return;
+    // }
     this.route.queryParams.subscribe(params => {
-      if (params.publicView) {
-        this.publicView = true;
-        this.queryParams.set('publicView', 'true');
-      }
       if (params.title) {
         this.albumTitle = params.title;
       }
       if (params.albumId) {
         this.albumId = params.albumId;
-      }
-      if (params && params.albumId && !params.addAlbumMode) {
         this.queryParams.set('albumId', params.albumId);
-        this.getPhotos();
-      } else {
         if (params.addAlbumMode) {
+          console.log('get album');
           this.getPhotosInAlbum();
+        } else {
+          // this.queryParams.delete('albumId');
+          this.getPhotos();
         }
-        this.queryParams.delete('albumId');
+      } else {
         this.getPhotos();
       }
       this.infiniteScroll.scrolled.subscribe(result => {
@@ -98,6 +99,7 @@ export class PhotoGalleryComponent implements OnInit {
       .subscribe(result => {
         this.photos = result;
         if (this.addAlbumMode) {
+          console.log('is album');
           if (this.photosInAlbum.length > 0) {
             this.photos.forEach(p => {
               if (this.photosInAlbum.indexOf(p.id) !== -1) {
@@ -108,6 +110,13 @@ export class PhotoGalleryComponent implements OnInit {
         }
       }, () => { this.loading = false; }, () => { this.loading = false; })
   }
+
+  // getPublicGallery() {
+  //   this.photoService.getPublicGallery(this.queryParams)
+  //     .subscribe(result => {
+  //       this.photos = result;
+  //     }, () => { this.loading = false; }, () => { this.loading = false; })
+  // }
 
   /**
    * get photos already in album
@@ -120,14 +129,16 @@ export class PhotoGalleryComponent implements OnInit {
         result.forEach(p => {
           this.photosInAlbum.push(p.id);
         });
+        this.queryParams.delete('albumId');
+        this.getPhotos();
       }, () => { this.loading = false; }, () => { this.loading = false; });
   }
 
   onEdit() {
     this.isEditMode = !this.isEditMode;
-    if (!this.addAlbumMode) {
-      this.photos.filter(p => p.isPublic).map(p => p.selected = true);
-    }
+    // if (!this.addAlbumMode) {
+    //   this.photos.filter(p => p.isPublic).map(p => p.selected = true);
+    // }
   }
 
   addPhotoIdsToAlbum() {
@@ -156,26 +167,28 @@ export class PhotoGalleryComponent implements OnInit {
     console.log('submitting');
   }
 
-  makePublic() {
-    const photos = this.photos.filter(photo => photo.selected);
-    photos.forEach(photo => {
-      photo.isPublic = true;
-    });
-    this.photoService.patchPhotos(photos).subscribe(result => {
-      console.log(result);
-    });
-  }
+  // makePublic() {
+  //   this.loading = true;
+  //   const photos = this.photos.filter(photo => photo.selected);
+  //   photos.forEach(photo => {
+  //     photo.isPublic = true;
+  //   });
+  //   this.photoService.patchPhotos(photos).subscribe(result => {
+  //     console.log(result);
+  //   }, () => { this.loading = false; }, () => { this.loading = false; });
+  // }
 
-  hide() {
-    const photos = this.photos.filter(photo => photo.selected);
-    photos.forEach(photo => {
-      photo.isPublic = false;
-    });
-    this.photoService.patchPhotos(photos).subscribe(result => {
-      console.log(result);
-      this.photos.filter(photo => photo.selected).map(photo => photo.selected = false);
-    });
-  }
+  // hide() {
+  //   this.loading = true;
+  //   const photos = this.photos.filter(photo => photo.selected);
+  //   photos.forEach(photo => {
+  //     photo.isPublic = false;
+  //   });
+  //   this.photoService.patchPhotos(photos).subscribe(result => {
+  //     console.log(result);
+  //     this.photos.filter(photo => photo.selected).map(photo => photo.selected = false);
+  //   }, () => { this.loading = false; }, () => { this.loading = false; });
+  // }
 
   delete() {
     const ids = this.photos.filter(photo => photo.selected).map(photo => photo.id);
