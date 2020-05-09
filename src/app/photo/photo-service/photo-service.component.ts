@@ -32,15 +32,15 @@ export class PhotoServiceComponent {
     return this.httpClient.get<Photo[]>(environment.routes.photo, { params: httpParams });
   }
 
-  getPublicGallery(queryParams?: Map<string, string>): Observable<Photo[]> {
-    let httpParams = new HttpParams();
-    if (queryParams) {
-      queryParams.forEach((v, k) => {
-        httpParams = httpParams.append(k, v);
-      });
-    }
-    return this.httpClient.get<Photo[]>(environment.routes.publicGallery, { params: httpParams });
-  }
+  // getPublicGallery(queryParams?: Map<string, string>): Observable<Photo[]> {
+  //   let httpParams = new HttpParams();
+  //   if (queryParams) {
+  //     queryParams.forEach((v, k) => {
+  //       httpParams = httpParams.append(k, v);
+  //     });
+  //   }
+  //   return this.httpClient.get<Photo[]>(environment.routes.publicGallery, { params: httpParams });
+  // }
 
   // getPhotosByAlbumId(albumId: string): Observable<Photo[]> {
   //   return this.httpClient.get<Photo[]>(environment.routes.photo, { params: new HttpParams().set('albumId', albumId).append('thumbnail', 'true') });
