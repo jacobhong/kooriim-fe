@@ -209,7 +209,7 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   modalSubscriptions(result: string, index: number) {
-    const modalRef = this.modalService.open(PhotoModalComponent, { size: 'xl', centered: true, windowClass: 'dark-modal' });
+    const modalRef = this.modalService.open(PhotoModalComponent, { size: 'lg', centered: true, windowClass: 'photo-modal' });
     modalRef.componentInstance.imgSrc = result;
     modalRef.componentInstance.index = index;
     modalRef.componentInstance.numOfImages = this.photos.length;

@@ -23,3 +23,7 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
 }
+
+.photo-modal {
+  max-width: 768px;
+}
