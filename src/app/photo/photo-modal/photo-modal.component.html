@@ -1,13 +1,13 @@
 <div class="row noselect">
   <div class="col-1 d-flex align-items-center" (click)="onPrevious()" [ngClass]="{'pointer': showPrevious===true}">
-    <mat-icon *ngIf="showPrevious" svgIcon="navigate_before" aria-hidden="false"
+    <mat-icon style="padding-left: 25%" *ngIf="showPrevious" svgIcon="navigate_before" aria-hidden="false"
       aria-label="Example thumbs up SVG icon"></mat-icon>
   </div>
   <div class="col-10 center-content">
     <img class="img-fluid" [src]="imgSrc" style="object-fit:contain;" alt="could not load">
   </div>
   <div class="col-1 d-flex align-items-center" (click)="onNext()" [ngClass]="{'pointer': showNext===true}">
-    <mat-icon *ngIf="showNext" svgIcon="navigate_next" aria-hidden="false"
+    <mat-icon style="padding-left: 25%" *ngIf="showNext" svgIcon="navigate_next" aria-hidden="false"
       aria-label="Example thumbs up SVG icon">
     </mat-icon>
   </div>
