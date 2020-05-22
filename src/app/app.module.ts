@@ -36,6 +36,7 @@ import { PublicGalleryComponent } from './photo/public-gallery/public-gallery.co
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: environment.routes.fileUpload,
   maxFilesize: 50,
+  timeout: 100000,
   acceptedFiles: 'image/*',
   createImageThumbnails: true,
   headers: {
