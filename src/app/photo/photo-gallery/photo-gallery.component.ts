@@ -208,6 +208,10 @@ export class PhotoGalleryComponent implements OnInit {
     this.photos.forEach(p => p.selected = false);
   }
 
+  sort() {
+    this.photos.reverse();
+  }
+
   modalSubscriptions(result: string, index: number) {
     const modalRef = this.modalService.open(PhotoModalComponent, { size: 'lg', centered: true, windowClass: 'photo-modal' });
     modalRef.componentInstance.imgSrc = result;
