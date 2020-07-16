@@ -1,6 +1,6 @@
 import { Photo, Album } from '../../shared/model/model';
 import { Component, OnInit, Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -51,10 +51,20 @@ export class PhotoServiceComponent {
   }
 
   deletePhotos(ids: any): Observable<any> {
-    return this.httpClient.delete<any>(environment.routes.photo, { params: new HttpParams().set('photoIds', ids) });
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: {ids: ids}};
+    return this.httpClient.delete<any>(environment.routes.photo, options);
   }
 
   patchPhotos(photos: Photo[]): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: {photos: photos}};
     return this.httpClient.patch<any>(environment.routes.photo, photos);
   }
 }
