@@ -19,7 +19,7 @@
     <mat-checkbox [checked]=" photos[i].selected" *ngIf="isEditMode || addAlbumMode" (change)="onSelect(i)">
     </mat-checkbox>
     <img class="img-fluid img-thumbnail gallery-image"
-      [ngStyle]="{height: isEditMode || addAlbumMode ? '250px' : '270px'  }"
+      [ngStyle]="{height: isEditMode || addAlbumMode ? '240px' : '240px'  }"
       [src]="photo.base64ThumbnailPhoto ? photo.base64ThumbnailPhoto : photo.base64SrcPhoto" alt="could not load"
       (click)="openModal(photo, i)">
   </div>
