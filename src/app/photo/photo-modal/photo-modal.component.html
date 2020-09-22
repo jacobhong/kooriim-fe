@@ -1,19 +1,39 @@
-<div class="row noselect">
-  <div class="col-1 d-flex align-items-center" (click)="onPrevious()" [ngClass]="{'pointer': showPrevious===true}">
-    <mat-icon style="padding-left: 25%" *ngIf="showPrevious" svgIcon="navigate_before" aria-hidden="false"
-      aria-label="Example thumbs up SVG icon"></mat-icon>
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm " style="background-color: rgb(230, 244, 244)">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link pointer" (click)="close()">
+          <mat-icon svgIcon="home" aria-hidden="false" aria-label="home" class="nav-icon">
+          </mat-icon>
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link pointer" (click)="onDelete()">
+          <mat-icon class="nav-icon" svgIcon="delete_sweep" aria-hidden="false"
+            aria-label="Example thumbs up SVG icon">
+          </mat-icon>
+        </a>
+      </li>
+    </ul>
   </div>
-  <div class="col-10 center-content">
-    <img class="img-fluid" [src]="imgSrc" style="object-fit:contain;" alt="could not load">
-  </div>
-  <div class="col-1 d-flex align-items-center" (click)="onNext()" [ngClass]="{'pointer': showNext===true}">
-    <mat-icon style="padding-left: 25%" *ngIf="showNext" svgIcon="navigate_next" aria-hidden="false"
-      aria-label="Example thumbs up SVG icon">
-    </mat-icon>
-  </div>
-</div>
-<div class="row pointer" (click)="onDelete()">
-  <mat-icon class="col text-center" svgIcon="delete_sweep" aria-hidden="false" aria-label="Example thumbs up SVG icon">
+  <form class="form-inline my-2 my-lg-0">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="onOriginalImage()">Original Image</button>
+  </form>
+</nav>
+<div class="overlay-container">
+  <mat-icon class="overlay-left" (click)="onPrevious()" [ngClass]="{'pointer': showPrevious===true}"
+    *ngIf="showPrevious" svgIcon="navigate_before" aria-hidden="false" aria-label="Example thumbs up SVG icon">
+  </mat-icon>
+  <img class="img-fluid w-100" [src]="imgSrc" alt="could not load">
+  <mat-icon class="overlay-right" (click)="onNext()" [ngClass]="{'pointer': showNext===true}" *ngIf="showNext"
+    svgIcon="navigate_next" aria-hidden="false" aria-label="Example thumbs up SVG icon">
   </mat-icon>
 </div>
 

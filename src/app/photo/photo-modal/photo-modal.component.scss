@@ -9,9 +9,8 @@
 }
 
 ::ng-deep .modal-dialog {
-  min-width: 95%;
+  min-width: 100%;
   height: auto;
-  // max-height: 85%;
 }
 
 .noselect {
@@ -24,6 +23,43 @@
                                   supported by Chrome, Opera and Firefox */
 }
 
-.photo-modal {
-  max-width: 768px;
+.overlay-container {
+  position: relative;
+}
+
+.overlay-left {
+  position: absolute;
+  top: 50%;
+  left: 2%;
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.nav-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.overlay-right {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.overlay-more {
+  position: absolute;
+  top: 1%;
+  right: 2%;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
 }

@@ -81,7 +81,7 @@ export class PhotoModalComponent implements OnInit {
         this.photos.splice(this.index, 1);
         delete this.photosCache[this.index];
         this.cacheUpdated.emit(this.photosCache);
-        this.closeModal.emit();
+        this.close();
       });
   }
 
@@ -90,4 +90,7 @@ export class PhotoModalComponent implements OnInit {
     this.showNext = this.index + 1 >= this.numOfImages ? false : true;
   }
 
+  close() {
+    this.closeModal.emit();
+  }
 }
