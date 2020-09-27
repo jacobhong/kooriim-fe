@@ -18,8 +18,8 @@ export class PhotoServiceComponent {
       .pipe(catchError(error => throwError(error)));
   }
 
-  getPhotoById(photoId: number): Observable<Photo> {
-    return this.httpClient.get<Photo>(environment.routes.photo + '/' + photoId, { params: new HttpParams().set('srcImage', 'true') });
+  getPhotoById(photoId: number, imageType: string): Observable<Photo> {
+    return this.httpClient.get<Photo>(environment.routes.photo + '/' + photoId, { params: new HttpParams().set(imageType, 'true') });
   }
 
   getPhotos(queryParams?: Map<string, string>): Observable<Photo[]> {
@@ -55,7 +55,8 @@ export class PhotoServiceComponent {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
-      body: {ids: ids}};
+      body: { ids: ids }
+    };
     return this.httpClient.delete<any>(environment.routes.photo, options);
   }
 
@@ -64,7 +65,8 @@ export class PhotoServiceComponent {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
-      body: {photos: photos}};
+      body: { photos: photos }
+    };
     return this.httpClient.patch<any>(environment.routes.photo, photos);
   }
 }

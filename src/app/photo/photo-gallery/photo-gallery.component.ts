@@ -61,7 +61,7 @@ export class PhotoGalleryComponent implements OnInit {
     this.queryParams.set('size', this.pageable.size + '');
     this.queryParams.set('page', this.pageable.page + '');
     if (this.isSmallScreen) {
-      this.queryParams.set('srcImage', 'true');
+      this.queryParams.set('compressedImage', 'true');
     } else {
       this.queryParams.set('thumbnail', 'true');
     }
@@ -152,9 +152,9 @@ export class PhotoGalleryComponent implements OnInit {
     if (!this.isSmallScreen && !this.addAlbumMode) {
       this.loading = true;
       this.photoService
-        .getPhotoById(photo.id)
+        .getPhotoById(photo.id, 'compressedImage')
         .subscribe(result => {
-          this.modalSubscriptions(result.base64SrcPhoto, index);
+          this.modalSubscriptions(result.base64CompressedImage, index);
         }, () => { this.loading = false; }, () => { this.loading = false; });
     }
   }

@@ -20,7 +20,7 @@
     </mat-checkbox>
     <img class="img-fluid img-thumbnail gallery-image"
       [ngStyle]="{height: isEditMode || addAlbumMode ? '240px' : '240px'  }"
-      [src]="photo.base64ThumbnailPhoto ? photo.base64ThumbnailPhoto : photo.base64SrcPhoto" alt="could not load"
+      [src]="photo.base64ThumbnailImage ? photo.base64ThumbnailImage : photo.base64CompressedImage" alt="could not load"
       (click)="openModal(photo, i)">
   </div>
 </div>

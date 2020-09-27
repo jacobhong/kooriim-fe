@@ -48,10 +48,10 @@ export class PhotoModalComponent implements OnInit {
     } else {
       this.loading = true;
       this.photoService
-        .getPhotoById(this.photos[this.index].id)
+        .getPhotoById(this.photos[this.index].id, 'compressedImage')
         .subscribe(photo => {
-          this.imgSrc = photo.base64SrcPhoto;
-          this.photosCache[this.index] = photo.base64SrcPhoto;
+          this.imgSrc = photo.base64CompressedImage;
+          this.photosCache[this.index] = photo.base64CompressedImage;
           this.cacheUpdated.emit(this.photosCache);
         }, () => { }, () => { this.loading = false; });
     }
@@ -65,13 +65,29 @@ export class PhotoModalComponent implements OnInit {
     } else {
       this.loading = true;
       this.photoService
-        .getPhotoById(this.photos[this.index].id)
+        .getPhotoById(this.photos[this.index].id, 'compressedImage')
         .subscribe(photo => {
-          this.imgSrc = photo.base64SrcPhoto;
-          this.photosCache[this.index] = photo.base64SrcPhoto;
+          this.imgSrc = photo.base64CompressedImage;
+          this.photosCache[this.index] = photo.base64CompressedImage;
           this.cacheUpdated.emit(this.photosCache);
         }, () => { }, () => { this.loading = false; });
     }
+  }
+
+  onOriginalImage() {
+    // this.loading = true;
+    this.photoService
+      .getPhotoById(this.photos[this.index].id, 'originalImage')
+      .subscribe(photo => {
+        // this.imgSrc = photo.base64OriginalImage;
+        // this.photosCache[this.index] = photo.base64OriginalImage;
+        // this.cacheUpdated.emit(this.photosCache);
+        const image = new Image();
+        image.src = photo.base64OriginalImage;
+        const w = window.open('about:blank', '_blank');
+        w.document.write(image.outerHTML);
+      }, () => { }, () => { this.loading = false; });
+
   }
 
   onDelete() {
@@ -83,6 +99,13 @@ export class PhotoModalComponent implements OnInit {
         this.cacheUpdated.emit(this.photosCache);
         this.close();
       });
+  }
+
+  updatePhotoDescription() {
+    this.photoService
+      .patchPhotos([this.photos[this.index]]).subscribe(result => {
+        console.log('patched photo' + result);
+      }, () => { this.loading = false; }, () => { this.loading = false; });
   }
 
   showButtons() {

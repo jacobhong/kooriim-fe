@@ -1,9 +1,11 @@
 export class Photo {
     id: number;
     albums: any[];
-    base64ThumbnailPhoto: string;
-    base64SrcPhoto: string;
-    filePath: string;
+    base64OriginalImage: string;
+    base64ThumbnailImage: string;
+    base64CompressedImage: string;
+    compressedImageFilePath: string;
+    originalImageFilePath: string;
     thumbnailFilePath: string;
     description: string;
     created: Date;

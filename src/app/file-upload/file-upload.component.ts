@@ -12,6 +12,10 @@ export class FileUploadComponent implements OnInit {
   constructor(private keyCloak: KeycloakService) {
 
   }
+
+  onAddedFile(event) {
+    console.log('added');
+  }
   onUploadSuccess(event) {
     console.log(event);
   }

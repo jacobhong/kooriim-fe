@@ -4,7 +4,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="max-width: 60%;">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link pointer" (click)="close()">
@@ -23,6 +23,10 @@
       </li>
     </ul>
   </div>
+  description: <input maxlength="50" [(ngModel)]="photos[index].description">
+  <button (click)="updatePhotoDescription()">save</button>
+  <span style="padding-right:1%;padding-left:1%;"><b>{{photos[index].title}}</b></span>
+
   <form class="form-inline my-2 my-lg-0">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="onOriginalImage()">Original Image</button>
   </form>
@@ -36,7 +40,6 @@
     svgIcon="navigate_next" aria-hidden="false" aria-label="Example thumbs up SVG icon">
   </mat-icon>
 </div>
-
 <div class="center-spinner">
   <app-spinner [loading]="loading"></app-spinner>
 </div>
