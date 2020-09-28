@@ -37,9 +37,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: environment.routes.fileUpload,
   maxFilesize: 50,
   timeout: 500000,
-  parallelUploads: 2,
   acceptedFiles: 'image/*',
-  createImageThumbnails: true,
   headers: {
     'Access-Control-Allow-Origin': environment.routes.baseUrl,
     'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
