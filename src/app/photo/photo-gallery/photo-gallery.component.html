@@ -13,6 +13,7 @@
 <div class="center-content">
   {{albumTitle}}
 </div>
+<span style="padding-left: 10%;size: 20px; color: #2d2d2d;"><b>Photos</b></span>
 <div class="row center-content">
   <div *ngFor="let photo of photos;let i = index" class="photo-gallery">
     <div style="text-align: center;">{{photo.created | date:'mediumDate'}}</div>
@@ -20,6 +21,7 @@
     </mat-checkbox>
     <img class="img-fluid img-thumbnail gallery-image"
       [ngStyle]="{height: isEditMode || addAlbumMode ? '240px' : '240px'  }"
+      style="border-radius: 10px; background-color: #c4c4c4;"
       [src]="photo.base64ThumbnailImage ? photo.base64ThumbnailImage : photo.base64CompressedImage" alt="could not load"
       (click)="openModal(photo, i)">
   </div>
