@@ -18,3 +18,68 @@ html {
 // .photo-modal {
 //   max-width: 768px;
 // }
+.opac {
+  color: black;
+  opacity: 0.5 !important;
+}
+
+.mat-icon {
+  width: 60px;
+  height: 60px;
+}
+
+::ng-deep .modal-dialog {
+  min-width: 100%;
+  height: auto;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
+
+.overlay-container {
+  position: relative;
+}
+
+.overlay-center {
+  position: absolute;
+  top: 42%;
+  left: 42%;
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.nav-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.overlay-right {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.overlay-more {
+  position: absolute;
+  top: 1%;
+  right: 2%;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}

@@ -9,7 +9,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Platform } from '@angular/cdk/platform';
 import { AlbumServiceComponent } from 'src/app/album/album-service/album-service.component';
 import { InfiniteScrollingComponent } from 'src/app/shared/infinite-scroll/infinite-scroll.component';
-
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-photo-gallery',
@@ -41,7 +42,10 @@ export class PhotoGalleryComponent implements OnInit {
     private albumService: AlbumServiceComponent,
     private photoService: PhotoServiceComponent,
     private modalService: NgbModal,
+    private sanitizer: DomSanitizer,
+    private iconRegistry: MatIconRegistry,
     private platform: Platform,
+
     private route: ActivatedRoute, private spinner: SpinnerComponent, private router: Router
   ) {
     this.albumTitle = '';
@@ -51,7 +55,9 @@ export class PhotoGalleryComponent implements OnInit {
     this.isSmallScreen = window.innerWidth <= 700 ? true : false;
     this.pageable = new Pageable();
     this.queryParams = new Map<string, string>();
-
+    iconRegistry.addSvgIcon(
+      'play_circle_outline',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/mat-icons/play_circle_outline-24px.svg'));
   }
 
   ngOnInit() {
@@ -151,11 +157,20 @@ export class PhotoGalleryComponent implements OnInit {
   openModal(photo: Photo, index: number) {
     if (!this.isSmallScreen && !this.addAlbumMode) {
       this.loading = true;
-      this.photoService
-        .getPhotoById(photo.id, 'compressedImage')
-        .subscribe(result => {
-          this.modalSubscriptions(result.base64CompressedImage, index);
-        }, () => { this.loading = false; }, () => { this.loading = false; });
+      if (photo.mediaType == 'photo') {
+        this.photoService
+          .getPhotoById(photo.id, 'compressedImage')
+          .subscribe(result => {
+            this.modalSubscriptions(result, index);
+          }, () => { this.loading = false; }, () => { this.loading = false; });
+      } else if (photo.mediaType == 'video') {
+        this.photoService.getVideoByTitle(photo.title, "").subscribe(result => {
+          let a = new Blob([result], { type: 'video/mp4' });
+          let url = URL.createObjectURL(a);
+          photo.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+          this.modalSubscriptions(photo, index);
+        }, () => { }, () => { this.loading = false; });
+      }
     }
   }
 
@@ -212,10 +227,15 @@ export class PhotoGalleryComponent implements OnInit {
     this.photos.reverse();
   }
 
-  modalSubscriptions(result: string, index: number) {
+  modalSubscriptions(result: Photo, index: number) {
     const modalRef = this.modalService.open(PhotoModalComponent, { size: 'lg', centered: true, windowClass: 'photo-modal' });
-    modalRef.componentInstance.imgSrc = result;
+    if (result.mediaType == 'photo') {
+      modalRef.componentInstance.imgSrc = result.base64CompressedImage;
+    } else {
+      modalRef.componentInstance.videoSrc = result.videoSrc;
+    }
     modalRef.componentInstance.index = index;
+    modalRef.componentInstance.mediaType = result.mediaType;
     modalRef.componentInstance.numOfImages = this.photos.length;
     modalRef.componentInstance.photos = this.photos;
     modalRef.componentInstance.photosCache = this.photosCache !== undefined ? this.photosCache : {};
@@ -242,5 +262,15 @@ export class PhotoGalleryComponent implements OnInit {
           });
         }
       }, () => { this.loading = false; }, () => { this.loading = false; });
+  }
+
+  playVideo(photo: Photo) {
+    this.loading = true;
+    this.photoService.getVideoByTitle(photo.title, "").subscribe(s => {
+      let a = new Blob([s], { type: 'video/mp4' });
+      let url = URL.createObjectURL(a);
+      photo.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }, () => { }, () => { this.loading = false; });
+
   }
 }

@@ -1,7 +1,7 @@
 import { PhotoServiceComponent } from '../photo-service/photo-service.component';
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Photo } from 'src/app/shared/model/model';
 import { environment } from 'src/environments/environment';
 import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
@@ -17,12 +17,14 @@ export class PhotoModalComponent implements OnInit {
   photos: Photo[];
   photosCache: {};
   imgSrc: string;
+  videoSrc: SafeResourceUrl;
+  mediaType: string;
   index: number;
   numOfImages: number;
   showPrevious: boolean;
   showNext: boolean;
   loading = false;
-  constructor(private spinner: SpinnerComponent, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private photoService: PhotoServiceComponent) {
+  constructor(private spinner: SpinnerComponent, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer, private photoService: PhotoServiceComponent) {
     this.showPrevious = false;
     this.showNext = false;
     iconRegistry.addSvgIcon(
@@ -40,48 +42,54 @@ export class PhotoModalComponent implements OnInit {
     this.showButtons();
   }
 
-  onNext() {
-    ++this.index;
-    this.showButtons();
-    if (this.photosCache[this.index]) {
-      this.imgSrc = this.photosCache[this.index];
+  onNavigate(operator: string) {
+    if (operator == 'next') {
+      ++this.index;
     } else {
-      this.loading = true;
-      this.photoService
-        .getPhotoById(this.photos[this.index].id, 'compressedImage')
-        .subscribe(photo => {
-          this.imgSrc = photo.base64CompressedImage;
-          this.photosCache[this.index] = photo.base64CompressedImage;
-          this.cacheUpdated.emit(this.photosCache);
-        }, () => { }, () => { this.loading = false; });
+      --this.index;
     }
-  }
-
-  onPrevious() {
-    --this.index;
     this.showButtons();
     if (this.photosCache[this.index]) {
-      this.imgSrc = this.photosCache[this.index];
+      if (typeof this.photosCache[this.index] == 'string') {
+        this.mediaType = 'photo';
+        this.imgSrc = this.photosCache[this.index];
+        this.videoSrc = undefined;
+      } else {
+        this.imgSrc = undefined;
+        this.mediaType = 'video';
+        this.videoSrc = this.photosCache[this.index];
+      }
     } else {
       this.loading = true;
-      this.photoService
-        .getPhotoById(this.photos[this.index].id, 'compressedImage')
-        .subscribe(photo => {
-          this.imgSrc = photo.base64CompressedImage;
-          this.photosCache[this.index] = photo.base64CompressedImage;
-          this.cacheUpdated.emit(this.photosCache);
+      if (this.photos[this.index].mediaType == 'photo') {
+        this.mediaType = 'photo';
+        this.videoSrc = undefined;
+        this.photoService
+          .getPhotoById(this.photos[this.index].id, 'compressedImage')
+          .subscribe(photo => {
+            this.imgSrc = photo.base64CompressedImage;
+            this.photosCache[this.index] = photo.base64CompressedImage;
+            this.cacheUpdated.emit(this.photosCache);
+          }, () => { }, () => { this.loading = false; });
+      } else if (this.photos[this.index].mediaType == 'video') {
+        this.mediaType = 'video';
+        this.imgSrc = undefined;
+        this.photoService.getVideoByTitle(this.photos[this.index].title, "").subscribe(s => {
+          let a = new Blob([s], {type: 'video/mp4'});
+          let url = URL.createObjectURL(a);
+          this.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+          this.photosCache[this.index] = this.sanitizer.bypassSecurityTrustResourceUrl(url); 
+          this.cacheUpdated.emit(this.photosCache); 
         }, () => { }, () => { this.loading = false; });
+      }
     }
   }
 
   onOriginalImage() {
-    // this.loading = true;
+    this.loading = true;
     this.photoService
       .getPhotoById(this.photos[this.index].id, 'originalImage')
       .subscribe(photo => {
-        // this.imgSrc = photo.base64OriginalImage;
-        // this.photosCache[this.index] = photo.base64OriginalImage;
-        // this.cacheUpdated.emit(this.photosCache);
         const image = new Image();
         image.src = photo.base64OriginalImage;
         const w = window.open('about:blank', '_blank');

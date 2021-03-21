@@ -22,6 +22,17 @@ export class PhotoServiceComponent {
     return this.httpClient.get<Photo>(environment.routes.photo + '/' + photoId, { params: new HttpParams().set(imageType, 'true') });
   }
 
+  getVideoByTitle(title: string, imageType: string): Observable<ArrayBuffer> {
+    const options = {
+      headers: new HttpHeaders({
+        'Accept': 'application/octet-stream',
+        'Content-Type': 'application/octet-stream'
+      })
+    }; 
+    
+    return this.httpClient.get<ArrayBuffer>(environment.routes.video + '/' + title, options);
+  }
+
   getPhotos(queryParams?: Map<string, string>): Observable<Photo[]> {
     let httpParams = new HttpParams();
     if (queryParams) {

@@ -1,13 +1,16 @@
 <div class="center-content">
- <!-- <div *ngIf="!publicView" class="center-content"> -->
+  <!-- <div *ngIf="!publicView" class="center-content"> -->
   <button class="button-aliceblue" mat-stroked-button *ngIf="!addAlbumMode" (click)="onEdit()">edit</button>&nbsp;
-  <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode || addAlbumMode" (click)="selectAll()">select all</button>&nbsp;
+  <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode || addAlbumMode" (click)="selectAll()">select
+    all</button>&nbsp;
   <!-- <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode || addAlbumMode" (click)="deselectAll()">deselect all</button>&nbsp; -->
   <button class="button-aliceblue" mat-stroked-button (click)="sort()">sort</button>&nbsp;
-  <button class="button-aliceblue" mat-stroked-button *ngIf="addAlbumMode" (click)="addPhotoIdsToAlbum()">add to album</button>
+  <button class="button-aliceblue" mat-stroked-button *ngIf="addAlbumMode" (click)="addPhotoIdsToAlbum()">add to
+    album</button>
   <!-- <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode && !addAlbumMode" (click)="makePublic()">make public</button>&nbsp;
   <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode && !addAlbumMode" (click)="hide()">hide from public</button>&nbsp; -->
-  <button class="button-aliceblue border-danger" mat-stroked-button *ngIf="isEditMode && !addAlbumMode" (click)="delete()">delete</button>
+  <button class="button-aliceblue border-danger" mat-stroked-button *ngIf="isEditMode && !addAlbumMode"
+    (click)="delete()">delete</button>
 </div>
 
 <div class="center-content">
@@ -17,13 +20,24 @@
 <div class="row center-content">
   <div *ngFor="let photo of photos;let i = index" class="photo-gallery">
     <div style="text-align: center;">{{photo.created | date:'mediumDate'}}</div>
-    <mat-checkbox [checked]=" photos[i].selected" *ngIf="isEditMode || addAlbumMode" (change)="onSelect(i)">
+    <mat-checkbox [checked]="photos[i].selected" *ngIf="isEditMode || addAlbumMode" (change)="onSelect(i)">
     </mat-checkbox>
-    <img class="img-fluid img-thumbnail gallery-image"
+    <img *ngIf="photo.mediaType === 'photo'" class="img-fluid"
       [ngStyle]="{height: isEditMode || addAlbumMode ? '240px' : '240px'  }"
       style="border-radius: 10px; background-color: #c4c4c4;"
       [src]="photo.base64ThumbnailImage ? photo.base64ThumbnailImage : photo.base64CompressedImage" alt="could not load"
       (click)="openModal(photo, i)">
+
+    <div class="overlay-container" *ngIf="photo.mediaType === 'video'">
+      <img *ngIf="!isSmallScreen" class="img-fluid" [ngStyle]="{height: isEditMode || addAlbumMode ? '240px' : '240px'  }"
+        style="border-radius: 10px; background-color: #c4c4c4;"
+        [src]="photo.base64ThumbnailImage ? photo.base64ThumbnailImage : photo.base64CompressedImage"
+        alt="could not load" (click)="openModal(photo, i)">
+      <video *ngIf="isSmallScreen" [src]="photo.videoSrc" class="img-fluid w-100 vid" controls (click)="playVideo(photo)"></video>
+      <mat-icon class="overlay-center" svgIcon="play_circle_outline" aria-hidden="false"
+        aria-label="Example thumbs up SVG icon">
+      </mat-icon>
+    </div>
   </div>
 </div>
 

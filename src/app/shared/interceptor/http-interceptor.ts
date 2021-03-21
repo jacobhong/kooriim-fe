@@ -20,13 +20,15 @@ export class Interceptor implements HttpInterceptor {
             apiReq = req.clone({ url: `${environment.routes.baseUrl}/${req.url}` });
         } else {
             let r = new HttpHeaders();
-            r = r.append('Authorization', 'Bearer ' + this.keycloak.getToken() || '');
+            // req.headers.set('Authorization', 'Bearer ' + this.keycloak.getToken() || '');
             if (req.url.indexOf('auth') !== -1) {
-                apiReq = req.clone({ headers: r, url: `${environment.routes.auth}/${req.url}` });
+                apiReq = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + this.keycloak.getToken() || ''), url: `${environment.routes.auth}/${req.url}` });
             } else if (req.url.indexOf('assets') !== -1) {
-                apiReq = req.clone({ headers: r, url: `${environment.routes.assets}/${req.url}` });
+                apiReq = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + this.keycloak.getToken() || ''), url: `${environment.routes.assets}/${req.url}` });
+            }  else if (req.url.indexOf('videos') !== -1) {
+                apiReq = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + this.keycloak.getToken() || ''), responseType: 'blob', url: `${environment.routes.baseUrl}/${req.url}` });
             } else {
-                apiReq = req.clone({ headers: r, url: `${environment.routes.baseUrl}/${req.url}` });
+                apiReq = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + this.keycloak.getToken() || ''), url: `${environment.routes.baseUrl}/${req.url}` });
             }
         }
         return next.handle(apiReq).pipe(tap(

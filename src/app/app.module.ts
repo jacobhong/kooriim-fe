@@ -32,12 +32,11 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { InfiniteScrollingComponent } from './shared/infinite-scroll/infinite-scroll.component';
 import { PublicGalleryComponent } from './photo/public-gallery/public-gallery.component';
-
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: environment.routes.fileUpload,
   maxFilesize: 50,
   timeout: 500000,
-  acceptedFiles: 'image/*',
+  acceptedFiles: 'image/*, .mp4, .3pg, .mov, .wmv, .mkv, .avi',
   headers: {
     'Access-Control-Allow-Origin': environment.routes.baseUrl,
     'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
@@ -48,7 +47,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+     NavbarComponent,
     FooterComponent,
     PhotoGalleryComponent,
     FileUploadComponent,
@@ -59,7 +58,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     LoginComponent,
     HomeComponent,
     SpinnerComponent,
-    PublicGalleryComponent,
+    PublicGalleryComponent
   ],
   imports: [
     AppRoutingModule,
