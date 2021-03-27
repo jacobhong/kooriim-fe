@@ -22,6 +22,10 @@ export class PhotoServiceComponent {
     return this.httpClient.get<Photo>(environment.routes.photo + '/' + photoId, { params: new HttpParams().set(imageType, 'true') });
   }
 
+  googleSync(): Observable<any> {
+    return this.httpClient.post<any>(environment.routes.googleSync, {});
+  }
+
   getVideoByTitle(title: string, imageType: string): Observable<ArrayBuffer> {
     const options = {
       headers: new HttpHeaders({

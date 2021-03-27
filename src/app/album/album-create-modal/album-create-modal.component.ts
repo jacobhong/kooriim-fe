@@ -21,7 +21,7 @@ export class AlbumCreateModalComponent implements OnInit {
     this.album = new Album();
     this.album.title = '';
     this.album.description = '';
-    this.album.previewPhotos = [];
+    this.album.previewMediaItems = [];
     this.album.photoIds = [];
     this.albumMode = 'Create Album';
     iconRegistry.addSvgIcon(

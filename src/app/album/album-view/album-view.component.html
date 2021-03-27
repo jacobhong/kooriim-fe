@@ -26,13 +26,13 @@
       </mat-card-subtitle>
       <mat-card-content class="card-content">
         <div class="row">
-          <div *ngFor="let photo of album.previewPhotos;let j = index" class="col-md-6 center-content">
+          <div *ngFor="let photo of album.previewMediaItems;let j = index" class="col-md-6 center-content">
             <img class="img-fluid" style="width:auto; height:auto" [src]="photo.base64ThumbnailImage">
           </div>
-          <div *ngIf="album.previewPhotos.length < 1" class="col-md-6 center-content">
+          <div *ngIf="album.previewMediaItems.length < 1" class="col-md-6 center-content">
             <img class="img-fluid" style="width:80px; height:auto" [src]="'/assets/album-preview.png'">
           </div>
-          <div *ngIf="album.previewPhotos.length <= 1" class="col-md-6 center-content">
+          <div *ngIf="album.previewMediaItems.length <= 1" class="col-md-6 center-content">
             <img class="img-fluid" style="width:80px; height:auto" [src]="'/assets/album-preview.png'">
           </div>
         </div>

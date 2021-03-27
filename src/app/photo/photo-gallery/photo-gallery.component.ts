@@ -52,6 +52,7 @@ export class PhotoGalleryComponent implements OnInit {
     this.isEditMode = false;
     this.addAlbumMode = false;
     this.photosInAlbum = [];
+    this.photos = [];
     this.isSmallScreen = window.innerWidth <= 700 ? true : false;
     this.pageable = new Pageable();
     this.queryParams = new Map<string, string>();
@@ -228,7 +229,7 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   modalSubscriptions(result: Photo, index: number) {
-    const modalRef = this.modalService.open(PhotoModalComponent, { size: 'lg', centered: true, windowClass: 'photo-modal' });
+    const modalRef = this.modalService.open(PhotoModalComponent, {  centered: true, windowClass: 'photo-modal' });
     if (result.mediaType == 'photo') {
       modalRef.componentInstance.imgSrc = result.base64CompressedImage;
     } else {
@@ -271,6 +272,11 @@ export class PhotoGalleryComponent implements OnInit {
       let url = URL.createObjectURL(a);
       photo.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }, () => { }, () => { this.loading = false; });
+  }
 
+  googleSync() {
+    this.photoService.googleSync().subscribe(result => {
+      console.log('finished sgoogle sync');
+    });
   }
 }
