@@ -24,6 +24,7 @@
     </ul>
   </div>
   description: <input maxlength="50" [(ngModel)]="photos[index].description">
+  width: <input maxlength="50" [(ngModel)]="photos[index].mediaItemMetaData.width">
   <button (click)="updatePhotoDescription()">save</button>
   <span style="padding-right:1%;padding-left:1%;"><b>{{photos[index].title}}</b></span>
 

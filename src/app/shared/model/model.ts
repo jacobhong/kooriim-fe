@@ -2,6 +2,7 @@ import { SafeResourceUrl } from "@angular/platform-browser";
 
 export class Photo {
     id: number;
+    mediaItemMetaData: MediaItemMetaData;
     albums: any[];
     videoSrc: SafeResourceUrl;
     base64OriginalImage: string;
@@ -22,6 +23,18 @@ export class Photo {
     file: File;
 }
 
+export class MediaItemMetaData {
+    cameraMake: string;
+    cameraModel: string;
+    focalLength: number;
+    apertureFNumber: number;
+    isoEquivalent: number;
+    exposureTime: number;
+    creationTime: Date;
+    width: number;
+    height: number;
+    fps: number;
+}
 export class Album {
     id: number;
     title: string;
