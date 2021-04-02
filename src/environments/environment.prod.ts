@@ -10,7 +10,8 @@ export const environment = {
         photo: 'photo-album-service/photos',
         login: 'photo-album-service/login',
         keycloak: 'https://login.kooriim.com/auth',
-        home: 'https://now.kooriim.com/home'
+        home: 'https://now.kooriim.com/home',
+        googleSync: 'photo-album-service/google-sync'
     },
     production: true
 };
