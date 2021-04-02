@@ -12,7 +12,7 @@ export const environment = {
         googleSync: 'photo-album-service/google-sync',
         video: 'photo-album-service/videos',
         keycloak: 'https://login.kooriim.com/auth',
-        home: 'https://now.kooriim.com/home,
+        home: 'https://now.kooriim.com/home',
     },
     production: true
 };
