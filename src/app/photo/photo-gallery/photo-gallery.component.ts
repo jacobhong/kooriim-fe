@@ -229,7 +229,7 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   modalSubscriptions(result: Photo, index: number) {
-    const modalRef = this.modalService.open(PhotoModalComponent, {  centered: true, windowClass: 'photo-modal' });
+    const modalRef = this.modalService.open(PhotoModalComponent, {  size: 'xl', centered: true, windowClass: 'photo-modal' });
     if (result.mediaType == 'photo') {
       modalRef.componentInstance.imgSrc = result.base64CompressedImage;
     } else {

@@ -31,11 +31,11 @@
     <button *ngIf="mediaType == 'photo'" class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="onOriginalImage()">Original Image</button>
   </form>
 </nav>
-<div class="overlay-container">
+<div class="overlay-container center-content" style="background-color: black;" >
   <mat-icon class="overlay-left" (click)="onNavigate('previous')" [ngClass]="{'pointer': showPrevious===true}"
     *ngIf="showPrevious" svgIcon="navigate_before" aria-hidden="false" aria-label="Example thumbs up SVG icon">
   </mat-icon>
-  <img *ngIf="mediaType == 'photo'" class="img-fluid w-100" [src]="imgSrc" alt="could not load">
+  <img *ngIf="mediaType == 'photo'" class="img-fluid" style="object-fit: contain;max-height: 1200px" [src]="imgSrc" alt="could not load">
   <video *ngIf="mediaType === 'video'" [src]="videoSrc" class="img-fluid w-100 vid" controls></video>
   <mat-icon class="overlay-right" (click)="onNavigate('next')" [ngClass]="{'pointer': showNext===true}" *ngIf="showNext"
     svgIcon="navigate_next" aria-hidden="false" aria-label="Example thumbs up SVG icon">
