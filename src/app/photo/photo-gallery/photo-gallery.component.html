@@ -20,7 +20,7 @@
 <span style="padding-left: 10%;size: 20px; color: #2d2d2d;"><b>Photos {{photos.length}}</b></span>
 <div class="row center-content">
   <div *ngFor="let photo of photos;let i = index" class="photo-gallery">
-    <div style="text-align: center;">{{photo.created | date:'mediumDate'}}</div>
+    <div style="text-align: center;">{{photo.mediaItemMetaData.creationTime | date:'mediumDate'}}</div>
     <mat-checkbox [checked]="photos[i].selected" *ngIf="isEditMode || addAlbumMode" (change)="onSelect(i)">
     </mat-checkbox>
     <img *ngIf="photo.mediaType === 'photo'" class="img-fluid gallery-image"

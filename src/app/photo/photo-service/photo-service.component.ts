@@ -12,6 +12,9 @@ export class PhotoServiceComponent {
 
   constructor(private httpClient: HttpClient) { }
 
+  refreshToken() {
+    return this.httpClient.post<any>(environment.routes.refreshToken, {});  }
+
   addPhotoIdsToAlbum(albumId: number, ids: any): Observable<any> {
     return this.httpClient
       .patch<any[]>(environment.routes.albums + '/' + albumId, ids)

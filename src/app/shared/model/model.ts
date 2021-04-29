@@ -13,7 +13,6 @@ export class Photo {
     thumbnailFilePath: string;
     videoFilePath: string;
     description: string;
-    originalDate: Date;
     created: Date;
     updated: Date;
     title: string;

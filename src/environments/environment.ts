@@ -10,6 +10,7 @@ export const environment = {
         photo: 'photo-album-service/photos',
         video: 'photo-album-service/videos',
         googleSync: 'photo-album-service/google-sync',
+        refreshToken: 'photo-album-service/refreshToken',
         publicGallery: 'photo-album-service/public-gallery',
         login: 'photo-album-service/login',
         keycloak: 'https://192.168.1.206.xip.io:8443/auth',
