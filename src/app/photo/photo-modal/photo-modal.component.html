@@ -24,6 +24,7 @@
     </ul>
   </div>
   description: <input maxlength="50" [(ngModel)]="photos[index].description">
+  date-created: {{photos[index].originalDate}}
   <button (click)="updatePhotoDescription()">save</button>
   <span style="padding-right:1%;padding-left:1%;"><b>{{photos[index].title}}</b></span>
 
@@ -35,8 +36,8 @@
   <mat-icon class="overlay-left" (click)="onNavigate('previous')" [ngClass]="{'pointer': showPrevious===true}"
     *ngIf="showPrevious" svgIcon="navigate_before" aria-hidden="false" aria-label="Example thumbs up SVG icon">
   </mat-icon>
-  <img *ngIf="mediaType == 'photo'" class="img-fluid" style="object-fit: contain;max-height: 1200px" [src]="imgSrc" alt="could not load">
-  <video *ngIf="mediaType === 'video'" [src]="videoSrc" class="img-fluid w-100 vid" controls></video>
+  <img *ngIf="mediaType == 'photo'" class="img-fluid" style="object-fit: contain;max-height: 1200px" [src]="imgSrc" alt="could not load">  
+  <video *ngIf="mediaType === 'video'" class="img-fluid vid" [src]="videoSrc" style="object-fit: contain;max-height: 1200px" controls></video>
   <mat-icon class="overlay-right" (click)="onNavigate('next')" [ngClass]="{'pointer': showNext===true}" *ngIf="showNext"
     svgIcon="navigate_next" aria-hidden="false" aria-label="Example thumbs up SVG icon">
   </mat-icon>
