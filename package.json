@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 192.168.1.206.xip.io --o --proxy-config proxy.config.json",
+    "start": "ng serve --host localhost --o --proxy-config proxy.config.json",
     "prod": "ng serve --o --prod --proxy-config proxy.config.json",
     "build": "ng build",
     "test": "ng test",

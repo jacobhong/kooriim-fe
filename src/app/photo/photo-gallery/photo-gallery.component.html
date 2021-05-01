@@ -34,7 +34,7 @@
         style="border-radius: 10px; background-color: #c4c4c4;"
         [src]="photo.base64ThumbnailImage ? photo.base64ThumbnailImage : photo.base64CompressedImage"
         alt="could not load" (click)="openModal(photo, i)">
-      <video *ngIf="isSmallScreen" [src]="photo.videoSrc" class="img-fluid w-100 vid" controls (click)="playVideo(photo)"></video>
+      <video *ngIf="isSmallScreen" [src]="photo.videoSrc" class="img-fluid w-100" controls (click)="playVideo(photo)"></video>
       <mat-icon class="overlay-center" svgIcon="play_circle_outline" aria-hidden="false"
         aria-label="Example thumbs up SVG icon" (click)="openModal(photo, i)">
       </mat-icon>
