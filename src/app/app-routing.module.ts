@@ -9,6 +9,7 @@ import { PhotoGalleryComponent } from './photo/photo-gallery/photo-gallery.compo
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './shared/guards/auth-guard/auth-guard.service';
 import { PublicGalleryGuardService } from './shared/guards/public-gallery-guard/public-gallery-guard.service';
+import { GoogleSyncComponent } from './google-sync/google-sync.component';
 
 const appRoutes: Routes = [
   {
@@ -49,6 +50,12 @@ const appRoutes: Routes = [
     path: 'public-gallery',
     component: PublicGalleryComponent,
     canActivate: [PublicGalleryGuardService]
+  },
+  {
+    path: 'google-sync',
+    component: GoogleSyncComponent,
+    canActivate: [AuthGuardService],
+    data: { role: 'kooriim-fe' }
   }
 ];
 

@@ -18,7 +18,7 @@ import { MatIconRegistry } from '@angular/material/icon';
   styleUrls: ['./photo-gallery.component.scss']
 })
 export class PhotoGalleryComponent implements OnInit {
-  @ViewChild(InfiniteScrollingComponent, null) infiniteScroll: InfiniteScrollingComponent;
+  @ViewChild(InfiniteScrollingComponent, {static: false}) infiniteScroll: InfiniteScrollingComponent;
   // @Input()
   // publicView: boolean;
   albumTitle: string;
@@ -175,6 +175,18 @@ export class PhotoGalleryComponent implements OnInit {
     }
   }
 
+  playVideoMobile(photo: Photo, index: number) {
+    this.loading = true;
+    if (photo.mediaType == 'video') {
+      this.photoService.getVideoByTitle(photo.title, "").subscribe(result => {
+        let a = new Blob([result], { type: 'video/mp4' });
+        let url = URL.createObjectURL(a);
+        photo.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+        this.modalSubscriptions(photo, index);
+      }, () => { }, () => { this.loading = false; });
+    }
+  }
+
   onSelect(index: number) {
     this.photos[index].selected = !this.photos[index].selected;
   }
@@ -229,7 +241,7 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   modalSubscriptions(result: Photo, index: number) {
-    const modalRef = this.modalService.open(PhotoModalComponent, {  size: 'xl', centered: true, windowClass: 'photo-modal' });
+    const modalRef = this.modalService.open(PhotoModalComponent, { size: 'xl', centered: true, windowClass: 'photo-modal' });
     if (result.mediaType == 'photo') {
       modalRef.componentInstance.imgSrc = result.base64CompressedImage;
     } else {
@@ -265,18 +277,13 @@ export class PhotoGalleryComponent implements OnInit {
       }, () => { this.loading = false; }, () => { this.loading = false; });
   }
 
-  playVideo(photo: Photo) {
-    this.loading = true;
-    this.photoService.getVideoByTitle(photo.title, "").subscribe(s => {
-      let a = new Blob([s], { type: 'video/mp4' });
-      let url = URL.createObjectURL(a);
-      photo.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    }, () => { }, () => { this.loading = false; });
-  }
+  // playVideo(photo: Photo) {
+  //   this.loading = true;
+  //   this.photoService.getVideoByTitle(photo.title, "").subscribe(s => {
+  //     let a = new Blob([s], { type: 'video/mp4' });
+  //     let url = URL.createObjectURL(a);
+  //     photo.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  //   }, () => { }, () => { this.loading = false; });
+  // }
 
-  googleSync() {
-    this.photoService.googleSync().subscribe(result => {
-      console.log('finished sgoogle sync');
-    });
-  }
 }

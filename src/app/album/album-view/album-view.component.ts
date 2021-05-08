@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Album } from '../../shared/model/model';
 import { AlbumServiceComponent } from '../album-service/album-service.component';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PhotoServiceComponent } from 'src/app/photo/photo-service/photo-service.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

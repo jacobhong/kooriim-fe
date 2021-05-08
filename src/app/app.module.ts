@@ -19,9 +19,15 @@ import { environment } from '../environments/environment';
 import { PhotoModalComponent } from './photo/photo-modal/photo-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule, MatButtonModule, MatFormField, MatSpinner, MatFormFieldModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
+
 import { AlbumCreateModalComponent } from './album/album-create-modal/album-create-modal.component';
 import { FormsModule } from '@angular/forms';
 import { AlbumViewComponent } from './album/album-view/album-view.component';
@@ -32,6 +38,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { InfiniteScrollingComponent } from './shared/infinite-scroll/infinite-scroll.component';
 import { PublicGalleryComponent } from './photo/public-gallery/public-gallery.component';
+import { GoogleSyncComponent } from './google-sync/google-sync.component';
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: environment.routes.fileUpload,
   maxFilesize: 50,
@@ -47,7 +54,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 @NgModule({
   declarations: [
     AppComponent,
-     NavbarComponent,
+    NavbarComponent,
     FooterComponent,
     PhotoGalleryComponent,
     FileUploadComponent,
@@ -58,7 +65,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     LoginComponent,
     HomeComponent,
     SpinnerComponent,
-    PublicGalleryComponent
+    PublicGalleryComponent,
+    GoogleSyncComponent
   ],
   imports: [
     AppRoutingModule,
@@ -67,6 +75,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FormsModule,
     HttpClientModule,
     MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatCardModule, MatFormFieldModule, MatProgressSpinnerModule,
     NgbModule,
     MatCheckboxModule,

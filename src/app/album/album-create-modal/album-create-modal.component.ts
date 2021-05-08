@@ -2,7 +2,7 @@ import { AlbumServiceComponent } from 'src/app/album/album-service/album-service
 import { PhotoServiceComponent } from '../../photo/photo-service/photo-service.component';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Album } from 'src/app/shared/model/model';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({

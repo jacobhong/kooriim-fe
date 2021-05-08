@@ -1,43 +1,60 @@
-<nav class="navbar navbar-expand-lg navbar-light shadow-sm " style="background-color: rgb(230, 244, 244)">
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="height: 60px; background-color: rgb(230, 244, 244)">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="max-width: 60%;">
-    <ul class="navbar-nav mr-auto">
+  <div class="navbar-collapse collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav">
       <li class="nav-item active">
         <a class="nav-link pointer" (click)="close()">
-          <mat-icon svgIcon="home" aria-hidden="false" aria-label="home" class="nav-icon">
+          <mat-icon svgIcon="home" aria-hidden="false" aria-label="home" class="nav-icon" style="width: 35px">
           </mat-icon>
           <span class="sr-only">(current)</span>
         </a>
       </li>
-
       <li class="nav-item">
         <a class="nav-link pointer" (click)="onDelete()">
-          <mat-icon class="nav-icon" svgIcon="delete_sweep" aria-hidden="false"
+          <mat-icon class="nav-icon" style="width: 35px" svgIcon="delete_sweep" aria-hidden="false"
             aria-label="Example thumbs up SVG icon">
           </mat-icon>
         </a>
       </li>
     </ul>
-  </div>
-  description: <input maxlength="50" [(ngModel)]="photos[index].description">
-  date-created: {{photos[index].originalDate}}
-  <button (click)="updatePhotoDescription()">save</button>
-  <span style="padding-right:1%;padding-left:1%;"><b>{{photos[index].title}}</b></span>
 
-  <form class="form-inline my-2 my-lg-0">
-    <button *ngIf="mediaType == 'photo'" class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="onOriginalImage()">Original Image</button>
-  </form>
+    <ul class="nav navbar-nav ml-auto w-100 nav-fill justify-content-center">
+      <li class="nav-item">
+        description: <input maxlength="50" style="width: 250px" [(ngModel)]="photos[index].description">
+        <button (click)="updatePhotoDescription()">save</button>
+      </li>
+      <li class="nav-item">
+        <div>
+          <b>taken</b>: {{photos[index].originalDate | date:'mediumDate'}}
+        </div>
+        <div>
+          <b>title</b>: {{photos[index].title}}
+        </div>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav">
+      <li class="nav-item">
+        <form class="form-inline my-2 my-lg-0 nav navbar-nav navbar-right">
+          <button *ngIf="mediaType == 'photo'" class="btn btn-outline-success my-2 my-sm-0" type="submit"
+            (click)="onOriginalImage()">Original Image</button>
+        </form>
+      </li>
+    </ul>
+  </div>
 </nav>
-<div class="overlay-container center-content" style="background-color: black;" >
+<div class="overlay-container center-content" style="background-color: black;">
   <mat-icon class="overlay-left" (click)="onNavigate('previous')" [ngClass]="{'pointer': showPrevious===true}"
     *ngIf="showPrevious" svgIcon="navigate_before" aria-hidden="false" aria-label="Example thumbs up SVG icon">
   </mat-icon>
-  <img *ngIf="mediaType == 'photo'" class="img-fluid" style="object-fit: contain;max-height: 1200px" [src]="imgSrc" alt="could not load">  
-  <video *ngIf="mediaType === 'video'" class="img-fluid vid" [src]="videoSrc" style="object-fit: contain;max-height: 1200px" controls></video>
+  <img *ngIf="mediaType == 'photo'" class="img-fluid" style="object-fit: contain;max-height: 800px" [src]="imgSrc"
+    alt="could not load">
+  <video *ngIf="mediaType === 'video'" class="img-fluid" [src]="videoSrc" style="object-fit: contain;max-height: 800px"
+    controls></video>
   <mat-icon class="overlay-right" (click)="onNavigate('next')" [ngClass]="{'pointer': showNext===true}" *ngIf="showNext"
     svgIcon="navigate_next" aria-hidden="false" aria-label="Example thumbs up SVG icon">
   </mat-icon>
