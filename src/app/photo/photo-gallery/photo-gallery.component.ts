@@ -18,7 +18,7 @@ import { MatIconRegistry } from '@angular/material/icon';
   styleUrls: ['./photo-gallery.component.scss']
 })
 export class PhotoGalleryComponent implements OnInit {
-  @ViewChild(InfiniteScrollingComponent, {static: false}) infiniteScroll: InfiniteScrollingComponent;
+  @ViewChild(InfiniteScrollingComponent, {static: true}) infiniteScroll: InfiniteScrollingComponent;
   // @Input()
   // publicView: boolean;
   albumTitle: string;

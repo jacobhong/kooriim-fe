@@ -27,9 +27,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
-
 import { AlbumCreateModalComponent } from './album/album-create-modal/album-create-modal.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AlbumViewComponent } from './album/album-view/album-view.component';
 import { LoginComponent } from './login/login.component';
 import { KeycloakService } from './shared/keycloak/keycloak.service';
@@ -82,7 +81,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     MatCheckboxModule,
     MatIconModule,
     BrowserAnimationsModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    ReactiveFormsModule
   ],
   providers:
     [
