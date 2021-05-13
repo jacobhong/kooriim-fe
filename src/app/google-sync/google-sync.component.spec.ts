@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { GoogleSyncComponent } from './google-sync.component';
 
@@ -6,7 +6,7 @@ describe('GoogleSyncComponent', () => {
   let component: GoogleSyncComponent;
   let fixture: ComponentFixture<GoogleSyncComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GoogleSyncComponent ]
     })
