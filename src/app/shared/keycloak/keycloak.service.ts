@@ -24,7 +24,7 @@ export class KeycloakService {
           onLoad: 'check-sso'
         }
       ).success((isLoggedin) => {
-        resolve();
+        resolve(null);
       }).error(() => {
         console.log('error');
         reject();
