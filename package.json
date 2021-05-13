@@ -33,6 +33,7 @@
     "hammerjs": "~2.0.8",
     "jquery": "~3.4.1",
     "keycloak-js": "~8.0.2",
+    "rxjs": "^6.5.3",
     "ngx-dropzone-wrapper": "10.0.1",
     "ngx-infinite-scroll": "^10.0.0",
     "tslib": "^2.0.0",
