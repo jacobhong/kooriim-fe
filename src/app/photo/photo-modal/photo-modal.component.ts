@@ -94,6 +94,8 @@ export class PhotoModalComponent implements OnInit {
         image.src = photo.base64OriginalImage;
         const w = window.open('about:blank', '_blank');
         w.document.write(image.outerHTML);
+        // w.document.write('<iframe src="' + image.src + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:' + photo.mediaItemMetaData.width + '; height:' + photo.mediaItemMetaData.height
+
       }, () => { }, () => { this.loading = false; });
 
   }

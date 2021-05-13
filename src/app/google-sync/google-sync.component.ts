@@ -13,6 +13,9 @@ export class GoogleSyncComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl()
   });
+  startDate: number;
+  endDate: number;
+
   startMinDate: Date;
   startMaxDate: Date;
   endMinDate: Date;
@@ -24,26 +27,20 @@ export class GoogleSyncComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log('google');
   }
 
   startDateInput(event: MatDatepickerInputEvent<Date>) {
-    console.log('start input ' + event.value);
-    console.log('start input ' + event.value.getDate());
-    // console.log('start input ' + event.value.getDay());
-    console.log('start input ' + event.value.getFullYear());
-    console.log('start input ' + event.value.getMonth());
     this.endMinDate = new Date(event.value.getFullYear(), event.value.getMonth() + 3, event.value.getDate());
     this.endMaxDate = new Date(event.value.getFullYear(), event.value.getMonth() + 3, event.value.getDate());
-    console.log(this.endMaxDate);
+    this.startDate = event.value.valueOf();
   }
 
   endDateInput(event: MatDatepickerInputEvent<Date>) {
-    console.log('end input ' + event.value);
+    this.endDate = event.value.valueOf();
   }
 
   googleSync() {
-    this.photoService.googleSync().subscribe(result => {
+    this.photoService.googleSync(this.startDate, this.endDate).subscribe(result => {
       console.log('finished sgoogle sync');
     });
   }

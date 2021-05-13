@@ -24,16 +24,30 @@ export class Photo {
 }
 
 export class MediaItemMetaData {
+    id: number;
+    mediaItemId: number;
     cameraMake: string;
     cameraModel: string;
     focalLength: number;
     apertureFNumber: number;
     isoEquivalent: number;
     exposureTime: number;
-    creationTime: Date;
     width: number;
     height: number;
     fps: number;
+    contrast: string;
+    digitalZoomRatio: number;
+    exposureCompensation: number;
+    exposureMode: string;
+    exposureProgram: string;
+    flash: number;
+    lensModel: string;
+    meteringMode: string;
+    saturation: string;
+    sceneCaptureType: string;
+    sharpness: string;
+    whiteBalance: string;
+    createdDate: Date;
 }
 export class Album {
     id: number;

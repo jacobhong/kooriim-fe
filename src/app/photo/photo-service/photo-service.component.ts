@@ -1,3 +1,4 @@
+import { MediaItemMetaData } from './../../shared/model/model';
 import { Photo, Album } from '../../shared/model/model';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
@@ -25,8 +26,11 @@ export class PhotoServiceComponent {
     return this.httpClient.get<Photo>(environment.routes.photo + '/' + photoId, { params: new HttpParams().set(imageType, 'true') });
   }
 
-  googleSync(): Observable<any> {
-    return this.httpClient.post<any>(environment.routes.googleSync, {});
+  googleSync(startDate: number, endDate: number): Observable<any> {
+    if (startDate && endDate) {
+      return this.httpClient.post<any>(environment.routes.googleSync + "?startDate=" + startDate + "&endDate=" + endDate, {});
+    }
+    return this.httpClient.post<any>(environment.routes.googleSync + "?startDate=", {});
   }
 
   getVideoByTitle(title: string, imageType: string): Observable<ArrayBuffer> {
@@ -86,5 +90,9 @@ export class PhotoServiceComponent {
       body: { photos: photos }
     };
     return this.httpClient.patch<any>(environment.routes.photo, photos);
+  }
+
+  saveMetaData(mediaItemMetaData: MediaItemMetaData): Observable<any> {
+    return this.httpClient.post<any>(environment.routes.photo + "/" + mediaItemMetaData.mediaItemId + "/metadata" , mediaItemMetaData);
   }
 }
