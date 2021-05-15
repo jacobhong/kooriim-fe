@@ -7,7 +7,6 @@
       "projectType": "application",
       "schematics": {},
       "root": "",
-      
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
@@ -46,7 +45,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
