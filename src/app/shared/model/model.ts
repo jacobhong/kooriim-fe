@@ -40,7 +40,7 @@ export class MediaItemMetaData {
     exposureCompensation: number;
     exposureMode: string;
     exposureProgram: string;
-    flash: number;
+    flash: string;
     lensModel: string;
     meteringMode: string;
     saturation: string;
