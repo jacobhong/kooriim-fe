@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": false,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -21,8 +22,10 @@
   },
   "strict": false,
   "angularCompilerOptions": {
+    "strict": false,
     "enableIvy": false,
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "fullTemplateTypeCheck": false,
+    "strictPropertyInitialization": false,
+    "strictInjectionParameters": false
   }
 }
