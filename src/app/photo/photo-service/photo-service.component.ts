@@ -26,7 +26,7 @@ export class PhotoServiceComponent {
     return this.httpClient.get<Photo>(environment.routes.photo + '/' + photoId, { params: new HttpParams().set(imageType, 'true') });
   }
 
-  googleSync(startDate: number, endDate: number): Observable<any> {
+  googleSync(startDate?: number, endDate?: number): Observable<any> {
     if (startDate && endDate) {
       return this.httpClient.post<any>(environment.routes.googleSync + "?startDate=" + startDate + "&endDate=" + endDate, {});
     }
