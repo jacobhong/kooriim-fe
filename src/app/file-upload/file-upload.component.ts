@@ -43,7 +43,6 @@ export class FileUploadComponent implements OnInit {
         metadata.exposureMode = output.ExposureMode;
         metadata.exposureTime = output.ExposureTime;
         metadata.exposureProgram = output.ExposureProgram;
-        metadata.flash = output.Flash;
         metadata.focalLength = output.FocalLength;
         // metadata.fps = 
         metadata.height = output.ExifImageHeight;
