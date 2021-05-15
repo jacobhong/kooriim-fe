@@ -1,14 +1,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "strict": false,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "module": "es2020",
+    "module": "es2015",
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
@@ -22,10 +21,8 @@
   },
   "strict": false,
   "angularCompilerOptions": {
-    "strict": false,
     "enableIvy": false,
     "fullTemplateTypeCheck": true,
-    "strictPropertyInitialization": false,
-    "strictInjectionParameters": false
+    "strictInjectionParameters": true
   }
 }
