@@ -42,7 +42,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: environment.routes.fileUpload,
   maxFilesize: 50,
   timeout: 500000,
-  acceptedFiles: 'image/*, .mp4, .3pg, .mov, .wmv, .mkv, .avi',
+  acceptedFiles: 'image/*, .MP4, .mp4, .3pg, .MOV, .mov, .WMV, .wmv, .MKV, .mkv, .AVI, .avi',
   headers: {
     'Access-Control-Allow-Origin': environment.routes.baseUrl,
     'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
