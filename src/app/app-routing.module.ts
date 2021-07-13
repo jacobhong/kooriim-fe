@@ -1,3 +1,4 @@
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { PublicGalleryComponent } from './photo/public-gallery/public-gallery.component';
 import { LoginGuardService } from './shared/guards/login-guard/login-guard.service';
 import { HomeComponent } from './home/home.component';
@@ -28,6 +29,10 @@ const appRoutes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuardService],
     data: { role: 'kooriim-fe' }
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent
   },
   {
     path: 'file-upload',
