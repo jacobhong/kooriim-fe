@@ -1,3 +1,4 @@
+import { AboutPageComponent } from './about-page/about-page.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { PublicGalleryComponent } from './photo/public-gallery/public-gallery.component';
 import { LoginGuardService } from './shared/guards/login-guard/login-guard.service';
@@ -33,6 +34,10 @@ const appRoutes: Routes = [
   {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent
+  },
+  {
+    path: 'about',
+    component: AboutPageComponent
   },
   {
     path: 'file-upload',

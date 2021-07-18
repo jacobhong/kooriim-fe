@@ -39,6 +39,7 @@ import { InfiniteScrollingComponent } from './shared/infinite-scroll/infinite-sc
 import { PublicGalleryComponent } from './photo/public-gallery/public-gallery.component';
 import { GoogleSyncComponent } from './google-sync/google-sync.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { AboutPageComponent } from './about-page/about-page.component';
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: environment.routes.fileUpload,
   maxFilesize: 50,
@@ -67,7 +68,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     SpinnerComponent,
     PublicGalleryComponent,
     GoogleSyncComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    AboutPageComponent
   ],
   imports: [
     AppRoutingModule,
