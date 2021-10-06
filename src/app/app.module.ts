@@ -28,7 +28,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AlbumCreateModalComponent } from './album/album-create-modal/album-create-modal.component';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, NgModel, ReactiveFormsModule} from '@angular/forms';
 import { AlbumViewComponent } from './album/album-view/album-view.component';
 import { LoginComponent } from './login/login.component';
 import { KeycloakService } from './shared/keycloak/keycloak.service';
@@ -40,6 +40,8 @@ import { PublicGalleryComponent } from './photo/public-gallery/public-gallery.co
 import { GoogleSyncComponent } from './google-sync/google-sync.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { AboutPageComponent } from './about-page/about-page.component';
+import { AddAlbumModalComponent } from './photo/add-album-modal/add-album-modal.component';
+import { MatSelectModule } from '@angular/material/select';
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: environment.routes.fileUpload,
   maxFilesize: 50,
@@ -69,7 +71,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     PublicGalleryComponent,
     GoogleSyncComponent,
     PrivacyPolicyComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    AddAlbumModalComponent
   ],
   imports: [
     AppRoutingModule,
@@ -77,6 +80,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     DropzoneModule,
     FormsModule,
     HttpClientModule,
+    MatSelectModule,
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -90,6 +94,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   ],
   providers:
     [
+      NgModel,
       SpinnerComponent,
       InfiniteScrollingComponent,
       {
@@ -108,7 +113,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
         multi: true
       }
     ],
-  entryComponents: [AlbumCreateModalComponent, PhotoModalComponent, SpinnerComponent],
+  entryComponents: [AlbumCreateModalComponent, AddAlbumModalComponent, PhotoModalComponent, SpinnerComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

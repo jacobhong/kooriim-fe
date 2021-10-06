@@ -21,6 +21,12 @@ export class PhotoServiceComponent {
       .patch<any[]>(environment.routes.albums + '/' + albumId, ids)
       .pipe(catchError(error => throwError(error)));
   }
+  
+  movePhotosToAlbum(fromAlbumId: number, toAlbum: string, ids: any): Observable<any> {
+    return this.httpClient
+      .patch<any[]>(environment.routes.albums + '/' + fromAlbumId + '/to/' + toAlbum, ids)
+      .pipe(catchError(error => throwError(error)));
+  }
 
   getPhotoById(photoId: number, imageType: string): Observable<Photo> {
     return this.httpClient.get<Photo>(environment.routes.photo + '/' + photoId, { params: new HttpParams().set(imageType, 'true') });

@@ -11,6 +11,8 @@ import { AlbumServiceComponent } from 'src/app/album/album-service/album-service
 import { InfiniteScrollingComponent } from 'src/app/shared/infinite-scroll/infinite-scroll.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
+import { AddAlbumModalComponent } from '../add-album-modal/add-album-modal.component';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-photo-gallery',
@@ -42,6 +44,7 @@ export class PhotoGalleryComponent implements OnInit {
     private albumService: AlbumServiceComponent,
     private photoService: PhotoServiceComponent,
     private modalService: NgbModal,
+    private ngModelDir: NgModel,
     private sanitizer: DomSanitizer,
     private iconRegistry: MatIconRegistry,
     private platform: Platform,
@@ -240,7 +243,18 @@ export class PhotoGalleryComponent implements OnInit {
     this.photos.reverse();
   }
 
+  moveToAlbum() {
+    this.ngModelDir.control.markAsTouched();
+    const modalRef = this.modalService.open(AddAlbumModalComponent, { centered: true, windowClass: 'dark-modal' });
+    modalRef.componentInstance.albumId = this.albumId;
+    modalRef.componentInstance.photoIds = this.photos.filter(p => p.selected).map(p => p.id);
+    modalRef.componentInstance.closeModal.subscribe(onDelete => {
+      modalRef.close();
+    }); 
+  }
+
   modalSubscriptions(result: Photo, index: number) {
+    // this.ngModelDir.control.markAsTouched();
     const modalRef = this.modalService.open(PhotoModalComponent, { size: 'xl', centered: true, windowClass: 'photo-modal' });
     if (result.mediaType == 'photo') {
       modalRef.componentInstance.imgSrc = result.base64CompressedImage;
@@ -287,3 +301,5 @@ export class PhotoGalleryComponent implements OnInit {
   // }
 
 }
+
+

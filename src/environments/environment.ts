@@ -3,7 +3,7 @@ export const environment = {
         albums: 'photo-album-service/albums',
         allowOrigin: 'http://localhost:4200',
         assets: 'http://localhost:4200/',
-        auth: 'https://localhost:8443',
+        auth: 'http://localhost:8081',
         fileUpload: 'http://localhost:4200/photo-album-service/photos',
         baseUrl: 'http://localhost:4200',
         baseContext: '',
@@ -13,7 +13,7 @@ export const environment = {
         refreshToken: 'photo-album-service/refreshToken',
         publicGallery: 'photo-album-service/public-gallery',
         login: 'photo-album-service/login',
-        keycloak: 'https://localhost:8443/auth',
+        keycloak: 'http://localhost:8081/auth',
         home: 'http://localhost:4200/home'
     },
     production: false

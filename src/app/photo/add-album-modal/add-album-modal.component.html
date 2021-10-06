@@ -1,0 +1,17 @@
+<form>
+  <mat-form-field appearance="fill">
+    <mat-label>album</mat-label>
+    <mat-select [(ngModel)]="selectedValue" name="album">
+      <mat-option *ngFor="let album of albums" [value]="album.title" (click)="onSelect(album)">
+        {{album.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p> Selected album: {{selectedValue}} </p>
+
+</form>
+
+
+<!-- Copyright 2021 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

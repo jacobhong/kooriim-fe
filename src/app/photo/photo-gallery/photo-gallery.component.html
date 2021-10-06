@@ -3,6 +3,7 @@
   <button class="button-aliceblue" mat-stroked-button *ngIf="!addAlbumMode" (click)="onEdit()">edit</button>&nbsp;
   <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode || addAlbumMode" (click)="selectAll()">select
     all</button>&nbsp;
+  <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode || addAlbumMode" (click)="moveToAlbum()">move to album</button>&nbsp;
   <!-- <button class="button-aliceblue" mat-stroked-button *ngIf="isEditMode || addAlbumMode" (click)="deselectAll()">deselect all</button>&nbsp; -->
   <button class="button-aliceblue" mat-stroked-button (click)="sort()">sort</button>&nbsp;
   <button class="button-aliceblue" mat-stroked-button *ngIf="addAlbumMode" (click)="addPhotoIdsToAlbum()">add to
