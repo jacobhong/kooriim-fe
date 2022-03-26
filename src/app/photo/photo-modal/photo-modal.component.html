@@ -53,6 +53,7 @@
   </mat-icon>
   <img *ngIf="mediaType == 'photo'" class="img-fluid" style="object-fit: contain;max-height: 800px" [src]="imgSrc"
     alt="could not load">
+    
   <video *ngIf="mediaType === 'video'" class="img-fluid" [src]="videoSrc" style="object-fit: contain;max-height: 800px"
     controls></video>
   <mat-icon class="overlay-right" (click)="onNavigate('next')" [ngClass]="{'pointer': showNext===true}" *ngIf="showNext"
