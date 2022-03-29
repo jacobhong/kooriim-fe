@@ -1,7 +1,6 @@
 import { SpinnerComponent } from './../../shared/spinner/spinner.component';
-import { AlbumCreateModalComponent } from '../../album/album-create-modal/album-create-modal.component';
 import { PhotoModalComponent } from '../photo-modal/photo-modal.component';
-import { Component, OnInit, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { PhotoServiceComponent } from '../photo-service/photo-service.component';
 import { Photo, Pageable } from '../../shared/model/model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -40,7 +39,7 @@ export class PhotoGalleryComponent implements OnInit {
   onResize(event) {
     this.isSmallScreen = event.target.innerWidth <= 700 ? true : false;
   }
-@HostListener('document:scroll', ['$event'])
+@HostListener('document:scroll')
   onScroll() {
     console.log('scroll' + document.documentElement.scrollTop);
     let currentScrollPosition = document.documentElement.scrollTop;
