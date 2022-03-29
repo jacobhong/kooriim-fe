@@ -59,15 +59,13 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+
 .gallery-image {
   cursor: pointer;
   // object-fit: cover;
   // border-radius: 10px;
 }
 
-// .photo-modal {
-//   max-width: 768px;
-// }
 .opac {
   color: black;
   opacity: 0.5 !important;
@@ -76,11 +74,6 @@ html {
 .mat-icon {
   width: 60px;
   height: 60px;
-}
-
-::ng-deep .modal-dialog {
-  min-width: 100%;
-  height: auto;
 }
 
 .noselect {
