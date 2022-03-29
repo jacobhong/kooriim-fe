@@ -5,6 +5,10 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Photo } from 'src/app/shared/model/model';
 import { environment } from 'src/environments/environment';
 import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
+import { NgModel } from '@angular/forms';
+import { AlbumServiceComponent } from 'src/app/album/album-service/album-service.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddAlbumModalComponent } from '../add-album-modal/add-album-modal.component';
 
 @Component({
   selector: 'app-photo-modal',
@@ -24,7 +28,9 @@ export class PhotoModalComponent implements OnInit {
   showPrevious: boolean;
   showNext: boolean;
   loading = false;
-  constructor(private spinner: SpinnerComponent, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer, private photoService: PhotoServiceComponent) {
+  constructor(private albumService: AlbumServiceComponent, 
+    private modalService: NgbModal,
+    private spinner: SpinnerComponent, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer, private photoService: PhotoServiceComponent, private ngModelDir: NgModel) {
     this.showPrevious = false;
     this.showNext = false;
     iconRegistry.addSvgIcon(
@@ -125,5 +131,16 @@ export class PhotoModalComponent implements OnInit {
 
   close() {
     this.closeModal.emit();
+  }
+
+  addToAlbum() {
+    console.log('add to album');
+    this.ngModelDir.control.markAsTouched();
+    const modalRef = this.modalService.open(AddAlbumModalComponent, { centered: true, windowClass: 'dark-modal' });
+    modalRef.componentInstance.albumId = null;
+    modalRef.componentInstance.photoIds = [this.photos[this.index].id];
+    modalRef.componentInstance.closeModal.subscribe(onDelete => {
+      modalRef.close();
+    }); 
   }
 }

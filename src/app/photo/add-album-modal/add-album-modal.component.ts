@@ -57,10 +57,20 @@ export class AddAlbumModalComponent implements OnInit, AfterContentChecked {
 
     console.log('selected');
     console.log(event);
-    this.photoService.movePhotosToAlbum(this.albumId, event.title, this.photoIds).subscribe(result => {
-      this.router.navigate(['albums']);
-      this.closeModal.emit();
-    });
+    console.log('albumId' + this.albumId);
+    if (this.albumId != null) {
+      this.photoService.movePhotosToAlbum(this.albumId, event.title, this.photoIds).subscribe(result => {
+        this.router.navigate(['albums']);
+        this.closeModal.emit();
+      });
+    } else {
+      console.log('adding to album not moving ' + event.id + ' ' + this.photoIds);
+      this.photoService.addPhotoIdsToAlbum(event.id, this.photoIds).subscribe(result => {
+        console.log('FINISHED ADDING TO ALBUM CLOSE');
+        this.router.navigate(['albums']);
+        this.closeModal.emit();
+      }); 
+    }
   }
 
 }

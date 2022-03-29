@@ -61,6 +61,11 @@
   border-radius: 5px;
 }
 
+.collapse-backdrop {
+  z-index: 100000 !important;
+  background-color: rgb(230, 244, 244);
+}
+
 .vid {
   z-index: 100;
 }

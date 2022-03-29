@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="height: 60px; background-color: rgb(230, 244, 244)">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="height: 80px; background-color: rgb(230, 244, 244)">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContentModal"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="navbar-collapse collapse" id="navbarSupportedContent">
+  <div style="height: 100%" class="navbar-collapse collapse collapse-backdrop " id="navbarSupportedContentModal">
     <ul class="navbar-nav">
       <li class="nav-item active">
         <a class="nav-link pointer" (click)="close()">
@@ -20,30 +20,32 @@
           </mat-icon>
         </a>
       </li>
-    </ul>
-
-    <ul class="nav navbar-nav ml-auto w-100 nav-fill justify-content-center">
+      <li class="nav-item">
+        <button mat-stroked-button (click)="addToAlbum()">add to
+          album</button>&nbsp;
+      </li>
       <li class="nav-item">
         description: <input maxlength="50" style="width: 250px" [(ngModel)]="photos[index].description">
         <button (click)="updatePhotoDescription()">save</button>
       </li>
-      <li class="nav-item">
-        <div>
-          <b>taken</b>: {{photos[index].originalDate | date:'mediumDate'}}
-        </div>
-        <div>
-          <b>title</b>: {{photos[index].title}}
-        </div>
-      </li>
-    </ul>
-
-    <ul class="nav navbar-nav">
-      <li class="nav-item">
-        <form class="form-inline my-2 my-lg-0 nav navbar-nav navbar-right">
-          <button *ngIf="mediaType == 'photo'" class="btn btn-outline-success my-2 my-sm-0" type="submit"
-            (click)="onOriginalImage()">Original Image</button>
-        </form>
-      </li>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <div>
+            <b>taken</b>: {{photos[index].originalDate | date:'mediumDate'}}
+          </div>
+          <div>
+            <b>title</b>: {{photos[index].title}}
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <form class="form-inline my-2 my-lg-0 nav navbar-nav navbar-right">
+            <button *ngIf="mediaType == 'photo'" class="btn btn-outline-success my-2 my-sm-0" type="submit"
+              (click)="onOriginalImage()">Original Image</button>
+          </form>
+        </li>
+      </ul>
     </ul>
   </div>
 </nav>
@@ -53,7 +55,6 @@
   </mat-icon>
   <img *ngIf="mediaType == 'photo'" class="img-fluid" style="object-fit: contain;max-height: 800px" [src]="imgSrc"
     alt="could not load">
-    
   <video *ngIf="mediaType === 'video'" class="img-fluid" [src]="videoSrc" style="object-fit: contain;max-height: 800px"
     controls></video>
   <mat-icon class="overlay-right" (click)="onNavigate('next')" [ngClass]="{'pointer': showNext===true}" *ngIf="showNext"
