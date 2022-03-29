@@ -34,12 +34,23 @@ export class PhotoGalleryComponent implements OnInit {
   loading = false;
   pageable: Pageable;
   queryParams: Map<string, string>;
+  scrollPosition;
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.isSmallScreen = event.target.innerWidth <= 700 ? true : false;
   }
-
+@HostListener('document:scroll', ['$event'])
+  onScroll() {
+    console.log('scroll' + document.documentElement.scrollTop);
+    let currentScrollPosition = document.documentElement.scrollTop;
+    if (currentScrollPosition > this.scrollPosition) {
+      console.log('scrolling');
+      this.loading = true;
+      this.scroll();
+    }
+    this.scrollPosition = currentScrollPosition;
+  }
   constructor(
     private albumService: AlbumServiceComponent,
     private photoService: PhotoServiceComponent,
@@ -71,6 +82,7 @@ export class PhotoGalleryComponent implements OnInit {
     this.queryParams.set('size', this.pageable.size + '');
     this.queryParams.set('page', this.pageable.page + '');
     if (this.isSmallScreen) {
+      console.log('small screen yo');
       this.queryParams.set('compressedImage', 'true');
     } else {
       this.queryParams.set('thumbnail', 'true');
@@ -97,10 +109,10 @@ export class PhotoGalleryComponent implements OnInit {
       } else {
         this.getPhotos();
       }
-      this.infiniteScroll.scrolled.subscribe(result => {
-        this.loading = true;
-        this.onScroll();
-      });
+      // this.infiniteScroll.scrolled.subscribe(result => {
+      //   this.loading = true;
+      //   this.onScroll();
+      // });
     });
   }
 
@@ -159,7 +171,7 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   openModal(photo: Photo, index: number) {
-    if (!this.isSmallScreen && !this.addAlbumMode) {
+    if (!this.isEditMode) {
       this.loading = true;
       if (photo.mediaType == 'photo') {
         this.photoService
@@ -175,6 +187,8 @@ export class PhotoGalleryComponent implements OnInit {
           this.modalSubscriptions(photo, index);
         }, () => { }, () => { this.loading = false; });
       }
+    } else {
+     this.onSelect(index);
     }
   }
 
@@ -274,7 +288,7 @@ export class PhotoGalleryComponent implements OnInit {
     });
   }
 
-  onScroll() {
+  scroll() {
     this.pageable.page++;
     this.queryParams.set('page', this.pageable.page + '');
     this.photoService
