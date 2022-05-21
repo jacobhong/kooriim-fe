@@ -1,19 +1,138 @@
-.card {
-  border-style: outset;
-  border-radius: 20px;
-  width: 300px;
-  height: 300px;
+@media (min-width:320px)  { 
+  .card {
+    border-style: outset;
+    border-radius: 20px;
+    width: 100px;
+    height: 100px;
+  }
+  .card-title {
+    width: 25px;
+    height: 8px;
+  }
+  .card-subtitle {
+    width: 25px;
+  }
+  .card-content {
+    width: 100%;
+  }
+  .card-row {
+    padding: 0.5%;
+  }
+  .preview-available {
+    width:35px;
+    height:35px; 
+  }
+  .preview-unavailable {
+    width:35px;
+    height:35px; 
+  }
+  .truncate-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
-.card-title {
-  width: 170px;
-  height: 38px;
+/* smartphones, Android phones, landscape iPhone */ 
+@media (min-width:480px)  { 
+  .card {
+    border-style: outset;
+    border-radius: 20px;
+    min-width: 300px;
+    // height: 300px;
+  }
+  .card-title {
+    width: 10px;
+    height: 10px;
+  }
+  .card-subtitle {
+    width: 120px;
+  }
+  .card-content {
+    height: 120px;
+  }
+  .card-row {
+    padding: 0.5%;
+  }
 }
-.card-subtitle {
-  width: 300px;
+/* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
+@media (min-width:600px)  { 
+  .photo-gallery {
+    min-width: 240px;
+    min-height: 240px;
+    padding-top: 5px;
+    padding-left: 16px;
+  }
 }
-.card-content {
-  height: 150px;
+/* tablet, landscape iPad, lo-res laptops ands desktops */ 
+@media (min-width:801px)  { 
+  .card {
+    border-style: outset;
+    border-radius: 20px;
+    width: 300px;
+    height: 300px;
+  }
+  .card-title {
+    width: 170px;
+    height: 38px;
+  }
+  .card-subtitle {
+    width: 300px;
+  }
+  .card-content {
+    height: 150px;
+  }
+  .card-row {
+    padding: 0.5%;
+  }
 }
-.card-row {
-  padding: 0.5%;
+/* big landscape tablets, laptops, and desktops */ 
+@media (min-width:1025px) {
+  .card {
+    border-style: outset;
+    border-radius: 20px;
+    width: 300px;
+    height: 300px;
+  }
+  .card-title {
+    width: 170px;
+    height: 38px;
+  }
+  .card-subtitle {
+    width: 300px;
+  }
+  .card-content {
+    height: 150px;
+  }
+  .card-row {
+    padding: 0.5%;
+  }
+}
+@media (min-width:1281px) { /* hi-res laptops and desktops */ 
+  .card {
+    border-style: outset;
+    border-radius: 20px;
+    min-width: 300px;
+    height: 300px;
+  }
+  .card-title {
+    width: 170px;
+    height: 38px;
+  }
+  .card-subtitle {
+    width: 300px;
+  }
+  .card-content {
+    height: 150px;
+  }
+  .card-row {
+    padding: 0.5%;
+  }
+  .preview-available {
+    width:120px;
+    height:90px; 
+  }
+  .preview-unavailable {
+    width:120px;
+    height:120px;
+  }
 }

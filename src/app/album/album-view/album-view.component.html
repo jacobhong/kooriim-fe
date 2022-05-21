@@ -13,7 +13,7 @@
         </div>
         <mat-card-title class="card-title">
           <a [routerLink]="['/photo-gallery']" [queryParams]="{albumId:album.id, title:album.title}" queryParamsHandling="merge">
-            <h6 class="center-content"><b>{{album.title}}</b></h6>
+            <h6 class="center-content truncate-text"><b>{{album.title}}</b></h6>
           </a>
         </mat-card-title>
         <div class="pointer" (click)="createAlbum(album)">
@@ -21,22 +21,27 @@
           </mat-icon>
         </div>
       </mat-card-header>
-      <mat-card-subtitle class="card-subtitle center-content">
+      <mat-card-subtitle class="card-subtitle">
         {{album.description}}
       </mat-card-subtitle>
       <mat-card-content class="card-content">
-        <div class="row">
-          <div *ngFor="let photo of album.previewMediaItems;let j = index" class="col-md-6 center-content">
-            <img class="img-fluid" style="width:auto; height:auto" [src]="photo.base64ThumbnailImage">
-          </div>
-          <div *ngIf="album.previewMediaItems.length < 1" class="col-md-6 center-content">
-            <img class="img-fluid" style="width:80px; height:auto" [src]="'/assets/album-preview.png'">
-          </div>
-          <div *ngIf="album.previewMediaItems.length <= 1" class="col-md-6 center-content">
-            <img class="img-fluid" style="width:80px; height:auto" [src]="'/assets/album-preview.png'">
+        <div class="container">
+          <div class="row justify-content-md-center col-xs-12">
+            <div *ngFor="let photo of album.previewMediaItems;let j = index" class="col-xs-5">
+              <img class="img-fluid preview-available" [src]="photo.base64ThumbnailImage">
+            </div>
+            <div *ngIf="album.previewMediaItems.length < 1" class="col-xs-5">
+              <img class="img-fluid preview-unavailable" [src]="'/assets/album-preview.png'">
+            </div>
+            <div *ngIf="album.previewMediaItems.length <= 1" class="col-xs-5">
+              <img class="img-fluid preview-unavailable" [src]="'/assets/album-preview.png'">
+            </div>
           </div>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
+</div>
+<div class="center-spinner">
+  <app-spinner [loading]="loading"></app-spinner>
 </div>

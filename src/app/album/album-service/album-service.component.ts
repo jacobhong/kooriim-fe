@@ -17,9 +17,15 @@ export class AlbumServiceComponent {
       .pipe(catchError(error => throwError(error)));
   }
 
-  getAlbums(): Observable<Album[]> {
+  getAlbums(queryParams?: Map<string, string>): Observable<Album[]> {
+    let httpParams = new HttpParams();
+    if (queryParams) {
+      queryParams.forEach((v, k) => {
+        httpParams = httpParams.append(k, v);
+      });
+    }
     return this.httpClient
-      .get<Album[]>(environment.routes.albums)
+      .get<Album[]>(environment.routes.albums, { params: httpParams })
       .pipe(catchError(error => throwError(error)));
   }
 
