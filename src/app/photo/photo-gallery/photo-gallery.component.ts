@@ -19,7 +19,8 @@ import { NgModel } from '@angular/forms';
   styleUrls: ['./photo-gallery.component.scss']
 })
 export class PhotoGalleryComponent implements OnInit {
-  @ViewChild(InfiniteScrollingComponent, {static: true}) infiniteScroll: InfiniteScrollingComponent;
+  @ViewChild(InfiniteScrollingComponent, {static: true})
+   infiniteScroll: InfiniteScrollingComponent;
   // @Input()
   // publicView: boolean;
   albumTitle: string;
@@ -39,12 +40,14 @@ export class PhotoGalleryComponent implements OnInit {
   onResize(event) {
     this.isSmallScreen = event.target.innerWidth <= 700 ? true : false;
   }
-@HostListener('document:scroll')
+// @HostListener('document:scroll', ['$event'])
   onScroll() {
-    console.log('scroll' + document.documentElement.scrollTop);
+    console.log('scrolltop' + document.documentElement.scrollTop);
     let currentScrollPosition = document.documentElement.scrollTop;
+    console.log('currentScrollPosition' + currentScrollPosition);
+
     if (currentScrollPosition > this.scrollPosition) {
-      console.log('scrolling');
+      console.log('scrolling now');
       this.loading = true;
       this.scroll();
     }
@@ -108,10 +111,12 @@ export class PhotoGalleryComponent implements OnInit {
       } else {
         this.getPhotos();
       }
-      // this.infiniteScroll.scrolled.subscribe(result => {
-      //   this.loading = true;
-      //   this.onScroll();
-      // });
+      console.log('scroller ' + this.infiniteScroll);
+      this.infiniteScroll.scrolled.subscribe(result => {
+        this.loading = true;
+        this.scroll();
+      });
+      this.scroll();
     });
   }
 
@@ -170,7 +175,7 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   openModal(photo: Photo, index: number) {
-    if (!this.isEditMode) {
+    if (!this.isEditMode && !this.addAlbumMode) {
       this.loading = true;
       if (photo.mediaType == 'photo') {
         this.photoService
@@ -288,6 +293,7 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   scroll() {
+    console.log('gwergrweiogjeriowgjaroiwgjarewgiojaegjoraegjaeorigjar');
     this.pageable.page++;
     this.queryParams.set('page', this.pageable.page + '');
     this.photoService

@@ -43,7 +43,7 @@ export class AddAlbumModalComponent implements OnInit, AfterContentChecked {
     this.cdr.detectChanges();
 
     this.albumService
-      .getAlbums()
+      .getAllAlbums()
       .subscribe(albums => {
         console.log('got albums');
         this.albums = albums;
